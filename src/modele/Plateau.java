@@ -3,8 +3,13 @@ package modele;
 public class Plateau {
 	public static final int TAILLE_HORIZONTALE = 13;
 	public static final int TAILLE_VERTICALE = 11;
+	public static final int NOMBRE_PHARE = 3;
 	
 	Case plateau[][] = new Case[TAILLE_HORIZONTALE][TAILLE_VERTICALE];
+	Phare phares[] = new Phare[NOMBRE_PHARE];
+	
+	
+	
 	
 	public Plateau(){
 		for(int i=0;i<TAILLE_HORIZONTALE;i++){
@@ -12,6 +17,13 @@ public class Plateau {
 				plateau[i][j] = new Mer();
 			}
 		}
+		
+		phares[0] = new Phare();
+		phares[1] = new Phare();
+		phares[2] = new Phare();
+		plateau[TAILLE_HORIZONTALE-1][0] = phares[0];
+		plateau[TAILLE_HORIZONTALE-2][0] = phares[1];
+		plateau[TAILLE_HORIZONTALE-1][1] = phares[2];
 	}
 	
 	
@@ -30,7 +42,12 @@ public class Plateau {
 	//Renvoie true si la case voisine est libre
 	public boolean caseLibreN(int[] t){
 		int coor[] = voisinN(t);
-		return plateau[coor[0]][coor[1]].estNavigable();
+		if(coor[0] == -1 || coor[1] == -1){
+			return false;
+		}else{
+			return plateau[coor[0]][coor[1]].estNavigable();
+		}
+		
 	}
 	public boolean caseLibreNE(int[] t){
 		int coor[] = voisinNE(t);
@@ -54,6 +71,27 @@ public class Plateau {
 	}
 	
 	//Renvoie un tableau des 2 coordonnées de la case voisine
+	protected int[] voisin(int[] t, Orientation o){
+		int r[] = {-1,-1};
+		switch(o){
+		case Nord:
+			return voisinN(t);
+		case NordEst:
+			return voisinNE(t);
+		case SudEst:
+			return voisinSE(t);
+		case Sud:
+			return voisinS(t);
+		case SudOuest:
+			return voisinSO(t);
+		case NordOuest:
+			return voisinNO(t);
+		default:
+			return r;
+
+		}
+	}
+	
  	protected int[] voisinN(int[] t){
 		int[] coor = new int[2];
 		int i = t[0];
