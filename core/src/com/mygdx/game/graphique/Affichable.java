@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package com.mygdx.game.graphique;
 
 import java.io.Serializable;
 
@@ -77,14 +77,14 @@ public class Affichable implements Serializable{
 	private void createSprite(){
 		spr=new Sprite(img);
 		spr.rotate(angle);
-		spr.setOrigin(lX/2,lY/2);
+		spr.setOrigin(0,0);
 		spr.setBounds(posX, posY, lX, lY);
 		spr.setColor(clr);
 	}
 	
 	private void actualizeSprite(){
 		spr.setRotation(angle);
-		spr.setOrigin(lX/2,lY/2);
+		//spr.setOrigin(lX/2,lY/2);
 		spr.setBounds(posX, posY, lX, lY);
 		spr.setColor(clr);
 	}

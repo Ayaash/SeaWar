@@ -1,4 +1,4 @@
-package modele;
+package com.mygdx.game.modele;
 
 public class Plateau {
 	public static final int TAILLE_HORIZONTALE = 13;

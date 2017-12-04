@@ -1,4 +1,4 @@
-package modele;
+package com.mygdx.game.modele;
 
 public enum Orientation {
 	Nord,

@@ -1,7 +1,6 @@
-package com.mygdx.game;
+package com.mygdx.game.graphique;
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -46,4 +45,7 @@ public class InFenDebug {
 
 	}
 	
+	public static void nettoyer(){
+		msg="";
+	}
 }

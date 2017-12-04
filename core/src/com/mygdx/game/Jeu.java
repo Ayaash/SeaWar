@@ -8,24 +8,35 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import com.mygdx.game.graphique.Bouton;
+import com.mygdx.game.graphique.InFenDebug;
+import com.mygdx.game.graphique.Label;
+import com.mygdx.game.graphique.Textures;
+
+
 
 /**Classe s'occupant du rendu*/
 
 public class Jeu extends ApplicationAdapter {
+	GameLoop loop;
 	SpriteBatch batch;
 	Texture img;
 	Bouton btn1;
 	Label lb1;
 	BitmapFont font;
+	boolean isClicking;
 	
 	@Override
 	public void create () {
 		
 		Textures.chargerTextures();
 		
-		
+		isClicking=false;
 		InFenDebug.init();	
+		
+		loop=new GameLoop("SeaWarUpdate");
 
+		
 		
 		batch = new SpriteBatch();
 		batch.setColor(1,1,1,1);
@@ -40,8 +51,13 @@ public class Jeu extends ApplicationAdapter {
 		
 		lb1=new Label(20,Gdx.graphics.getHeight()-20,"fps",font);
 		
-		btn1=new Bouton(Textures.WIMG, 300, 300, 50, 200, "Test", font);
+		btn1=new Bouton(Textures.WIMG, 200, 300, 100, 80, "Test", font);
+		btn1.setColor(0.2f, 0.2f, 0.2f, 1f);
 		//btn1.setColor(1, 0, 0, 1);
+		
+		
+		
+		loop.start();
 	}
 
 	@Override
@@ -60,7 +76,6 @@ public class Jeu extends ApplicationAdapter {
 			btn1.afficher(batch);
 		}
 
-		lb1.setText("fps:"+Integer.toString(Gdx.graphics.getFramesPerSecond()));
 		lb1.afficher(batch);
 		
 		
@@ -70,13 +85,62 @@ public class Jeu extends ApplicationAdapter {
 		
 		//btn1.angle+=1;
 		
+		
+	
+		
 	}
 	
+	public void gameLoop(){
+		lb1.setText("fps:"+Integer.toString(Gdx.graphics.getFramesPerSecond()));
+		controles();
+		
+		
+		
+	}
+	
+	
+	public void controles(){
+		//clic droit de la souris
+		if(Gdx.input.isButtonPressed(0)){
+			if(isClicking==false){
+				btn1.tryClic(Gdx.input.getX(), Gdx.input.getY());
+				isClicking=true;
+			}
+		}else{
+			if(isClicking==true){
+				isClicking=false;
+			}
+		}
+		
+		//TODO clic droit nettoi la console, a supprimer dans le jeu final
+		if(Gdx.input.isButtonPressed(1)){
+			InFenDebug.nettoyer();
+		}
+
+	}
 
 	
 	@Override
 	public void dispose () {
 		batch.dispose();
 		img.dispose();
+		loop.stop();//a changer
 	}
+
+
+	public class GameLoop extends Thread{
+		
+		public GameLoop(String name){
+			super(name);
+		}
+			 
+		public void run(){
+			while(true){
+				gameLoop();
+
+			}
+		}
+			
+	}
+
 }

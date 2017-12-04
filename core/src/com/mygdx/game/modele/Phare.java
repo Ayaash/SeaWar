@@ -1,4 +1,4 @@
-package modele;
+package com.mygdx.game.modele;
 
 public class Phare extends Mer {
 	private int joueur = 0;
