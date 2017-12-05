@@ -44,18 +44,18 @@ public class Plateau {
 
 	
 	public boolean caseLibre(int[] t){
-		return plateau[t[0]][t[1]].estNavigable();
-	}	
-	
-	//Renvoie true si la case voisine est libre
-	public boolean caseLibreN(int[] t){
-		int coor[] = voisinN(t);
-		if(coor[0] == -1 || coor[1] == -1){
+		if(t[0] == -1 || t[1] == -1){
 			return false;
 		}else{
-			return plateau[coor[0]][coor[1]].estNavigable();
+			return plateau[t[0]][t[1]].estNavigable();
 		}
-		
+	}	
+	
+	//Code meh... Plus propre d'utiliser caseLibre(voisin(coor, orientation))
+	/*
+	public boolean caseLibreN(int[] t){
+		int coor[] = voisinN(t);
+		return plateau[coor[0]][coor[1]].estNavigable();
 	}
 	public boolean caseLibreNE(int[] t){
 		int coor[] = voisinNE(t);
@@ -77,6 +77,8 @@ public class Plateau {
 		int coor[] = voisinNO(t);
 		return plateau[coor[0]][coor[1]].estNavigable();
 	}
+	*/
+	
 	
 	//Renvoie un tableau des 2 coordonnées de la case voisine
 	protected int[] voisin(int[] t, Orientation o){
@@ -96,7 +98,6 @@ public class Plateau {
 			return voisinNO(t);
 		default:
 			return r;
-
 		}
 	}
 	

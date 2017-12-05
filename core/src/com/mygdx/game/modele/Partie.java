@@ -10,8 +10,7 @@ public class Partie {
 	private Joueur joueur2;
 	private int tour;
 	
-	
-	
+
 	//Singleton
 	public static Partie getInstance(){
 		if(!exists){
@@ -24,9 +23,8 @@ public class Partie {
 		plateau = Plateau.getInstance();
 	}
 	
-	
-	
-	private Joueur getCurrentPlayer(){
+
+	public Joueur getCurrentPlayer(){
 		if(tour%2 == 1){
 			return joueur1;
 		}else{

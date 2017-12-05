@@ -9,5 +9,6 @@ public abstract class Case extends InWorldObj{
 	public abstract boolean estNavigable();
 	public abstract boolean ajouterNavire(Navire n);
 	public abstract boolean enleverNavire();
+	//public abstract boolean envoyerTir(int degats);
 	
 }

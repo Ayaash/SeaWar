@@ -4,7 +4,6 @@ import com.badlogic.gdx.graphics.Texture;
 
 public class Mer extends Case {
 
-
 	private Navire bateau;
 	
 	//Une case mer est toujours navigable, sauf s'il y a un navire sur la case
