@@ -4,6 +4,7 @@ import java.sql.Time;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -26,7 +27,7 @@ public class Jeu extends ApplicationAdapter {
 	Bouton btn1;
 	Label lb1;
 	BitmapFont font;
-	boolean isClicking;
+	boolean isClicking; // Clic gauche
 	
 	boolean gameRuning;
 	
