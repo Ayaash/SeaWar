@@ -1,6 +1,9 @@
 package com.mygdx.game.modele;
 
+import com.badlogic.gdx.graphics.Texture;
+
 public class Phare extends Mer {
+
 	private int joueur = 0;
 	
 	public int getJoueur(){

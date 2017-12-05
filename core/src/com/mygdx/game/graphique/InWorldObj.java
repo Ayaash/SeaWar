@@ -16,6 +16,11 @@ public class InWorldObj extends Affichable{
 	protected int lW;
 	
 	
+	public InWorldObj() {
+		super(Textures.NOIMAGE, 0, 0);
+		// TODO Auto-generated constructor stub
+	}
+	
 	public InWorldObj(Texture img, int x, int y) {
 		super(img, x, y);
 		// TODO Auto-generated constructor stub

@@ -1,6 +1,9 @@
 package com.mygdx.game.modele;
 
+import com.badlogic.gdx.graphics.Texture;
+
 public class Mer extends Case {
+
 
 	private Navire bateau;
 	
