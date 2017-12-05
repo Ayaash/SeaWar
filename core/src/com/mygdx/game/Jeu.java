@@ -24,7 +24,7 @@ public class Jeu extends ApplicationAdapter {
 	Bouton btn1;
 	Label lb1;
 	BitmapFont font;
-	boolean isClicking;
+	boolean isClicking; // Clic gauche
 	
 	@Override
 	public void create () {
