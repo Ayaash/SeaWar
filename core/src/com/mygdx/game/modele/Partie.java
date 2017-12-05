@@ -6,6 +6,9 @@ public class Partie {
 	private static boolean exists = false;
 	
 	private Plateau plateau;
+	private Joueur joueur1;
+	private Joueur joueur2;
+	private int tour;
 	
 	
 	
@@ -23,7 +26,13 @@ public class Partie {
 	
 	
 	
-	
+	private Joueur getCurrentPlayer(){
+		if(tour%2 == 1){
+			return joueur1;
+		}else{
+			return joueur2;
+		}
+	}
 	
 	
 	

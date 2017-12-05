@@ -26,8 +26,6 @@ public class Plateau {
 				plateau[i][j] = new Mer();
 			}
 	}
-
-		
 		phares[0] = new Phare();
 		phares[1] = new Phare();
 		phares[2] = new Phare();
