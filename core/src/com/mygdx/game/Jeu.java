@@ -1,7 +1,10 @@
 package com.mygdx.game;
 
+import java.sql.Time;
+
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -26,8 +29,12 @@ public class Jeu extends ApplicationAdapter {
 	BitmapFont font;
 	boolean isClicking; // Clic gauche
 	
+	boolean gameRuning;
+	
+	
 	@Override
 	public void create () {
+		
 		
 		Textures.chargerTextures();
 		
@@ -94,15 +101,24 @@ public class Jeu extends ApplicationAdapter {
 		lb1.setText("fps:"+Integer.toString(Gdx.graphics.getFramesPerSecond()));
 		controles();
 		
+		//InFenDebug.println("("+Gdx.graphics.getHeight()+","+Gdx.graphics.getHeight()+")");
+		//InFenDebug.println("("+Gdx.input.getX()+","+Gdx.input.getY()+")");
+
 		
 		
 	}
-	
+	@Override
+	public void resize(int widht,int height){
+		//TODO a completer
+	}
 	
 	public void controles(){
 		//clic droit de la souris
 		if(Gdx.input.isButtonPressed(0)){
 			if(isClicking==false){
+
+				
+				
 				btn1.tryClic(Gdx.input.getX(), Gdx.input.getY());
 				isClicking=true;
 			}
@@ -124,21 +140,34 @@ public class Jeu extends ApplicationAdapter {
 	public void dispose () {
 		batch.dispose();
 		img.dispose();
-		loop.stop();//a changer
+		gameRuning=false;
 	}
 
 
 	public class GameLoop extends Thread{
+		
+		long t0;
+		long t1;
 		
 		public GameLoop(String name){
 			super(name);
 		}
 			 
 		public void run(){
-			while(true){
-				gameLoop();
-
+			t0=System.currentTimeMillis();
+			gameRuning=true;
+			while(gameRuning==true){
+				t1=System.currentTimeMillis();
+				if(t1-t0>100){
+					
+					gameLoop();
+					t0=100-(t0+t1);
+				}else{
+					//t0=System.currentTimeMillis();
+				}
 			}
+			
+			
 		}
 			
 	}

@@ -7,16 +7,25 @@ public class Plateau {
 	
 	Case plateau[][] = new Case[TAILLE_HORIZONTALE][TAILLE_VERTICALE];
 	Phare phares[] = new Phare[NOMBRE_PHARE];
+	private static boolean exists = false;
+	private static Plateau instance = null;
 	
 	
+	//Singleton
+	public static Plateau getInstance(){
+		if(!exists){
+			instance = new Plateau();
+			exists = true;
+		}
+		return instance;
+	}
 	
-	
-	public Plateau(){
+	private Plateau(){
 		for(int i=0;i<TAILLE_HORIZONTALE;i++){
 			for(int j=0;j<TAILLE_VERTICALE;j++){
 				plateau[i][j] = new Mer();
 			}
-		}
+	}
 
 		
 		phares[0] = new Phare();
@@ -73,29 +82,23 @@ public class Plateau {
 	
 	//Renvoie un tableau des 2 coordonnées de la case voisine
 	protected int[] voisin(int[] t, Orientation o){
-		
 		int r[] = {-1,-1};
-		
-		if(t[0] == -1 || t[1] == -1){
+		switch(o){
+		case Nord:
+			return voisinN(t);
+		case NordEst:
+			return voisinNE(t);
+		case SudEst:
+			return voisinSE(t);
+		case Sud:
+			return voisinS(t);
+		case SudOuest:
+			return voisinSO(t);
+		case NordOuest:
+			return voisinNO(t);
+		default:
 			return r;
-		}else{
-			switch(o){
-			case Nord:
-				return voisinN(t);
-			case NordEst:
-				return voisinNE(t);
-			case SudEst:
-				return voisinSE(t);
-			case Sud:
-				return voisinS(t);
-			case SudOuest:
-				return voisinSO(t);
-			case NordOuest:
-				return voisinNO(t);
-			default:
-				return r;
-	
-			}
+
 		}
 	}
 	
