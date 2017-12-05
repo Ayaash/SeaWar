@@ -7,11 +7,20 @@ public class Plateau {
 	
 	Case plateau[][] = new Case[TAILLE_HORIZONTALE][TAILLE_VERTICALE];
 	Phare phares[] = new Phare[NOMBRE_PHARE];
+	private static boolean exists = false;
+	private static Plateau instance = null;
 	
 	
+	//Singleton
+	public static Plateau getInstance(){
+		if(!exists){
+			instance = new Plateau();
+			exists = true;
+		}
+		return instance;
+	}
 	
-	
-	public Plateau(){
+	private Plateau(){
 		for(int i=0;i<TAILLE_HORIZONTALE;i++){
 			for(int j=0;j<TAILLE_VERTICALE;j++){
 				plateau[i][j] = new Mer();
