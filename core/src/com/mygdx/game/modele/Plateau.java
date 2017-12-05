@@ -25,7 +25,7 @@ public class Plateau {
 			for(int j=0;j<TAILLE_VERTICALE;j++){
 				plateau[i][j] = new Mer();
 			}
-		}
+	}
 
 		
 		phares[0] = new Phare();
