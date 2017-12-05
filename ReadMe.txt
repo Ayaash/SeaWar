@@ -1,5 +1,4 @@
-
-###########################################Emplacement des fichiers###################################################
+﻿###########################################Emplacement des fichiers###################################################
 Les fichiers du jeu seront a mettre dans core/src/com/mygdx/game/VotrePackage
 
 Le main windows (A lancer aussi pour les tests) est desktop/src/com/mygdx/game/desktop/DesktopLauncher.java
@@ -17,3 +16,4 @@ Il y aura peut etre un probleme pour la compilation avec my-game-core. Il faudra
 Enfin, il pourrait rester une unique erreur dans DesktopLauncherjava, il suffit de cliquer droit sur l'erreur et cliquer sur le fix.
 
 Sous eclipse, le projet apparait comme divisé en 4.  
+
