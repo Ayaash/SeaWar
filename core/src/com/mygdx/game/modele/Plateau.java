@@ -1,5 +1,7 @@
 package com.mygdx.game.modele;
 
+import com.mygdx.game.graphique.InFenDebug;
+
 public class Plateau {
 	public static final int TAILLE_HORIZONTALE = 13;
 	public static final int TAILLE_VERTICALE = 11;
@@ -82,29 +84,23 @@ public class Plateau {
 	
 	//Renvoie un tableau des 2 coordonnées de la case voisine
 	protected int[] voisin(int[] t, Orientation o){
-		
 		int r[] = {-1,-1};
-		
-		if(t[0] == -1 || t[1] == -1){
+		switch(o){
+		case Nord:
+			return voisinN(t);
+		case NordEst:
+			return voisinNE(t);
+		case SudEst:
+			return voisinSE(t);
+		case Sud:
+			return voisinS(t);
+		case SudOuest:
+			return voisinSO(t);
+		case NordOuest:
+			return voisinNO(t);
+		default:
 			return r;
-		}else{
-			switch(o){
-			case Nord:
-				return voisinN(t);
-			case NordEst:
-				return voisinNE(t);
-			case SudEst:
-				return voisinSE(t);
-			case Sud:
-				return voisinS(t);
-			case SudOuest:
-				return voisinSO(t);
-			case NordOuest:
-				return voisinNO(t);
-			default:
-				return r;
-	
-			}
+
 		}
 	}
 	
