@@ -1,7 +1,5 @@
 package com.mygdx.game.modele;
 
-import com.mygdx.game.graphique.InFenDebug;
-
 public class Plateau {
 	public static final int TAILLE_HORIZONTALE = 13;
 	public static final int TAILLE_VERTICALE = 11;
