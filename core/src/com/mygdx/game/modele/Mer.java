@@ -38,4 +38,15 @@ public class Mer extends Case {
 		}
 	}
 
+	@Override
+	public boolean recevoirTir(int degats) {
+		if(bateau == null){
+			return false;
+		}else{
+			bateau.encaisserDegats(degats);
+			return true;
+		}
+		
+	}
+
 }
