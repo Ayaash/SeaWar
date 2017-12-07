@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-
+import com.mygdx.etats.Partie;
 import com.mygdx.game.graphique.Bouton;
 import com.mygdx.game.graphique.InFenDebug;
 import com.mygdx.game.graphique.Label;

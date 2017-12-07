@@ -1,4 +1,7 @@
-package com.mygdx.game.modele;
+package com.mygdx.etats;
+
+import com.mygdx.game.modele.Joueur;
+import com.mygdx.game.modele.Plateau;
 
 public class Partie {
 	
@@ -10,6 +13,7 @@ public class Partie {
 	private Joueur joueur2;
 	private int tour;
 	
+	private Etats etatCourant;
 	
 	
 
