@@ -10,13 +10,14 @@ import com.badlogic.gdx.graphics.g2d.Batch;
  * */
 public class InFenDebug {
 
-	public static BitmapFont font=new BitmapFont();
+	public static BitmapFont font; //=new BitmapFont();
 	protected static String msg="";
 	
 	private static Affichable barre;
 	
 	
 	public static void init(){
+		font = new BitmapFont();
 		font.setColor(Color.GREEN);
 		barre=new Affichable(Textures.WIMG, 0, 200, Gdx.graphics.getWidth(), 5,0);
 		barre.setColor(0, 1, 0, 1);

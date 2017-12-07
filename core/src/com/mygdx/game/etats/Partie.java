@@ -16,7 +16,8 @@ public class Partie {
 	private int tour;
 	private int victoire;
 	
-	private Navire navireCourant;
+	private Navire navireCourant = null;
+	private boolean tourEnCours = false;
 		
 
 	//Singleton
@@ -50,6 +51,12 @@ public class Partie {
 		tour++;
 	}
 	
+	public Navire getNavireCourant(){
+		return navireCourant;
+	}
+	public boolean getTourEnCours(){
+		return tourEnCours;
+	}
 	
 	public boolean selectionnerNavire(Navire n){
 		if(getCurrentPlayer().getNavires()[0] != n && getCurrentPlayer().getNavires()[1] != n ){

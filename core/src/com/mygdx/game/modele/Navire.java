@@ -50,10 +50,10 @@ public abstract class Navire extends InWorldObj {
 	}
 	
 	public boolean peutTirerPrincipal(){
-		return etatCanPrinc == 0;
+		return etatCanPrinc == 0 || !aTire;
 	}
 	public boolean peutTirerSecondaire(){
-		return etatCanSec == 0;
+		return etatCanSec == 0 || !aTire;
 	}
 	
 	//Ces fonctions renvoient un tableau de coordonnées de cases (int[][]) et les dégats du tir (int) 
