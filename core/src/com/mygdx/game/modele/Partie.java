@@ -10,6 +10,8 @@ public class Partie {
 	private Joueur joueur2;
 	private int tour;
 	
+	
+	
 
 	//Singleton
 	public static Partie getInstance(){
@@ -21,6 +23,12 @@ public class Partie {
 	}
 	private Partie(){
 		plateau = Plateau.getInstance();
+		tour = 1;
+	}
+	
+	public void ajouterJoueurs(Joueur j1, Joueur j2){
+		this.joueur1 = j1;
+		this.joueur2 = j2;
 	}
 	
 
@@ -30,6 +38,10 @@ public class Partie {
 		}else{
 			return joueur2;
 		}
+	}
+	
+	public void incrementerTour(){
+		tour++;
 	}
 	
 	

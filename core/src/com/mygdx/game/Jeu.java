@@ -34,6 +34,7 @@ public class Jeu extends ApplicationAdapter {
 	
 	
 	private Partie partie;
+	private int victoire;
 	
 	
 	@Override
@@ -66,7 +67,7 @@ public class Jeu extends ApplicationAdapter {
 		btn1.setColor(0.2f, 0.2f, 0.2f, 1f);
 		//btn1.setColor(1, 0, 0, 1);
 		
-		
+		setupGame();
 		
 		loop.start();
 	}
@@ -103,13 +104,6 @@ public class Jeu extends ApplicationAdapter {
 	
 	public void gameLoop(){
 		lb1.setText("fps:"+Integer.toString(Gdx.graphics.getFramesPerSecond()));
-		
-		
-		
-		
-		
-		
-		
 		controles();
 		
 		//InFenDebug.println("("+Gdx.graphics.getHeight()+","+Gdx.graphics.getHeight()+")");
@@ -149,7 +143,28 @@ public class Jeu extends ApplicationAdapter {
 	
 	//Une seule partie possible pour le moment
 	public void setupGame(){
+		//Plateau créé dans Partie
 		partie = Partie.getInstance();
+		
+		int[] pos = {0,0};
+		Amiral J1Amiral = new Amiral(pos, Orientation.SudEst);
+		pos[0] = 1;
+		Amiral J1Fregate = new Amiral(pos, Orientation.SudEst);
+		pos[0] = Plateau.TAILLE_HORIZONTALE-1;
+		pos[1] = Plateau.TAILLE_VERTICALE-1;
+		Amiral J2Amiral = new Amiral(pos, Orientation.NordOuest);
+		pos[1] = Plateau.TAILLE_VERTICALE-2;
+		Amiral J2Fregate = new Amiral(pos, Orientation.NordOuest);
+		
+		Navire[] naviresJ1 = {J1Amiral, J1Fregate};
+		Navire[] naviresJ2 = {J2Amiral, J2Fregate};
+		
+		Joueur j1 = new Joueur("Nimitz", naviresJ1);
+		Joueur j2 = new Joueur("Yamamoto", naviresJ2);
+		
+		partie.ajouterJoueurs(j1, j2);
+		
+		victoire = 0;
 		
 	}
 	
@@ -173,12 +188,6 @@ public class Jeu extends ApplicationAdapter {
 		public void run(){
 			t0=System.currentTimeMillis();
 			gameRuning=true;
-			
-			
-			
-			
-			
-			
 			while(gameRuning==true){
 				t1=System.currentTimeMillis();
 				if(t1-t0>100){
