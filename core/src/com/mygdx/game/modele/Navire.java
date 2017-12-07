@@ -42,6 +42,13 @@ public abstract class Navire extends InWorldObj {
 		return this.position;
 	}
 	
+	/**
+	 * @return
+	 */
+	public boolean getATire(){
+		return aTire;
+	}
+	
 	public boolean peutTirerPrincipal(){
 		return etatCanPrinc == 0;
 	}
@@ -111,6 +118,7 @@ public abstract class Navire extends InWorldObj {
 		}else{
 			if(deplAct == DEPL_MAX) retournerNavire();
 			deplAct = 0;
+			aTire = true;
 			return null;
 		}
 		
@@ -153,8 +161,18 @@ public abstract class Navire extends InWorldObj {
 		return true;
 	}
 	
-	
-	
+	public void finirTour(){
+		if(deplAct != DEPL_MAX){
+			aTire = true;
+			deplAct = 0;
+		}
+		
+	}
+
+	public void commencerTour(){
+		this.recharger();
+		this.deplAct = DEPL_MAX;
+	}
 	
 	
 	

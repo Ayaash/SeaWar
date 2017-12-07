@@ -52,6 +52,7 @@ public class Plateau {
 		return plateau[t[0]][t[1]].enleverNavire();
 	}
 
+
 	public boolean recevoirTir(int[] pos, int degats){
 		if(pos[0] == -1 || pos[1] == -1){
 			return false;
