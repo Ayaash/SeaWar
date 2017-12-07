@@ -21,7 +21,6 @@ public class Amiral extends Navire {
         
         pVAct=PV_MAX;
         deplAct=DEPL_MAX;
-        aTire=false;
     }
 	private int[][] tirPrincipalCasePoss(){
         int [][] res={{-1,-1},{-1,-1},{-1,-1},{-1,-1},{-1,-1},{-1,-1}};

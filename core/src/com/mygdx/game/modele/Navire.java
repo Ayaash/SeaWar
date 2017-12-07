@@ -35,10 +35,6 @@ public abstract class Navire extends InWorldObj {
 		this.plateau = Plateau.getInstance();
 	}
 
-	public Navire(Texture img, int x, int y) {
-		super(img, x, y);
-		// TODO Auto-generated constructor stub
-	}
 	
 	public int[] getPosition(){
 		return this.position;

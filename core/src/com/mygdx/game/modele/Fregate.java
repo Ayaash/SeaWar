@@ -20,7 +20,6 @@ public class Fregate extends Navire {
         //etat variable
         pVAct=PV_MAX;
         deplAct=DEPL_MAX;
-        aTire=false;
 
     }
 
