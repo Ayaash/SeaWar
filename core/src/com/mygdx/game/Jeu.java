@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-
+import com.mygdx.etats.Partie;
 import com.mygdx.game.graphique.Bouton;
 import com.mygdx.game.graphique.InFenDebug;
 import com.mygdx.game.graphique.Label;
@@ -70,13 +70,14 @@ public class Jeu extends ApplicationAdapter {
 		
 
 		lb1=new Label(20,Gdx.graphics.getHeight()-20,"fps",font);
-		infos=new Label(500,Gdx.graphics.getHeight()-20,"Commandes:\n"
+		infos=new Label(Gdx.graphics.getWidth()-500,150,"Commandes:\n"
 				+ "   F: changement de tour \n"
 				+ "   S: selection bateau \n"
 				+ "   T: tire \n"
 				+ "   M: mouvement d'une case",font);
 
-		pad0=new Label(Gdx.graphics.getWidth()-300,150,"    8    \n"
+		pad0=new Label(Gdx.graphics.getWidth()-200,150,"Directions:\n"
+												   +   "    8    \n"
 												   +   "7       9\n"
 												   +   "1       3\n"
 												   +   "    2    \n",font);
@@ -218,21 +219,30 @@ public class Jeu extends ApplicationAdapter {
 		//Plateau créé dans Partie
 		partie = Partie.getInstance();
 		
-		int[] pos = {0,0};
-		Amiral J1Amiral = new Amiral(pos, Orientation.SudEst);
-		pos[0] = 1;
-		Amiral J1Fregate = new Amiral(pos, Orientation.SudEst);
-		pos[0] = Plateau.TAILLE_HORIZONTALE-1;
-		pos[1] = Plateau.TAILLE_VERTICALE-1;
-		Amiral J2Amiral = new Amiral(pos, Orientation.NordOuest);
-		pos[1] = Plateau.TAILLE_VERTICALE-2;
-		Amiral J2Fregate = new Amiral(pos, Orientation.NordOuest);
+		int[] pos0 = {0,0};
+		int[] pos1 = {1,0};
+		int[] pos2 = {2,0};
+		int[] pos3 = {3,0};
+
+		
+		Amiral J1Amiral = new Amiral(Textures.AMIRAL,pos0, Orientation.SudEst);
+		//pos[0] = 1;
+		Fregate J1Fregate = new Fregate(Textures.FREGATE,pos1, Orientation.SudEst);
+		//pos[0] = Plateau.TAILLE_HORIZONTALE-1;
+		//pos[1] = Plateau.TAILLE_VERTICALE-1;
+		Amiral J2Amiral = new Amiral(Textures.AMIRAL,pos2, Orientation.NordOuest);
+		//pos[1] = Plateau.TAILLE_VERTICALE-2;
+		Fregate J2Fregate = new Fregate(Textures.FREGATE,pos3, Orientation.NordOuest);
 		
 		Navire[] naviresJ1 = {J1Amiral, J1Fregate};
 		Navire[] naviresJ2 = {J2Amiral, J2Fregate};
 		
 		Joueur j1 = new Joueur("Nimitz", naviresJ1);
 		Joueur j2 = new Joueur("Yamamoto", naviresJ2);
+		
+		j1.setColor(0, 0, 1);
+		j2.setColor(1, 0, 0);
+
 		
 		partie.ajouterJoueurs(j1, j2);
 		

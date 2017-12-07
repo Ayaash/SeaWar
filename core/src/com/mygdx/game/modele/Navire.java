@@ -25,15 +25,18 @@ public abstract class Navire extends InWorldObj {
     
 	protected Plateau plateau;
 
-	public Navire(int[] posi, Orientation o){
+	public Navire(Texture img,int[] posi, Orientation o){
+		super(img,posi[0],posi[1],o.ordinal()*60);
 		this.position = posi;
 		this.orientation = o;
 		this.aTire=false;
 		this.etatCanPrinc=0;
 		this.etatCanSec=0;
 		this.plateau = Plateau.getInstance();
+		plateau.ajouterNavire(position, this);
 	}
 
+	
 	
 	public int[] getPosition(){
 		return this.position;

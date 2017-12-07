@@ -8,8 +8,8 @@ public class Amiral extends Navire {
 
 	private static final long serialVersionUID = 1L;
 
-	public Amiral(int[] posi , Orientation ori){
-    	super(posi,ori);    	
+	public Amiral(Texture img,int[] posi , Orientation ori){
+    	super(img,posi,ori);    	
     	PV_MAX=50;
         DEPL_MAX=3;
         TPS_RECH_CAN_PRINC=3;
