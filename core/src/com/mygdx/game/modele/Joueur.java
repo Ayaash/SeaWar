@@ -6,8 +6,7 @@ public class Joueur {
 	
 	private String nom;
 	protected Navire navires[];
-	
-	float R;float V;float B;
+	private int id;
 	
 	public String getNom(){
 		return nom;
@@ -15,7 +14,9 @@ public class Joueur {
 	public Navire[] getNavires(){
 		return navires;
 	}
-	
+	public int getId(){
+		return id;
+	}
 	public int nbNaviresActifs(){
 		int res = 0;
 		for(int i=0; i<NOMBRE_NAVIRES; i++){
@@ -24,20 +25,10 @@ public class Joueur {
 		return res;
 	}
 	
-	public void setColor(float R,float V, float B){
-		this.R=R;
-		this.V=V;
-		this.B=B;
-		int i=0;
-		for(i=0;i<navires.length;i++){
-			navires[i].setColor(R, V, B, 1);
-		}
-
-	}
 	
-	public Joueur(String nom, Navire[] navires){
+	public Joueur(String nom, Navire[] navires, int id){
 		this.nom = nom;
 		this.navires = navires.clone();
-		R=0;V=0;B=0;
+		this.id = id;
 	}
 }

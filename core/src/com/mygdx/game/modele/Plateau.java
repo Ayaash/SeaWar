@@ -51,6 +51,10 @@ public class Plateau {
 	public boolean enleverNavire(int[] t){
 		return plateau[t[0]][t[1]].enleverNavire();
 	}
+	
+	public Phare[] getPhares(){
+		return phares;
+	}
 
 
 	public boolean recevoirTir(int[] pos, int degats){
