@@ -15,6 +15,7 @@ import com.mygdx.game.graphique.Bouton;
 import com.mygdx.game.graphique.InFenDebug;
 import com.mygdx.game.graphique.Label;
 import com.mygdx.game.graphique.Textures;
+import com.mygdx.game.modele.*;
 
 
 
@@ -32,8 +33,11 @@ public class Jeu extends ApplicationAdapter {
 	boolean gameRuning;
 	
 	
+	private Partie partie;
+	
+	
 	@Override
-	public void create () {
+ 	public void create () {
 		
 		
 		Textures.chargerTextures();
@@ -99,6 +103,13 @@ public class Jeu extends ApplicationAdapter {
 	
 	public void gameLoop(){
 		lb1.setText("fps:"+Integer.toString(Gdx.graphics.getFramesPerSecond()));
+		
+		
+		
+		
+		
+		
+		
 		controles();
 		
 		//InFenDebug.println("("+Gdx.graphics.getHeight()+","+Gdx.graphics.getHeight()+")");
@@ -136,6 +147,12 @@ public class Jeu extends ApplicationAdapter {
 	}
 
 	
+	//Une seule partie possible pour le moment
+	public void setupGame(){
+		partie = Partie.getInstance();
+		
+	}
+	
 	@Override
 	public void dispose () {
 		batch.dispose();
@@ -156,6 +173,12 @@ public class Jeu extends ApplicationAdapter {
 		public void run(){
 			t0=System.currentTimeMillis();
 			gameRuning=true;
+			
+			
+			
+			
+			
+			
 			while(gameRuning==true){
 				t1=System.currentTimeMillis();
 				if(t1-t0>100){
