@@ -8,11 +8,10 @@ public class Fregate extends Navire {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
 	public Fregate(int[] posi , Orientation ori){
+		super(posi,ori);
 	
         PVMAX=50;
-        orientation=ori;
         deplMax=7;
         TpsRechCanPrinc=1;
         degCanPrinc=30;
@@ -23,7 +22,7 @@ public class Fregate extends Navire {
         etatCanSec=0;
         pVAct=50;
         deplAct=7;
-        position=posi;
+
     }
 
     int[][] tirPrincipalCasePoss(){

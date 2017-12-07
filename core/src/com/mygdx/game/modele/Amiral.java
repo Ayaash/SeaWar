@@ -6,9 +6,11 @@ import com.mygdx.game.graphique.InWorldObj;
 
 public class Amiral extends Navire {
 
-    public Amiral(int[] posi , Orientation ori){
+	private static final long serialVersionUID = 1L;
+
+	public Amiral(int[] posi , Orientation ori){
+    	super(posi,ori);    	
         PVMAX=50;
-        orientation=ori;
         deplMax=7;
         TpsRechCanPrinc=1;
         degCanPrinc=30;
@@ -20,7 +22,7 @@ public class Amiral extends Navire {
         etatCanSec=0;
         pVAct=50;
         deplAct=7;
-        position=posi;
+
     }
     int[][] tirPrincipalCasePoss(){
         int [][] res={{-1,-1},{-1,-1},{-1,-1},{-1,-1},{-1,-1},{-1,-1}};

@@ -6,5 +6,14 @@ public enum Orientation {
 	SudEst,
 	Sud,
 	SudOuest,
-	NordOuest
+	NordOuest;
+	
+	
+	public Orientation incremente(){
+		if(ordinal() == values().length -1){
+			return values()[0];
+		}else{
+			return values()[ordinal() +1];
+		}
+	}
 }
