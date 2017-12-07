@@ -10,6 +10,9 @@ public abstract class Case extends InWorldObj{
 	public Case(int posWX, int posWY) {
 		super(posWX, posWY);
 	}
+	public Case(Texture img,int posWX, int posWY) {
+		super(img, posWX, posWY);
+	}
 	private static final long serialVersionUID = 1L;
 	public abstract boolean estNavigable();
 	public abstract boolean ajouterNavire(Navire n);

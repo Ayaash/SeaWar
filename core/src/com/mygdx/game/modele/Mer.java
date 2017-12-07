@@ -10,6 +10,14 @@ public class Mer extends Case {
 		super(i,j);
 	}
 
+	
+	
+	public Mer(Texture img, int i, int j) {
+		super(img,i,j);
+	}
+
+
+
 	//Une case mer est toujours navigable, sauf s'il y a un navire sur la case
 	public boolean estNavigable() {
 		if(bateau == null){

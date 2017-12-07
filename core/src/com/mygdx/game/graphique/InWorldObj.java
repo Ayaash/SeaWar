@@ -56,8 +56,9 @@ public class InWorldObj extends Affichable{
 		position[1]=posWY;
 	}
 
-	@Override
-	public boolean afficher(Batch b){
+	
+	
+	protected void actualizePosSize(){
 		//posX=(int) position[0]*10;
 		//posY=(int) position[1]*10;
 		
@@ -65,23 +66,33 @@ public class InWorldObj extends Affichable{
 		double sy=(Jeu.maxWY-Jeu.minWY+0f)/(Plateau.getInstance().TAILLE_VERTICALE+0f);
 		
 		
+		lX=(int) (sx/1.5);
+		lY=(int) (sy/1.5);
+		
 		posX=(int) (Jeu.minWX  + position[0]*sx );
-		posY=(int) (Jeu.minWY  + position[1]*sy );
+		posY=(int) ( Jeu.maxWY+Jeu.minWY-1.5*lY-(Jeu.minWY  + position[1]*sy ) );
 
+		
+		
+		
 		//posX=(int) Jeu.minWX + (Jeu.maxWX-Jeu.minWX)*position[0];
 		//posY=(int) Jeu.minWY + (Jeu.maxWX-Jeu.minWX)*position[1];
 
-		if(position[0]%2==1){//TODO Peut etre revoir la parité
+		if(position[0]%2==0){//TODO Peut etre revoir la parité
 			posY+=sy/2;
 		}
 		
-		lX=(int) (sx/1.5);
-		lY=(int) (sy/1.5);
+		
 
 		
 		
-		this.actualizeSprite();
+		//this.actualizeSprite(obj);
+	}
 	
+	@Override
+	public boolean afficher(Batch b){
+		actualizePosSize();
+		this.actualizeSprite(obj);
 		return super.afficher(b);
 		
 	}
