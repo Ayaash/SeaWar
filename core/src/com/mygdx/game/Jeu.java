@@ -1,7 +1,5 @@
 package com.mygdx.game;
 
-import java.sql.Time;
-
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 
