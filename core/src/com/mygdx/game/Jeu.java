@@ -25,6 +25,7 @@ public class Jeu extends ApplicationAdapter {
 	Bouton btn1;
 	Label lb1;
 	Label infos;
+	Label pad0;
 
 	BitmapFont font;
 	boolean isClicking; // Clic gauche
@@ -75,6 +76,12 @@ public class Jeu extends ApplicationAdapter {
 				+ "   T: tire \n"
 				+ "   M: mouvement d'une case",font);
 
+		pad0=new Label(Gdx.graphics.getWidth()-300,150,"    8    \n"
+												   +   "7       9\n"
+												   +   "1       3\n"
+												   +   "    2    \n",font);
+
+		
 		
 		btn1=new Bouton(Textures.WIMG, 200, 300, 100, 80, "Test", font);
 		btn1.setColor(0.2f, 0.2f, 0.2f, 1f);
@@ -111,6 +118,7 @@ public class Jeu extends ApplicationAdapter {
 
 		lb1.afficher(batch);
 		infos.afficher(batch);
+		pad0.afficher(batch);
 		
 		InFenDebug.afficher(batch);
 		//Fin des affichage
