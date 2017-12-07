@@ -1,5 +1,7 @@
 package com.mygdx.game.etats;
 
+import java.util.Arrays;
+
 import com.mygdx.game.modele.Joueur;
 import com.mygdx.game.modele.Navire;
 import com.mygdx.game.modele.Phare;
@@ -74,7 +76,7 @@ public class Partie {
 	public int[][] demanderDeplacementsPossibles(){
 		return navireCourant.deplacementsPossibles();
 	}
-	public boolean deplacerNavire(int choix){
+	public boolean deplacerNavire(int[] choix){
 		return navireCourant.deplacer(choix);
 	}
 	public Object[] demanderTirsPossiblesPrincipal(){
@@ -102,9 +104,9 @@ public class Partie {
 		int nbPhares = 0;
 		Phare[] phares = plateau.getPhares();
 		for(int i = 0; i<Joueur.NOMBRE_NAVIRES; i++){
-			int[] pos = getCurrentPlayer().getNavires()[i].getPosition();
+			int[] pos = getCurrentPlayer().getNavires()[i].getPosition().clone();
 			for(int j = 0; j<Plateau.NOMBRE_PHARE; j++){
-				if(pos == phares[j].getPosition()){
+				if(Arrays.equals(pos, phares[j].getPosition())){
 					phares[j].setJoueur(getCurrentPlayer().getId());
 				}
 			}

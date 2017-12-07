@@ -1,5 +1,8 @@
 package com.mygdx.game.modele;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
+
 import com.badlogic.gdx.graphics.Texture;
 import com.mygdx.game.graphique.InWorldObj;
 
@@ -133,8 +136,8 @@ public abstract class Navire extends InWorldObj {
 	 * @param l'indice de la case selectionnée dans le tableau renvoyé par deplacementsPossibles
 	 * @return False si i != 0, 1, ou 2.
 	 */
-	public boolean deplacer(int i){
-		switch(i){
+	public boolean deplacer(int pos[]){
+		/*switch(i){
 		case 0:
 			plateau.enleverNavire(position);
 			this.orientation = orientation.decremente();
@@ -155,6 +158,30 @@ public abstract class Navire extends InWorldObj {
 		default:
 			//Erreur
 			return false;
+		}*/
+		int[] nouvelleCase = plateau.voisin(position, orientation.decremente());
+		if(Arrays.equals(pos, nouvelleCase)){
+			plateau.enleverNavire(position);
+			this.orientation = orientation.decremente();
+			this.position = plateau.voisin(position, orientation);
+			plateau.ajouterNavire(position, this);
+		}else{
+			nouvelleCase = plateau.voisin(position, orientation);
+			if(Arrays.equals(pos, nouvelleCase)){
+				plateau.enleverNavire(position);
+				this.position = plateau.voisin(position, orientation);
+				plateau.ajouterNavire(position, this);
+			}else{
+				nouvelleCase = plateau.voisin(position, orientation.incremente());
+				if(Arrays.equals(pos, nouvelleCase)){
+					plateau.enleverNavire(position);
+					this.orientation = orientation.incremente();
+					this.position = plateau.voisin(position, orientation);
+					plateau.ajouterNavire(position, this);
+				}else{
+					return false;
+				}
+			}
 		}
 		
 		this.deplAct--;
