@@ -69,11 +69,12 @@ public class Jeu extends ApplicationAdapter {
 		
 		
 
-		lb1=new Label(20,Gdx.graphics.getHeight()-20,"fps",font);
+		lb1=new Label(Gdx.graphics.getWidth()-100,180,"fps",font);
 		infos=new Label(Gdx.graphics.getWidth()-500,150,"Commandes:\n"
 				+ "   F: changement de tour \n"
 				+ "   S: selection bateau \n"
-				+ "   T: tire \n"
+				+ "   T: tire 1\n"
+				+ "   Y: tire 2\n"
 				+ "   M: mouvement d'une case",font);
 
 		pad0=new Label(Gdx.graphics.getWidth()-200,150,"Directions:\n"
@@ -180,7 +181,13 @@ public class Jeu extends ApplicationAdapter {
 			}
 			else if(Gdx.input.isKeyPressed(Input.Keys.T)){
 				//TODO ajouter la fonction de gestion de tirs
-				InFenDebug.println("Tire");
+				InFenDebug.println("Tire 1");
+				aKeyIsPressed=true;
+	
+			}
+			else if(Gdx.input.isKeyPressed(Input.Keys.Y)){
+				//TODO ajouter la fonction de gestion de tirs
+				InFenDebug.println("Tire 2");
 				aKeyIsPressed=true;
 	
 			}
@@ -201,6 +208,7 @@ public class Jeu extends ApplicationAdapter {
 		}else{
 			if(!(      Gdx.input.isKeyPressed(Input.Keys.F)
 					|| Gdx.input.isKeyPressed(Input.Keys.T)
+					|| Gdx.input.isKeyPressed(Input.Keys.Y)
 					|| Gdx.input.isKeyPressed(Input.Keys.S)
 					|| Gdx.input.isKeyPressed(Input.Keys.M)
 				)){
@@ -210,9 +218,6 @@ public class Jeu extends ApplicationAdapter {
 
 	}
 
-	public void gKey(){
-		
-	}
 	
 	//Une seule partie possible pour le moment
 	public void setupGame(){
@@ -221,8 +226,8 @@ public class Jeu extends ApplicationAdapter {
 		
 		int[] pos0 = {0,0};
 		int[] pos1 = {1,0};
-		int[] pos2 = {2,0};
-		int[] pos3 = {3,0};
+		int[] pos2 = {Plateau.TAILLE_HORIZONTALE-1,Plateau.TAILLE_VERTICALE-1};
+		int[] pos3 = {Plateau.TAILLE_HORIZONTALE-1,Plateau.TAILLE_VERTICALE-2};
 
 		
 		Amiral J1Amiral = new Amiral(Textures.AMIRAL,pos0, Orientation.SudEst);

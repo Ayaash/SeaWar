@@ -26,7 +26,7 @@ public abstract class Navire extends InWorldObj {
 	protected Plateau plateau;
 
 	public Navire(Texture img,int[] posi, Orientation o){
-		super(img,posi[0],posi[1],o.ordinal()*60);
+		super(img,posi[0],posi[1],o.ordinal()*60+180);
 		this.position = posi;
 		this.orientation = o;
 		this.aTire=false;
