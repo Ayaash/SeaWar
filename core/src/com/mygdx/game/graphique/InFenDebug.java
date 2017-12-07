@@ -27,6 +27,7 @@ public class InFenDebug {
 	}
 	public static void print(String s){
 		msg=s+msg;
+		
 	}
 	
 	public static void afficher(Batch b){

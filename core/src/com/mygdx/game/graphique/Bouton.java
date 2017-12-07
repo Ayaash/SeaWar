@@ -22,7 +22,7 @@ public class Bouton extends Affichable{
 		this.font=font;
 		
 		
-		System.out.println("("+px+","+py+")"+","+"("+(px+lx)+","+(py+ly)+")");
+		//System.out.println("("+px+","+py+")"+","+"("+(px+lx)+","+(py+ly)+")");
 	}
 	
 	@Override
@@ -49,7 +49,7 @@ public class Bouton extends Affichable{
 		int mouseX=mX;
 		int mouseY=Gdx.graphics.getHeight()-mY;
 		
-		System.out.println("("+Integer.toString(mouseX)+","+Integer.toString(mouseY)+")");
+		//System.out.println("("+Integer.toString(mouseX)+","+Integer.toString(mouseY)+")");
 		if(posX<=mouseX && mouseX<=posX+lX){
 			if(posY<=mouseY && mouseY<=posY+lY){
 				actionOnClic();

@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 /**
  * 
@@ -25,7 +27,7 @@ public class Affichable implements Serializable{
 	protected int lY;
 	protected int angle;
 	
-	protected Sprite spr;
+	protected Image obj;
 	protected Color clr;
 
 	
@@ -75,18 +77,19 @@ public class Affichable implements Serializable{
 	}
 	
 	private void createSprite(){
-		spr=new Sprite(img);
-		spr.rotate(angle);
-		spr.setOrigin(0,0);
-		spr.setBounds(posX, posY, lX, lY);
-		spr.setColor(clr);
+		obj=new Image(img);//(img);
+		obj.setRotation(angle);
+		//spr.setOrigin(0,0);
+		obj.setBounds(posX, posY, lX, lY);
+		obj.setOrigin(lX/2,lY/2);
+		obj.setColor(clr);
 	}
 	
 	private void actualizeSprite(){
-		spr.setRotation(angle);
-		//spr.setOrigin(lX/2,lY/2);
-		spr.setBounds(posX, posY, lX, lY);
-		spr.setColor(clr);
+		obj.setRotation(angle);
+		obj.setOrigin(lX/2,lY/2);
+		obj.setBounds(posX, posY, lX, lY);
+		obj.setColor(clr);
 	}
 	
 	/**Permet d'avoir une couleur*/
@@ -108,8 +111,8 @@ public class Affichable implements Serializable{
 	/**Affiche l'objet a l'ecran*/
 	boolean afficher(Batch b){
 		try {
-			actualizeSprite();
-			spr.draw(b);
+			//actualizeSprite();//TODO A gerer ailleurs
+			obj.draw(b,1);
 			return true;
 		} catch (Exception e) {
 			return false;

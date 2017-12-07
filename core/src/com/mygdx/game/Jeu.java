@@ -22,7 +22,6 @@ import com.mygdx.game.graphique.Textures;
 public class Jeu extends ApplicationAdapter {
 	GameLoop loop;
 	SpriteBatch batch;
-	Texture img;
 	Bouton btn1;
 	Label lb1;
 	BitmapFont font;
@@ -48,13 +47,12 @@ public class Jeu extends ApplicationAdapter {
 		batch.setColor(1,1,1,1);
 		
 		
-		img = new Texture("../images/bouton_test.png");
 		
 		font = new BitmapFont();
 		font.setColor(Color.WHITE);
 		
 		
-		
+
 		lb1=new Label(20,Gdx.graphics.getHeight()-20,"fps",font);
 		
 		btn1=new Bouton(Textures.WIMG, 200, 300, 100, 80, "Test", font);
@@ -78,7 +76,7 @@ public class Jeu extends ApplicationAdapter {
 		batch.begin();
 				
 		//batch.draw(img, 0, 0);
-		for(int i=0;i<1;i++){
+		for(int i=0;i<1;i++){//TODO A gerer
 			btn1.afficher(batch);
 		}
 
@@ -109,6 +107,7 @@ public class Jeu extends ApplicationAdapter {
 	@Override
 	public void resize(int widht,int height){
 		//TODO a completer
+		InFenDebug.println("12");
 	}
 	
 	public void controles(){
@@ -138,7 +137,8 @@ public class Jeu extends ApplicationAdapter {
 	@Override
 	public void dispose () {
 		batch.dispose();
-		img.dispose();
+		//img.dispose();
+		//TODO crere une fonction pour disposer tt les textures
 		gameRuning=false;
 	}
 
