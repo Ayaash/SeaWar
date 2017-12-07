@@ -147,6 +147,8 @@ public class Partie {
 		
 		
 		tour++;
+		tourEnCours = false;
+		navireCourant = null;
 		return victoire;
 		
 	}
