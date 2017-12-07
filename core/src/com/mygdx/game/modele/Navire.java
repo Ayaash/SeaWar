@@ -32,6 +32,7 @@ public abstract class Navire extends InWorldObj {
 		this.etatCanPrinc=0;
 		this.etatCanSec=0;
 		this.plateau = Plateau.getInstance();
+		plateau.ajouterNavire(position, this);
 	}
 
 	

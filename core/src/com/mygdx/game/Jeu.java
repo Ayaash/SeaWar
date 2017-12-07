@@ -213,12 +213,12 @@ public class Jeu extends ApplicationAdapter {
 		int[] pos = {0,0};
 		Amiral J1Amiral = new Amiral(pos, Orientation.SudEst);
 		pos[0] = 1;
-		Amiral J1Fregate = new Amiral(pos, Orientation.SudEst);
+		Fregate J1Fregate = new Fregate(pos, Orientation.SudEst);
 		pos[0] = Plateau.TAILLE_HORIZONTALE-1;
 		pos[1] = Plateau.TAILLE_VERTICALE-1;
 		Amiral J2Amiral = new Amiral(pos, Orientation.NordOuest);
 		pos[1] = Plateau.TAILLE_VERTICALE-2;
-		Amiral J2Fregate = new Amiral(pos, Orientation.NordOuest);
+		Fregate J2Fregate = new Fregate(pos, Orientation.NordOuest);
 		
 		Navire[] naviresJ1 = {J1Amiral, J1Fregate};
 		Navire[] naviresJ2 = {J2Amiral, J2Fregate};
