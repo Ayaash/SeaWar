@@ -27,6 +27,10 @@ public class Jeu extends ApplicationAdapter {
 	Label infos;
 	Label pad0;
 
+	public static Color cmer=new Color(0.06f, 0.38f, 0.58f, 1f);
+	public static Color cbrille=new Color(1f, 1f, 0.58f, 1f);
+
+	
 	BitmapFont font;
 	boolean isClicking; // Clic gauche
 	
@@ -40,10 +44,17 @@ public class Jeu extends ApplicationAdapter {
 	private boolean aKeyIsPressed=false;
 	
 	
+	
+	public boolean modeTir;
+	public boolean modeMvnt;
+
+	
 	public static int minWX=20;
 	public static int minWY=220;
 	public static int maxWX=1180;
 	public static int maxWY=780;
+	
+	public static int[][] casesAccesible;
 
 	
 	@Override
@@ -174,6 +185,7 @@ public class Jeu extends ApplicationAdapter {
 		
 		
 		if(aKeyIsPressed==false){
+			//COMMANDES DE BASE
 			if(Gdx.input.isKeyPressed(Input.Keys.F)){
 				//TODO ajouter la fonction de gestion de changement de tour dans partie
 				InFenDebug.println("Fin de tour");
@@ -202,7 +214,15 @@ public class Jeu extends ApplicationAdapter {
 				InFenDebug.println("Mouvement");
 				aKeyIsPressed=true;
 	
-			}else{
+			}
+			//COMMANDES DE SELECTION DE CASE
+			else if(Gdx.input.isKeyPressed(Input.Keys.NUMPAD_1)){
+				//TODO ajouter la fonction de gestion de mouvement d'une case
+				InFenDebug.println("case 1");
+				aKeyIsPressed=true;
+	
+			}
+			else{
 				
 			}
 		}else{

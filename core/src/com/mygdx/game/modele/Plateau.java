@@ -1,5 +1,6 @@
 package com.mygdx.game.modele;
 
+import com.mygdx.game.Jeu;
 import com.mygdx.game.graphique.Textures;
 
 public class Plateau {
@@ -25,7 +26,7 @@ public class Plateau {
 		for(int i=0;i<TAILLE_HORIZONTALE;i++){
 			for(int j=0;j<TAILLE_VERTICALE;j++){
 				plateau[i][j] = new Mer(Textures.HEXAGON,i,j);
-				plateau[i][j].setColor(0.06f, 0.38f, 0.58f, 1f);
+				plateau[i][j].setColor(Jeu.cmer.r,Jeu.cmer.g,Jeu.cmer.b,Jeu.cmer.a);
 				
 			}
 	}
@@ -33,9 +34,9 @@ public class Plateau {
 		phares[1] = new Phare(Textures.PHARE,Textures.HEXAGON,TAILLE_HORIZONTALE-2,0);
 		phares[2] = new Phare(Textures.PHARE,Textures.HEXAGON,TAILLE_HORIZONTALE-1,1);
 	
-		phares[0].setColor(0.06f, 0.38f, 0.58f, 1f);
-		phares[1].setColor(0.06f, 0.38f, 0.58f, 1f);
-		phares[2].setColor(0.06f, 0.38f, 0.58f, 1f);
+		phares[0].setColor(Jeu.cmer.r,Jeu.cmer.g,Jeu.cmer.b,Jeu.cmer.a);
+		phares[1].setColor(Jeu.cmer.r,Jeu.cmer.g,Jeu.cmer.b,Jeu.cmer.a);
+		phares[2].setColor(Jeu.cmer.r,Jeu.cmer.g,Jeu.cmer.b,Jeu.cmer.a);
 		
 		
 		plateau[TAILLE_HORIZONTALE-1][0] = phares[0];
