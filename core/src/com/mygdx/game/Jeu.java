@@ -262,8 +262,8 @@ public class Jeu extends ApplicationAdapter {
 		Navire[] naviresJ1 = {J1Amiral, J1Fregate};
 		Navire[] naviresJ2 = {J2Amiral, J2Fregate};
 		
-		Joueur j1 = new Joueur("Nimitz", naviresJ1);
-		Joueur j2 = new Joueur("Yamamoto", naviresJ2);
+		Joueur j1 = new Joueur("Nimitz", naviresJ1, 1);
+		Joueur j2 = new Joueur("Yamamoto", naviresJ2, 2);
 		
 		j1.setColor(0, 0, 1);
 		j2.setColor(1, 0, 0);
