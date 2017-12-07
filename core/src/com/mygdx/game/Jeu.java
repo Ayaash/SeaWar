@@ -137,7 +137,7 @@ public class Jeu extends ApplicationAdapter {
 	@Override
 	public void resize(int widht,int height){
 		//TODO a completer
-		InFenDebug.println("12");
+		//InFenDebug.println("12");
 	}
 	
 	public void controles(){

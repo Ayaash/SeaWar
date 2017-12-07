@@ -71,25 +71,27 @@ public class Affichable implements Serializable{
 	protected void init(){
 		initColor();
 		if(img!=null){
-			createSprite();
+			obj=createSprite(img);
 		}
 
 	}
 	
-	protected void createSprite(){
-		obj=new Image(img);//(img);
-		obj.setRotation(angle);
+	protected Image createSprite(Texture im){
+		Image ob=new Image(im);//(img);
+		ob.setRotation(angle);
 		//spr.setOrigin(0,0);
-		obj.setBounds(posX, posY, lX, lY);
-		obj.setOrigin(lX/2,lY/2);
-		obj.setColor(clr);
+		ob.setBounds(posX, posY, lX, lY);
+		ob.setOrigin(lX/2,lY/2);
+		ob.setColor(clr);
+		
+		return ob;
 	}
 	
-	protected void actualizeSprite(){
-		obj.setRotation(angle);
-		obj.setOrigin(lX/2,lY/2);
-		obj.setBounds(posX, posY, lX, lY);
-		obj.setColor(clr);
+	protected void actualizeSprite(Image ob){
+		ob.setRotation(angle);
+		ob.setOrigin(lX/2,lY/2);
+		ob.setBounds(posX, posY, lX, lY);
+		ob.setColor(clr);
 	}
 	
 	/**Permet d'avoir une couleur*/
@@ -100,7 +102,7 @@ public class Affichable implements Serializable{
 	/**Permet de specifier la couleur*/
 	public void setColor(float R, float V, float B, float A){
 		clr.set(R, V, B, A);
-		actualizeSprite();
+		actualizeSprite(obj);
 	}
 	
 	/**Renvoie la couleur de l'objet*/
