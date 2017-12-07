@@ -22,7 +22,7 @@ import com.mygdx.game.modele.*;
 public class Jeu extends ApplicationAdapter {
 	GameLoop loop;
 	SpriteBatch batch;
-	Bouton btn1;
+	//Bouton btn1;
 	Label lb1;
 	Label infos;
 	Label pad0;
@@ -96,8 +96,8 @@ public class Jeu extends ApplicationAdapter {
 
 		
 		
-		btn1=new Bouton(Textures.WIMG, 200, 300, 100, 80, "Test", font);
-		btn1.setColor(0.2f, 0.2f, 0.2f, 1f);
+		//btn1=new Bouton(Textures.WIMG, 200, 300, 100, 80, "Test", font);
+		//btn1.setColor(0.2f, 0.2f, 0.2f, 1f);
 		//btn1.setColor(1, 0, 0, 1);
 		
 		setupGame();
@@ -168,7 +168,7 @@ public class Jeu extends ApplicationAdapter {
 
 				
 				
-				btn1.tryClic(Gdx.input.getX(), Gdx.input.getY());
+				//btn1.tryClic(Gdx.input.getX(), Gdx.input.getY());
 				isClicking=true;
 			}
 		}else{

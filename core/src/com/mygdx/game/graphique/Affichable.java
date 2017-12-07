@@ -25,7 +25,7 @@ public class Affichable implements Serializable{
 	protected int posY;
 	protected int lX;
 	protected int lY;
-	protected int angle;
+	protected int angle=0;
 	
 	protected Image obj;
 	protected Color clr;
