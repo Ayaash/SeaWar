@@ -12,9 +12,9 @@ public class Amiral extends Navire {
     	super(posi,ori);    	
         PVMAX=50;
         deplMax=7;
-        TpsRechCanPrinc=2; //Valeur à 2 et non à 1 car on compte le tour actuel dans le temps de recharge
+        TpsRechCanPrinc=3; //Valeur à 2 et non à 1 car on compte le tour actuel dans le temps de recharge
         degCanPrinc=30;
-        TpsRechCansec=0;
+        TpsRechCansec=1;
         degCanSec=10;
 
         //etat variable
