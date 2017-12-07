@@ -89,6 +89,8 @@ public class Partie {
 	
 	public void finirTourNavire(){
 		navireCourant.finirTour();
+		tourEnCours = false;
+		navireCourant = null;
 	}
 	
 	public int finirTourGlobal(){
