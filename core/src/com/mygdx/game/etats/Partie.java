@@ -90,9 +90,12 @@ public class Partie {
 	}
 	
 	public void finirTourNavire(){
-		navireCourant.finirTour();
-		tourEnCours = false;
-		navireCourant = null;
+		if(navireCourant != null){
+			navireCourant.finirTour();
+			tourEnCours = false;
+			navireCourant = null;
+		}
+		
 	}
 	
 	public int finirTourGlobal(){
