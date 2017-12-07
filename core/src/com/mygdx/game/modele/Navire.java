@@ -113,15 +113,21 @@ public abstract class Navire extends InWorldObj {
 	public boolean deplacer(int i){
 		switch(i){
 		case 0:
+			plateau.enleverNavire(position);
 			this.orientation = orientation.decremente();
 			this.position = plateau.voisin(position, orientation);
+			plateau.ajouterNavire(position, this);
 			break;
 		case 1:
+			plateau.enleverNavire(position);
 			this.position = plateau.voisin(position, orientation);
+			plateau.ajouterNavire(position, this);
 			break;
 		case 2:
+			plateau.enleverNavire(position);
 			this.orientation = orientation.incremente();
 			this.position = plateau.voisin(position, orientation);
+			plateau.ajouterNavire(position, this);
 			break;
 		default:
 			//Erreur
