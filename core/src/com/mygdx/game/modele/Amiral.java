@@ -60,14 +60,41 @@ public class Amiral extends Navire {
         Orientation ar=tar.incremente();
         Orientation bar=ar.incremente();
         Orientation bav=bar.incremente();
-
-        int[] case0=plateau.voisin(position,av);
-        int[] case1=plateau.voisin(plateau.voisin(position,av),av);
-        int[] case2=plateau.voisin(position,tav);
-        int[] case3=plateau.voisin(plateau.voisin(position,tav),av);
-        int[] case4=plateau.voisin(position,bav);
-        int[] case5=plateau.voisin(plateau.voisin(position,bav),av);
-
+        
+        int[] case0;
+    	int[] case1;
+    	int[] case2;
+    	int[] case3;
+    	int[] case4;
+    	int[] case5;
+        
+        
+        int[] caseErr={-1,-1};
+        
+        if (plateau.voisin(position,tav)==caseErr){
+        	case0=plateau.voisin(position,av);
+	    	case1=plateau.voisin(plateau.voisin(position,av),av);
+	    	case2=plateau.voisin(position,tav);
+	    	case3=plateau.voisin(plateau.voisin(position,av),tav);
+	    	case4=plateau.voisin(position,bav);
+	    	case5=plateau.voisin(plateau.voisin(position,bav),av);
+        }
+        else if (plateau.voisin(position,bav)==caseErr){
+        	case0=plateau.voisin(position,av);
+	    	case1=plateau.voisin(plateau.voisin(position,av),av);
+	    	case2=plateau.voisin(position,tav);
+	    	case3=plateau.voisin(plateau.voisin(position,av),tav);
+	    	case4=plateau.voisin(position,bav);
+	    	case5=plateau.voisin(plateau.voisin(position,av),bav);
+        	
+        }else{
+	        case0=plateau.voisin(position,av);
+	    	case1=plateau.voisin(plateau.voisin(position,av),av);
+	    	case2=plateau.voisin(position,tav);
+	    	case3=plateau.voisin(plateau.voisin(position,tav),av);
+	    	case4=plateau.voisin(position,bav);
+	    	case5=plateau.voisin(plateau.voisin(position,bav),av);
+        }
         res[0]=case0;
         res[1]=case1;
         res[2]=case2;
