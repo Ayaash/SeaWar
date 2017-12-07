@@ -19,7 +19,6 @@ public class Plateau {
 		}
 		return instance;
 	}
-	
 	private Plateau(){
 		for(int i=0;i<TAILLE_HORIZONTALE;i++){
 			for(int j=0;j<TAILLE_VERTICALE;j++){

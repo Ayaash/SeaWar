@@ -13,7 +13,7 @@ public class Fregate extends Navire {
 	
         PVMAX=50;
         deplMax=7;
-        TpsRechCanPrinc=1;
+        TpsRechCanPrinc=2; //Valeur à 2 et non à 1 car on compte le tour actuel dans le temps de recharge
         degCanPrinc=30;
         TpsRechCansec=0;
         degCanSec=10;
@@ -25,7 +25,7 @@ public class Fregate extends Navire {
 
     }
 
-    int[][] tirPrincipalCasePoss(){
+    private int[][] tirPrincipalCasePoss(){
         int [][] res={{-1,-1},{-1,-1},{-1,-1},{-1,-1},{-1,-1},{-1,-1}};
         Orientation av=orientation;
         Orientation tav=av.incremente();
@@ -47,17 +47,18 @@ public class Fregate extends Navire {
         res[4]=case4;
         res[5]=case5;
         return res;
+
     }
 
-    Object[] tirPrincipal(){
+     public Object[] tirPrincipal(){
         int [][] tabCasePoss=tirPrincipalCasePoss();
         int deg=degCanPrinc;
         Object[] res={tabCasePoss,deg};
         return res;
-    }
+     }
 
 
-    int[][] tirSecondaireCasePoss(){
+     private int[][] tirSecondaireCasePoss(){
         int [][] res={{-1,-1},{-1,-1},{-1,-1},{-1,-1},{-1,-1},{-1,-1}};
         Orientation av=orientation;
         Orientation tav=av.incremente();
@@ -79,12 +80,12 @@ public class Fregate extends Navire {
         res[4]=case4;
         res[5]=case5;
         return res;
-    }
+     }
 
-    Object[] tirSecondaire(){
+     public Object[] tirSecondaire(){
         int [][] tabCasePoss=tirSecondaireCasePoss();
         int deg=degCanSec;
         Object[] res={tabCasePoss,deg};
         return res;
-    }
+     }
 }

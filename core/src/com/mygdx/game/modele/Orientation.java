@@ -16,4 +16,12 @@ public enum Orientation {
 			return values()[ordinal() +1];
 		}
 	}
+	
+	public Orientation decremente(){
+		if(ordinal() == 0){
+			return values()[values().length -1];
+		}else{
+			return values()[ordinal() - 1];
+		}
+	}
 }
