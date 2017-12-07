@@ -11,17 +11,15 @@ public class Fregate extends Navire {
 	public Fregate(int[] posi , Orientation ori){
 		super(posi,ori);
 	
-        PVMAX=50;
-        deplMax=7;
-        TpsRechCanPrinc=2; //Valeur à 2 et non à 1 car on compte le tour actuel dans le temps de recharge
-        degCanPrinc=30;
-        TpsRechCansec=0;
-        degCanSec=10;
+		PV_MAX=50;
+        DEPL_MAX=7;
+        TPS_RECH_CAN_PRINC=2; //Valeur à 2 et non à 1 car on compte le tour actuel dans le temps de recharge
+        DEG_CAN_PRINC=30;
+        TPS_RECH_CAN_SEC=0;
+        DEG_CAN_SEC=10;
         //etat variable
-        etatCanPrinc=0;
-        etatCanSec=0;
-        pVAct=50;
-        deplAct=7;
+        pVAct=PV_MAX;
+        deplAct=DEPL_MAX;
 
     }
 
@@ -52,7 +50,7 @@ public class Fregate extends Navire {
 
      public Object[] tirPrincipal(){
         int [][] tabCasePoss=tirPrincipalCasePoss();
-        int deg=degCanPrinc;
+        int deg=DEG_CAN_PRINC;
         Object[] res={tabCasePoss,deg};
         return res;
      }
@@ -84,7 +82,7 @@ public class Fregate extends Navire {
 
      public Object[] tirSecondaire(){
         int [][] tabCasePoss=tirSecondaireCasePoss();
-        int deg=degCanSec;
+        int deg=DEG_CAN_SEC;
         Object[] res={tabCasePoss,deg};
         return res;
      }

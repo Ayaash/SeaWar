@@ -7,6 +7,9 @@ public class Joueur {
 	private String nom;
 	protected Navire navires[];
 	
+	public String getNom(){
+		return nom;
+	}
 	public Navire[] getNavires(){
 		return navires;
 	}
@@ -17,5 +20,11 @@ public class Joueur {
 			if(navires[i].encaisserDegats(0)) res++;
 		}
 		return res;
+	}
+	
+	
+	public Joueur(String nom, Navire[] navires){
+		this.nom = nom;
+		this.navires = navires.clone();
 	}
 }
