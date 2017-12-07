@@ -4,9 +4,12 @@ import com.badlogic.gdx.graphics.Texture;
 
 public class Mer extends Case {
 
-
 	private Navire bateau;
 	
+	public Mer(int i, int j) {
+		super(i,j);
+	}
+
 	//Une case mer est toujours navigable, sauf s'il y a un navire sur la case
 	public boolean estNavigable() {
 		if(bateau == null){
@@ -37,6 +40,17 @@ public class Mer extends Case {
 			bateau = null;
 			return true;
 		}
+	}
+
+	@Override
+	public boolean recevoirTir(int degats) {
+		if(bateau == null){
+			return false;
+		}else{
+			bateau.encaisserDegats(degats);
+			return true;
+		}
+		
 	}
 
 }

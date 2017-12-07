@@ -1,7 +1,5 @@
 package com.mygdx.game.modele;
 
-import com.mygdx.game.graphique.InFenDebug;
-
 public class Plateau {
 	public static final int TAILLE_HORIZONTALE = 13;
 	public static final int TAILLE_VERTICALE = 11;
@@ -9,21 +7,27 @@ public class Plateau {
 	
 	Case plateau[][] = new Case[TAILLE_HORIZONTALE][TAILLE_VERTICALE];
 	Phare phares[] = new Phare[NOMBRE_PHARE];
+	private static boolean exists = false;
+	private static Plateau instance = null;
 	
 	
-	
-	
-	public Plateau(){
+	//Singleton
+	public static Plateau getInstance(){
+		if(!exists){
+			instance = new Plateau();
+			exists = true;
+		}
+		return instance;
+	}
+	private Plateau(){
 		for(int i=0;i<TAILLE_HORIZONTALE;i++){
 			for(int j=0;j<TAILLE_VERTICALE;j++){
-				plateau[i][j] = new Mer();
+				plateau[i][j] = new Mer(i,j);
 			}
-		}
-
-		
-		phares[0] = new Phare();
-		phares[1] = new Phare();
-		phares[2] = new Phare();
+	}
+		phares[0] = new Phare(TAILLE_HORIZONTALE-1,0);
+		phares[1] = new Phare(TAILLE_HORIZONTALE-2,0);
+		phares[2] = new Phare(TAILLE_HORIZONTALE-1,1);
 		plateau[TAILLE_HORIZONTALE-1][0] = phares[0];
 		plateau[TAILLE_HORIZONTALE-2][0] = phares[1];
 		plateau[TAILLE_HORIZONTALE-1][1] = phares[2];
@@ -37,20 +41,27 @@ public class Plateau {
 		return plateau[t[0]][t[1]].enleverNavire();
 	}
 
-	
-	public boolean caseLibre(int[] t){
-		return plateau[t[0]][t[1]].estNavigable();
-	}	
-	
-	//Renvoie true si la case voisine est libre
-	public boolean caseLibreN(int[] t){
-		int coor[] = voisinN(t);
-		if(coor[0] == -1 || coor[1] == -1){
+	public boolean recevoirTir(int[] pos, int degats){
+		if(pos[0] == -1 || pos[1] == -1){
 			return false;
 		}else{
-			return plateau[coor[0]][coor[1]].estNavigable();
+			return plateau[pos[0]][pos[1]].recevoirTir(degats);
 		}
-		
+	}
+	
+	public boolean caseLibre(int[] t){
+		if(t[0] == -1 || t[1] == -1){
+			return false;
+		}else{
+			return plateau[t[0]][t[1]].estNavigable();
+		}
+	}	
+	
+	//Code meh... Plus propre d'utiliser caseLibre(voisin(coor, orientation))
+	/*
+	public boolean caseLibreN(int[] t){
+		int coor[] = voisinN(t);
+		return plateau[coor[0]][coor[1]].estNavigable();
 	}
 	public boolean caseLibreNE(int[] t){
 		int coor[] = voisinNE(t);
@@ -72,6 +83,12 @@ public class Plateau {
 		int coor[] = voisinNO(t);
 		return plateau[coor[0]][coor[1]].estNavigable();
 	}
+	*/
+	
+	
+	public Case getCases(int x,int y){
+		return plateau[x][y];
+	}
 	
 	//Renvoie un tableau des 2 coordonnées de la case voisine
 	protected int[] voisin(int[] t, Orientation o){
@@ -80,6 +97,7 @@ public class Plateau {
 		
 		if(t[0] == -1 || t[1] == -1){
 			return r;
+
 		}else{
 			switch(o){
 			case Nord:
@@ -98,6 +116,7 @@ public class Plateau {
 				return r;
 	
 			}
+
 		}
 	}
 	

@@ -68,7 +68,7 @@ public class Affichable implements Serializable{
 		
 	}
 	
-	private void init(){
+	protected void init(){
 		initColor();
 		if(img!=null){
 			createSprite();
@@ -76,7 +76,7 @@ public class Affichable implements Serializable{
 
 	}
 	
-	private void createSprite(){
+	protected void createSprite(){
 		obj=new Image(img);//(img);
 		obj.setRotation(angle);
 		//spr.setOrigin(0,0);
@@ -85,7 +85,7 @@ public class Affichable implements Serializable{
 		obj.setColor(clr);
 	}
 	
-	private void actualizeSprite(){
+	protected void actualizeSprite(){
 		obj.setRotation(angle);
 		obj.setOrigin(lX/2,lY/2);
 		obj.setBounds(posX, posY, lX, lY);
@@ -93,7 +93,7 @@ public class Affichable implements Serializable{
 	}
 	
 	/**Permet d'avoir une couleur*/
-	private void initColor(){
+	protected void initColor(){
 		clr=new Color(1,1,1,1);
 	}
 	

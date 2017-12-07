@@ -1,0 +1,18 @@
+Dialogue entre l'interface et le modèle
+	Ou : Qui parle à qui, comment et quand ?
+	Ou : Réfléxions de Laurent sur comment on fait
+	Ou : Le manifeste du modele SeaWar
+
+Je ne sais pas comment l'interface fonctionne dans son détail, je m'en sers comme d'une boite noire.
+
+	Dans mon idée, à chaque tour l'interface demande à Partie le joueur courant et récupère la liste des
+navires du joueur. L'interface associe ensuite chaque navire à bouton/sprite/ce que l'utilisateur voit et 
+parle aux navires directement pour ce qui est des déplacements, des tirs, et du reste.
+	Il est à noter que dans le cas du tir, c'est le Plateau qui s'occupe de transmettre les dégats sur la
+cible.
+
+	Cet échange continue jusqu'à la fin du tour, moment ou l'interface recontacte Joueur et Partie pour le
+leur signifier. Partie vérifie les conditions de victoire et du reste, indique à l'interface quel mode 
+afficher et on est reparti pour un tour.
+
+

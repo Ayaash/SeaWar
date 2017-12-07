@@ -4,6 +4,10 @@ import com.badlogic.gdx.graphics.Texture;
 
 public class Phare extends Mer {
 
+	public Phare(int i, int j) {
+		super(i, j);
+		// TODO Auto-generated constructor stub
+	}
 	private int joueur = 0;
 	
 	public int getJoueur(){
