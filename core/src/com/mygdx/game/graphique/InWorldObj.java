@@ -66,8 +66,8 @@ public class InWorldObj extends Affichable{
 		double sy=(Jeu.maxWY-Jeu.minWY+0f)/(Plateau.getInstance().TAILLE_VERTICALE+0f);
 		
 		
-		lX=(int) (sx/1.5);
-		lY=(int) (sy/1.5);
+		lX=(int) (sx/0.8);
+		lY=(int) (sy/1);
 		
 		posX=(int) (Jeu.minWX  + position[0]*sx );
 		posY=(int) ( Jeu.maxWY+Jeu.minWY-1.5*lY-(Jeu.minWY  + position[1]*sy ) );

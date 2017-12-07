@@ -25,6 +25,7 @@ public class Jeu extends ApplicationAdapter {
 	Bouton btn1;
 	Label lb1;
 	Label infos;
+	Label pad0;
 
 	BitmapFont font;
 	boolean isClicking; // Clic gauche
@@ -68,13 +69,21 @@ public class Jeu extends ApplicationAdapter {
 		
 		
 
-		lb1=new Label(20,Gdx.graphics.getHeight()-20,"fps",font);
-		infos=new Label(500,Gdx.graphics.getHeight()-20,"Commandes:\n"
+		lb1=new Label(Gdx.graphics.getWidth()-100,180,"fps",font);
+		infos=new Label(Gdx.graphics.getWidth()-500,150,"Commandes:\n"
 				+ "   F: changement de tour \n"
 				+ "   S: selection bateau \n"
-				+ "   T: tire \n"
+				+ "   T: tire 1\n"
+				+ "   Y: tire 2\n"
 				+ "   M: mouvement d'une case",font);
 
+		pad0=new Label(Gdx.graphics.getWidth()-200,150,"Directions:\n"
+												   +   "    8    \n"
+												   +   "7       9\n"
+												   +   "1       3\n"
+												   +   "    2    \n",font);
+
+		
 		
 		btn1=new Bouton(Textures.WIMG, 200, 300, 100, 80, "Test", font);
 		btn1.setColor(0.2f, 0.2f, 0.2f, 1f);
@@ -111,6 +120,7 @@ public class Jeu extends ApplicationAdapter {
 
 		lb1.afficher(batch);
 		infos.afficher(batch);
+		pad0.afficher(batch);
 		
 		InFenDebug.afficher(batch);
 		//Fin des affichage
@@ -171,7 +181,13 @@ public class Jeu extends ApplicationAdapter {
 			}
 			else if(Gdx.input.isKeyPressed(Input.Keys.T)){
 				//TODO ajouter la fonction de gestion de tirs
-				InFenDebug.println("Tire");
+				InFenDebug.println("Tire 1");
+				aKeyIsPressed=true;
+	
+			}
+			else if(Gdx.input.isKeyPressed(Input.Keys.Y)){
+				//TODO ajouter la fonction de gestion de tirs
+				InFenDebug.println("Tire 2");
 				aKeyIsPressed=true;
 	
 			}
@@ -192,6 +208,7 @@ public class Jeu extends ApplicationAdapter {
 		}else{
 			if(!(      Gdx.input.isKeyPressed(Input.Keys.F)
 					|| Gdx.input.isKeyPressed(Input.Keys.T)
+					|| Gdx.input.isKeyPressed(Input.Keys.Y)
 					|| Gdx.input.isKeyPressed(Input.Keys.S)
 					|| Gdx.input.isKeyPressed(Input.Keys.M)
 				)){
@@ -201,30 +218,36 @@ public class Jeu extends ApplicationAdapter {
 
 	}
 
-	public void gKey(){
-		
-	}
 	
 	//Une seule partie possible pour le moment
 	public void setupGame(){
 		//Plateau créé dans Partie
 		partie = Partie.getInstance();
 		
-		int[] pos = {0,0};
-		Amiral J1Amiral = new Amiral(pos, Orientation.SudEst);
-		pos[0] = 1;
-		Fregate J1Fregate = new Fregate(pos, Orientation.SudEst);
-		pos[0] = Plateau.TAILLE_HORIZONTALE-1;
-		pos[1] = Plateau.TAILLE_VERTICALE-1;
-		Amiral J2Amiral = new Amiral(pos, Orientation.NordOuest);
-		pos[1] = Plateau.TAILLE_VERTICALE-2;
-		Fregate J2Fregate = new Fregate(pos, Orientation.NordOuest);
+		int[] pos0 = {0,0};
+		int[] pos1 = {1,0};
+		int[] pos2 = {Plateau.TAILLE_HORIZONTALE-1,Plateau.TAILLE_VERTICALE-1};
+		int[] pos3 = {Plateau.TAILLE_HORIZONTALE-1,Plateau.TAILLE_VERTICALE-2};
+
+		
+		Amiral J1Amiral = new Amiral(Textures.AMIRAL,pos0, Orientation.SudEst);
+		//pos[0] = 1;
+		Fregate J1Fregate = new Fregate(Textures.FREGATE,pos1, Orientation.SudEst);
+		//pos[0] = Plateau.TAILLE_HORIZONTALE-1;
+		//pos[1] = Plateau.TAILLE_VERTICALE-1;
+		Amiral J2Amiral = new Amiral(Textures.AMIRAL,pos2, Orientation.NordOuest);
+		//pos[1] = Plateau.TAILLE_VERTICALE-2;
+		Fregate J2Fregate = new Fregate(Textures.FREGATE,pos3, Orientation.NordOuest);
 		
 		Navire[] naviresJ1 = {J1Amiral, J1Fregate};
 		Navire[] naviresJ2 = {J2Amiral, J2Fregate};
 		
 		Joueur j1 = new Joueur("Nimitz", naviresJ1);
 		Joueur j2 = new Joueur("Yamamoto", naviresJ2);
+		
+		j1.setColor(0, 0, 1);
+		j2.setColor(1, 0, 0);
+
 		
 		partie.ajouterJoueurs(j1, j2);
 		

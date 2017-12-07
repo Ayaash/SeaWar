@@ -1,6 +1,7 @@
 package com.mygdx.game.modele;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
 
 public class Mer extends Case {
 
@@ -61,4 +62,19 @@ public class Mer extends Case {
 		
 	}
 
+	
+	
+	@Override
+	public boolean afficher(Batch b){
+		if(super.afficher(b)){
+			if	(bateau!=null){
+				return bateau.afficher(b);
+			}else{
+				return true;
+			}
+		}else{
+			return false;
+		}
+		
+	}
 }

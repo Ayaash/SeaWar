@@ -8,8 +8,8 @@ public class Fregate extends Navire {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	public Fregate(int[] posi , Orientation ori){
-		super(posi,ori);
+	public Fregate(Texture img,int[] posi , Orientation ori){
+		super(img,posi,ori);
 	
 		PV_MAX=50;
         DEPL_MAX=7;
