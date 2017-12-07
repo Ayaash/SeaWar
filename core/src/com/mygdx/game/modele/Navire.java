@@ -54,16 +54,19 @@ public abstract class Navire extends InWorldObj {
 	
 	public void miseEnRechargementCanPrinc(){
 		etatCanPrinc=TPS_RECH_CAN_PRINC+1;
+		aTire=true;
 	}
 	
 	public void miseEnRechargementCanSec(){
 		etatCanSec=TPS_RECH_CAN_SEC+1;
+		aTire=true;
 	}
 	
 	
 	public void recharger(){
 		this.etatCanPrinc = (etatCanPrinc == 0) ? 0: etatCanPrinc-1;
 		this.etatCanSec = (etatCanSec == 0) ? 0: etatCanSec-1;
+		aTire=false;
 	}
 	
 	/**
