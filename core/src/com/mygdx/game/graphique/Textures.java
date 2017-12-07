@@ -4,25 +4,25 @@ import com.badlogic.gdx.graphics.Texture;
 
 public class Textures {
 	public static Texture BOUTON_TEST;
-	private static String ADR_BOUTON_TEST="../images/bouton_test.png";
+	private static String ADR_BOUTON_TEST="images/bouton_test.png";
 
 	public static Texture WIMG;
-	private static String ADR_WIMG="../images/WIMG.png";
+	private static String ADR_WIMG="images/WIMG.png";
 
 	public static Texture NOIMAGE;
-	private static String ADR_NOIMAGE="../images/No_Image.png";
+	private static String ADR_NOIMAGE="images/No_Image.png";
 
 	public static Texture HEXAGON;
-	private static String ADR_HEXAGON="../images/Hexagon.png";
+	private static String ADR_HEXAGON="images/Hexagon.png";
 
 	public static Texture AMIRAL;
-	private static String ADR_AMIRAL="../images/Amiral.png";
+	private static String ADR_AMIRAL="images/Amiral.png";
 
 	public static Texture FREGATE;
-	private static String ADR_FREGATE="../images/Fregate.png";
+	private static String ADR_FREGATE="images/Fregate.png";
 	
 	public static Texture PHARE;
-	private static String ADR_PHARE="../images/Phare.png";
+	private static String ADR_PHARE="images/Phare.png";
 
 	
 	public static boolean chargerTextures(){

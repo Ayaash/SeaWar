@@ -2,6 +2,7 @@ package com.mygdx.game.modele;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.mygdx.game.Jeu;
 import com.mygdx.game.graphique.InWorldObj;
 import com.mygdx.game.graphique.Textures;
 
@@ -25,5 +26,18 @@ public abstract class Case extends InWorldObj{
 	public abstract boolean enleverNavire();
 	public abstract boolean recevoirTir(int degats);
 	
+	@Override
+	public boolean afficher(Batch b){
+		if(super.afficher(b)){
+			try {
+				Jeu.baseFont.draw(b,(Integer.toString(position[0])+","+Integer.toString(position[1])), posX+40, posY+30);//TODO A suprimer
+				return true;
+			} catch (Exception e) {
+				return false;
 	
+			}
+		}
+		return false;
+		
+	}
 }

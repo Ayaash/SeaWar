@@ -32,6 +32,8 @@ public class Jeu extends ApplicationAdapter {
 
 	
 	BitmapFont font;
+	public static BitmapFont baseFont;
+
 	boolean isClicking; // Clic gauche
 	
 	boolean gameRuning;
@@ -45,8 +47,10 @@ public class Jeu extends ApplicationAdapter {
 	
 	
 	
-	public boolean modeTir;
-	public boolean modeMvnt;
+	public boolean modeTir1=false;
+	public boolean modeTir2=false;
+	public boolean modeMvnt=false;
+	public boolean modeSelectNav=false;
 
 	
 	public static int minWX=20;
@@ -54,12 +58,20 @@ public class Jeu extends ApplicationAdapter {
 	public static int maxWX=1180;
 	public static int maxWY=780;
 	
-	public static int[][] casesAccesible;
-
+	public String entree;
+	public int eX;
+	public int eY;
+	
+	public static int[][] casesAccessible;
+	public static int deg;
 	
 	@Override
  	public void create () {
 		
+		entree="";
+		eX=-1;
+		eY=-1;
+		deg=0;
 		
 		Textures.chargerTextures();
 		
@@ -74,7 +86,9 @@ public class Jeu extends ApplicationAdapter {
 		batch.setColor(1,1,1,1);
 		
 		
-		
+		baseFont=new BitmapFont();
+		baseFont.setColor(1,0,0,1);
+				
 		font = new BitmapFont();
 		font.setColor(Color.WHITE);
 		
@@ -83,10 +97,13 @@ public class Jeu extends ApplicationAdapter {
 		lb1=new Label(Gdx.graphics.getWidth()-100,180,"fps",font);
 		infos=new Label(Gdx.graphics.getWidth()-500,150,"Commandes:\n"
 				+ "   F: changement de tour \n"
+				+ "   N: fin de tour de navire \n"
 				+ "   S: selection bateau \n"
 				+ "   T: tire 1\n"
 				+ "   Y: tire 2\n"
-				+ "   M: mouvement d'une case",font);
+				+ "   M: mouvement d'une case\n"
+				+ "   Enter: valider une entré clavier",font);
+
 
 		pad0=new Label(Gdx.graphics.getWidth()-200,150,"Directions:\n"
 												   +   "    8    \n"
@@ -128,6 +145,29 @@ public class Jeu extends ApplicationAdapter {
 			}
 		}
 		
+		if(casesAccessible!=null){
+			for(int i=0;i<pl.TAILLE_HORIZONTALE;i++){
+				for(int j=0;j<pl.TAILLE_VERTICALE;j++){
+					boolean tmp=false;
+					for(int k=0;k<casesAccessible.length;k++){
+						if(i==casesAccessible[k][0] &&  j==casesAccessible[k][1]){
+							tmp=true;
+						}
+						if(tmp){
+							pl.getCases(i, j).setColor(cbrille.r, cbrille.g, cbrille.b, 1);
+						}else{
+							pl.getCases(i, j).setColor(cmer.r, cmer.g, cmer.b, 1);
+						}
+					}
+				}
+			}
+		}else{
+			for(int i=0;i<pl.TAILLE_HORIZONTALE;i++){
+				for(int j=0;j<pl.TAILLE_VERTICALE;j++){
+					pl.getCases(i, j).setColor(cmer.r, cmer.g, cmer.b, 1);
+				}
+			}
+		}
 
 		lb1.afficher(batch);
 		infos.afficher(batch);
@@ -185,43 +225,243 @@ public class Jeu extends ApplicationAdapter {
 		
 		
 		if(aKeyIsPressed==false){
+			Partie pte=Partie.getInstance();
 			//COMMANDES DE BASE
 			if(Gdx.input.isKeyPressed(Input.Keys.F)){
-				//TODO ajouter la fonction de gestion de changement de tour dans partie
 				InFenDebug.println("Fin de tour");
+				pte.finirTourGlobal();
+				InFenDebug.println("Nouveau tour");
+
 				aKeyIsPressed=true;
 			}
+			
+			else if(Gdx.input.isKeyPressed(Input.Keys.N)){
+				//TODO ajouter la fonction de gestion de mouvement d'une case
+				InFenDebug.println("Fin de tour du navire");
+				partie.finirTourNavire();
+				aKeyIsPressed=true;
+	
+			}
+			
 			else if(Gdx.input.isKeyPressed(Input.Keys.T)){
-				//TODO ajouter la fonction de gestion de tirs
-				InFenDebug.println("Tire 1");
+				if(partie.getNavireCourant()!=null){
+					InFenDebug.println("Tire Principal");
+					casesAccessible= (int[][]) partie.demanderTirsPossiblesPrincipal()[0];
+					deg=(Integer) partie.demanderTirsPossiblesPrincipal()[1];
+					modeMvnt=false;
+					modeSelectNav=false;
+					modeTir1=true;
+					modeTir2=false;
+
+				}else{
+					InFenDebug.println("Selectionnez un navire");
+
+				}
+				
+				
 				aKeyIsPressed=true;
 	
 			}
 			else if(Gdx.input.isKeyPressed(Input.Keys.Y)){
-				//TODO ajouter la fonction de gestion de tirs
-				InFenDebug.println("Tire 2");
+				if(partie.getNavireCourant()!=null){
+					InFenDebug.println("Tire secondaire");
+					casesAccessible= (int[][]) partie.demanderTirsPossiblesSecondaire()[0];
+					deg=(Integer) partie.demanderTirsPossiblesPrincipal()[1];
+					modeMvnt=false;
+					modeSelectNav=false;
+					modeTir1=false;
+					modeTir2=true;
+
+				}else{
+					InFenDebug.println("Selectionnez un navire");
+
+				}
+				
+				
+				
 				aKeyIsPressed=true;
 	
 			}
 			else if(Gdx.input.isKeyPressed(Input.Keys.S)){
-				//TODO ajouter la fonction de gestion de selection de navire
-				InFenDebug.println("Selection navire");
-				aKeyIsPressed=true;
+				if(partie.getNavireCourant()==null){
+					InFenDebug.println("Selectioner un navire: 1=Amiral, 2=Fregate");
+					modeSelectNav=true;
+					modeTir1=false;
+					modeTir2=false;
+					modeMvnt=false;
+
+					aKeyIsPressed=true;
+				}else{
+					InFenDebug.println("Un autre navire est en cour d'utilisation");
+
+				}
 	
 			}
 			else if(Gdx.input.isKeyPressed(Input.Keys.M)){
-				//TODO ajouter la fonction de gestion de mouvement d'une case
-				InFenDebug.println("Mouvement");
+				if(partie.getNavireCourant()!=null){
+					InFenDebug.println("Mouvement");
+					casesAccessible=partie.demanderDeplacementsPossibles();
+					modeMvnt=true;
+					modeSelectNav=false;
+					modeTir1=false;
+					modeTir2=false;
+
+				}else{
+					InFenDebug.println("Selectionnez un navire");
+
+				}
+				
 				aKeyIsPressed=true;
 	
 			}
+			
+			else if(Gdx.input.isKeyPressed(Input.Keys.ENTER)){
+				//FIXME finir la getion des entrees
+				if(entree!=""){
+					if(eX==-1){
+						eX=Integer.parseInt(entree);
+						entree="";
+						InFenDebug.println("entrez la 2e coordonnée");
+					}else{
+	
+						eY=Integer.parseInt(entree);
+						entree="";
+						boolean tmp=false;
+						int i=0;
+						for(i=0;i<casesAccessible.length;i++){
+							if(eX==casesAccessible[i][0] &&  eY==casesAccessible[i][1]){
+								tmp=true;
+							}
+						}
+						
+						if(tmp==false){
+							InFenDebug.println("case non accessible");
+							
+						}else{
+							if(modeMvnt){
+								//TODO ajouter fct 
+								modeMvnt=false;
+								int[] pos={eX, eY};
+
+								partie.deplacerNavire(pos);
+
+							}else if(modeTir1 || modeTir2){
+								int[] pos={eX, eY};
+								partie.tirerSurUneCase(pos,deg);
+								modeTir2=false;
+								modeTir1=false;
+	
+							}
+						}
+						eX=-1;
+						eY=-1;
+					}
+					
+	
+				}
+				aKeyIsPressed=true;
+
+			}
+			
 			//COMMANDES DE SELECTION DE CASE
 			else if(Gdx.input.isKeyPressed(Input.Keys.NUMPAD_1)){
-				//TODO ajouter la fonction de gestion de mouvement d'une case
-				InFenDebug.println("case 1");
+				if(modeSelectNav){
+					pte.selectionnerNavire(pte.getCurrentPlayer().getNavires()[0]);
+					InFenDebug.println("Amiral selectionné");
+					modeSelectNav=false;
+
+				}else{
+					entree+="1";
+					InFenDebug.println(entree);
+
+				}
+				
+				
+				
+				
 				aKeyIsPressed=true;
 	
 			}
+			else if(Gdx.input.isKeyPressed(Input.Keys.NUMPAD_2)){
+				if(modeSelectNav){
+					pte.selectionnerNavire(pte.getCurrentPlayer().getNavires()[1]);
+					InFenDebug.println("Fregate selectionné");
+					modeSelectNav=false;
+
+				}else{
+					entree+="2";
+					InFenDebug.println(entree);
+
+				}
+				
+				aKeyIsPressed=true;
+	
+			}else if(Gdx.input.isKeyPressed(Input.Keys.NUMPAD_3)){
+				
+				entree+="3";
+				InFenDebug.println(entree);
+
+				
+				aKeyIsPressed=true;
+	
+			}else if(Gdx.input.isKeyPressed(Input.Keys.NUMPAD_4)){
+				
+				entree+="4";
+				InFenDebug.println(entree);
+
+				
+				aKeyIsPressed=true;
+	
+			}else if(Gdx.input.isKeyPressed(Input.Keys.NUMPAD_5)){
+				
+				entree+="5";
+				InFenDebug.println(entree);
+
+				
+				aKeyIsPressed=true;
+	
+			}else if(Gdx.input.isKeyPressed(Input.Keys.NUMPAD_6)){
+				
+				entree+="6";
+				InFenDebug.println(entree);
+
+				
+				aKeyIsPressed=true;
+	
+			}else if(Gdx.input.isKeyPressed(Input.Keys.NUMPAD_7)){
+				
+				entree+="7";
+				InFenDebug.println(entree);
+
+				
+				aKeyIsPressed=true;
+	
+			}else if(Gdx.input.isKeyPressed(Input.Keys.NUMPAD_8)){
+				
+				entree+="8";
+				InFenDebug.println(entree);
+
+				
+				aKeyIsPressed=true;
+	
+			}else if(Gdx.input.isKeyPressed(Input.Keys.NUMPAD_9)){
+				
+				entree+="9";
+				InFenDebug.println(entree);
+
+				
+				aKeyIsPressed=true;
+	
+			}else if(Gdx.input.isKeyPressed(Input.Keys.NUMPAD_0)){
+				
+				entree+="0";
+				InFenDebug.println(entree);
+
+				
+				aKeyIsPressed=true;
+	
+			}
+			
 			else{
 				
 			}
@@ -231,6 +471,22 @@ public class Jeu extends ApplicationAdapter {
 					|| Gdx.input.isKeyPressed(Input.Keys.Y)
 					|| Gdx.input.isKeyPressed(Input.Keys.S)
 					|| Gdx.input.isKeyPressed(Input.Keys.M)
+					
+					|| Gdx.input.isKeyPressed(Input.Keys.ENTER)
+
+					
+					|| Gdx.input.isKeyPressed(Input.Keys.NUMPAD_1)
+					|| Gdx.input.isKeyPressed(Input.Keys.NUMPAD_2)
+					|| Gdx.input.isKeyPressed(Input.Keys.NUMPAD_3)
+					|| Gdx.input.isKeyPressed(Input.Keys.NUMPAD_4)
+					|| Gdx.input.isKeyPressed(Input.Keys.NUMPAD_5)
+					|| Gdx.input.isKeyPressed(Input.Keys.NUMPAD_6)
+					|| Gdx.input.isKeyPressed(Input.Keys.NUMPAD_7)
+					|| Gdx.input.isKeyPressed(Input.Keys.NUMPAD_8)
+					|| Gdx.input.isKeyPressed(Input.Keys.NUMPAD_9)
+					|| Gdx.input.isKeyPressed(Input.Keys.NUMPAD_0)
+
+
 				)){
 				aKeyIsPressed=false;
 			}
