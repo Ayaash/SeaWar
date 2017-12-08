@@ -30,18 +30,49 @@ public class Plateau {
 				
 			}
 	}
-		phares[0] = new Phare(Textures.PHARE,Textures.HEXAGON,TAILLE_HORIZONTALE-1,0);
-		phares[1] = new Phare(Textures.PHARE,Textures.HEXAGON,TAILLE_HORIZONTALE-2,0);
-		phares[2] = new Phare(Textures.PHARE,Textures.HEXAGON,TAILLE_HORIZONTALE-1,1);
+		int posX0=(int) (Math.random()*TAILLE_HORIZONTALE);
+		int posY0=(int) (Math.random()*TAILLE_VERTICALE);
+
+		int posX1=(int) (Math.random()*TAILLE_HORIZONTALE);
+		int posY1=(int) (Math.random()*TAILLE_VERTICALE);
+		
+		int posX2=(int) (Math.random()*TAILLE_HORIZONTALE);
+		int posY2=(int) (Math.random()*TAILLE_VERTICALE);
+		
+		while((posX0==posX1 || posX2==posX1 || posX0==posX2) &&(posY0==posY1 || posY2==posY1 || posY0==posY2)){
+			posX1=(int) (Math.random()*TAILLE_HORIZONTALE);
+			posY1=(int) (Math.random()*TAILLE_VERTICALE);
+			
+			posX2=(int) (Math.random()*TAILLE_HORIZONTALE);
+			posY2=(int) (Math.random()*TAILLE_VERTICALE);
+		}
+		
+		
+		phares[0] = new Phare(Textures.PHARE,Textures.HEXAGON,posX0,posY0);
+		phares[1] = new Phare(Textures.PHARE,Textures.HEXAGON,posX1,posY1);
+		phares[2] = new Phare(Textures.PHARE,Textures.HEXAGON,posX2,posY2);
 	
 		phares[0].setColor(Jeu.cmer.r,Jeu.cmer.g,Jeu.cmer.b,Jeu.cmer.a);
 		phares[1].setColor(Jeu.cmer.r,Jeu.cmer.g,Jeu.cmer.b,Jeu.cmer.a);
 		phares[2].setColor(Jeu.cmer.r,Jeu.cmer.g,Jeu.cmer.b,Jeu.cmer.a);
 		
 		
-		plateau[TAILLE_HORIZONTALE-1][0] = phares[0];
-		plateau[TAILLE_HORIZONTALE-2][0] = phares[1];
-		plateau[TAILLE_HORIZONTALE-1][1] = phares[2];
+		plateau[posX0][posY0] = phares[0];
+		plateau[posX1][posY1] = phares[1];
+		plateau[posX2][posY2] = phares[2];
+		
+//		phares[0] = new Phare(Textures.PHARE,Textures.HEXAGON,TAILLE_HORIZONTALE-1,0);
+//		phares[1] = new Phare(Textures.PHARE,Textures.HEXAGON,TAILLE_HORIZONTALE-2,0);
+//		phares[2] = new Phare(Textures.PHARE,Textures.HEXAGON,TAILLE_HORIZONTALE-1,1);
+//	
+//		phares[0].setColor(Jeu.cmer.r,Jeu.cmer.g,Jeu.cmer.b,Jeu.cmer.a);
+//		phares[1].setColor(Jeu.cmer.r,Jeu.cmer.g,Jeu.cmer.b,Jeu.cmer.a);
+//		phares[2].setColor(Jeu.cmer.r,Jeu.cmer.g,Jeu.cmer.b,Jeu.cmer.a);
+//		
+//		
+//		plateau[TAILLE_HORIZONTALE-1][0] = phares[0];
+//		plateau[TAILLE_HORIZONTALE-2][0] = phares[1];
+//		plateau[TAILLE_HORIZONTALE-1][1] = phares[2];
 	}
 	
 	

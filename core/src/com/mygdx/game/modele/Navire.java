@@ -4,6 +4,7 @@ import java.lang.reflect.Array;
 import java.util.Arrays;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.mygdx.game.graphique.InWorldObj;
 
 
@@ -27,9 +28,11 @@ public abstract class Navire extends InWorldObj {
 	protected Boolean aTire;
     
 	protected Plateau plateau;
+	
+	protected Joueur joueur;
 
 	public Navire(Texture img,int[] posi, Orientation o){
-		super(img,posi[0],posi[1],o.ordinal()*60+180);
+		super(img,posi[0],posi[1],0);
 		this.position = posi;
 		this.orientation = o;
 		this.aTire=false;
@@ -40,6 +43,9 @@ public abstract class Navire extends InWorldObj {
 	}
 
 	
+	public void setJoueur(Joueur j){
+		joueur=j;
+	}
 	
 	public int[] getPosition(){
 		return this.position;
@@ -92,6 +98,7 @@ public abstract class Navire extends InWorldObj {
     		return true;
     	}else{
     		plateau.enleverNavire(position);
+    		joueur.enleverNavire(this);
     		return false;
     	}
     }
@@ -201,6 +208,10 @@ public abstract class Navire extends InWorldObj {
 		this.deplAct = DEPL_MAX;
 	}
 	
-	
+	@Override
+	protected void actualizeSprite(Image ob){
+		angle=-orientation.ordinal()*60-90+180;
+		super.actualizeSprite(ob);
+	}
 	
 }

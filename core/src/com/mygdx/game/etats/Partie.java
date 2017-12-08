@@ -61,11 +61,15 @@ public class Partie {
 	}
 	
 	public boolean selectionnerNavire(Navire n){
-		if(getCurrentPlayer().getNavires()[0] != n && getCurrentPlayer().getNavires()[1] != n ){
-			return false;
+		if(n!=null){
+			if(getCurrentPlayer().getNavires()[0] != n && getCurrentPlayer().getNavires()[1] != n ){
+				return false;
+			}else{
+				navireCourant = n;
+				return true;
+			}
 		}else{
-			navireCourant = n;
-			return true;
+			return false;
 		}
 	}
 	
@@ -100,7 +104,9 @@ public class Partie {
 	
 	public int finirTourGlobal(){
 		for(int i = 0; i<Joueur.NOMBRE_NAVIRES; i++){
-			getCurrentPlayer().getNavires()[i].recharger();
+			//getCurrentPlayer().getNavires()[i].recharger();
+			getCurrentPlayer().getNavires()[i].commencerTour();
+
 		}
 		
 		//Gestion des phares
@@ -110,12 +116,12 @@ public class Partie {
 			int[] pos = getCurrentPlayer().getNavires()[i].getPosition().clone();
 			for(int j = 0; j<Plateau.NOMBRE_PHARE; j++){
 				if(Arrays.equals(pos, phares[j].getPosition())){
-					phares[j].setJoueur(getCurrentPlayer().getId());
+					phares[j].setJoueur(getCurrentPlayer());
 				}
 			}
 		}
 		for(int i=0;i<Plateau.NOMBRE_PHARE;i++){
-			if(phares[i].getJoueur() == getCurrentPlayer().getId()){
+			if(phares[i].getJoueur() == getCurrentPlayer()){
 				nbPhares++;
 			}
 		}

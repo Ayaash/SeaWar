@@ -8,6 +8,8 @@ public enum Orientation {
 	SudOuest,
 	NordOuest;
 	
+
+	
 	
 	public Orientation incremente(){
 		if(ordinal() == values().length -1){

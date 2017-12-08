@@ -67,7 +67,7 @@ public class Jeu extends ApplicationAdapter {
 	
 	@Override
  	public void create () {
-		
+		victoire=0;
 		entree="";
 		eX=-1;
 		eY=-1;
@@ -98,18 +98,18 @@ public class Jeu extends ApplicationAdapter {
 		infos=new Label(Gdx.graphics.getWidth()-500,150,"Commandes:\n"
 				+ "   F: changement de tour \n"
 				+ "   N: fin de tour de navire \n"
-				+ "   S: selection bateau \n"
+				+ "   S: selection d'un navires \n"
 				+ "   T: tire 1\n"
 				+ "   Y: tire 2\n"
 				+ "   M: mouvement d'une case\n"
-				+ "   Enter: valider une entré clavier",font);
+				+ "   Enter: valider une entrée clavier",font);
 
 
-		pad0=new Label(Gdx.graphics.getWidth()-200,150,"Directions:\n"
-												   +   "    8    \n"
-												   +   "7       9\n"
-												   +   "1       3\n"
-												   +   "    2    \n",font);
+		pad0=new Label(Gdx.graphics.getWidth()-200,150,"Entrées clavier:\n"
+												   +   "    7  8  9 \n"
+												   +   "    4  5  6 \n"
+												   +   "    1  2  3 \n"
+												   +   "       0    \n",font);
 
 		
 		
@@ -137,13 +137,32 @@ public class Jeu extends ApplicationAdapter {
 		/*for(int i=0;i<1;i++){//TODO A gerer
 			//btn1.afficher(batch);
 		}*/
-		
 		Plateau pl=Plateau.getInstance();
 		for(int i=0;i<pl.TAILLE_HORIZONTALE;i++){
 			for(int j=0;j<pl.TAILLE_VERTICALE;j++){
 				pl.getCases(i, j).afficher(batch);
 			}
 		}
+		
+
+		lb1.afficher(batch);
+		infos.afficher(batch);
+		pad0.afficher(batch);
+		
+		InFenDebug.afficher(batch);
+		//Fin des affichage
+		batch.end();
+		
+		//btn1.angle+=1;
+		
+		
+	
+		
+	}
+	
+	public void colorMapGestion(){
+		Plateau pl=Plateau.getInstance();
+		
 		
 		if(casesAccessible!=null){
 			for(int i=0;i<pl.TAILLE_HORIZONTALE;i++){
@@ -168,26 +187,18 @@ public class Jeu extends ApplicationAdapter {
 				}
 			}
 		}
-
-		lb1.afficher(batch);
-		infos.afficher(batch);
-		pad0.afficher(batch);
-		
-		InFenDebug.afficher(batch);
-		//Fin des affichage
-		batch.end();
-		
-		//btn1.angle+=1;
-		
-		
-	
-		
 	}
 	
 	public void gameLoop(){
-		lb1.setText("fps:"+Integer.toString(Gdx.graphics.getFramesPerSecond()));
-		controles();
 		
+		
+		colorMapGestion();
+		
+		lb1.setText("fps:"+Integer.toString(Gdx.graphics.getFramesPerSecond()));
+		
+		if(victoire==0){
+			controles();
+		}
 		//InFenDebug.println("("+Gdx.graphics.getHeight()+","+Gdx.graphics.getHeight()+")");
 		//InFenDebug.println("("+Gdx.input.getX()+","+Gdx.input.getY()+")");
 
@@ -228,16 +239,24 @@ public class Jeu extends ApplicationAdapter {
 			Partie pte=Partie.getInstance();
 			//COMMANDES DE BASE
 			if(Gdx.input.isKeyPressed(Input.Keys.F)){
-				InFenDebug.println("Fin de tour");
-				pte.finirTourGlobal();
-				InFenDebug.println("Nouveau tour");
+				InFenDebug.println("Fin du tour");
+				casesAccessible=null;
 
+				victoire=pte.finirTourGlobal();
+				if(victoire==0){
+					InFenDebug.println("Nouveau tour");
+				}else{
+					InFenDebug.println("Joueur "+victoire+" a gagné");
+
+				}
+				
 				aKeyIsPressed=true;
 			}
 			
 			else if(Gdx.input.isKeyPressed(Input.Keys.N)){
-				//TODO ajouter la fonction de gestion de mouvement d'une case
-				InFenDebug.println("Fin de tour du navire");
+				InFenDebug.println("Fin du tour du navire");
+				casesAccessible=null;
+
 				partie.finirTourNavire();
 				aKeyIsPressed=true;
 	
@@ -245,16 +264,22 @@ public class Jeu extends ApplicationAdapter {
 			
 			else if(Gdx.input.isKeyPressed(Input.Keys.T)){
 				if(partie.getNavireCourant()!=null){
-					InFenDebug.println("Tire Principal");
-					casesAccessible= (int[][]) partie.demanderTirsPossiblesPrincipal()[0];
-					deg=(Integer) partie.demanderTirsPossiblesPrincipal()[1];
-					modeMvnt=false;
-					modeSelectNav=false;
-					modeTir1=true;
-					modeTir2=false;
+					if(partie.getNavireCourant().getATire()==false){	
+						InFenDebug.println("Tir Principal, entrez la première coordonnée de la case");
+						casesAccessible= (int[][]) partie.demanderTirsPossiblesPrincipal()[0];
+						deg=(Integer) partie.demanderTirsPossiblesPrincipal()[1];
+						modeMvnt=false;
+						modeSelectNav=false;
+						modeTir1=true;
+						modeTir2=false;
+					
+					}else{
+						InFenDebug.println("Ce navire ne peut plus tirer");
+	
+					}
 
 				}else{
-					InFenDebug.println("Selectionnez un navire");
+					InFenDebug.println("Sélectionnez un navire");
 
 				}
 				
@@ -264,16 +289,21 @@ public class Jeu extends ApplicationAdapter {
 			}
 			else if(Gdx.input.isKeyPressed(Input.Keys.Y)){
 				if(partie.getNavireCourant()!=null){
-					InFenDebug.println("Tire secondaire");
-					casesAccessible= (int[][]) partie.demanderTirsPossiblesSecondaire()[0];
-					deg=(Integer) partie.demanderTirsPossiblesPrincipal()[1];
-					modeMvnt=false;
-					modeSelectNav=false;
-					modeTir1=false;
-					modeTir2=true;
+					if(partie.getNavireCourant().getATire()==false){
+						InFenDebug.println("Tir secondaire, entrez la première coordonnée de la case");
+						casesAccessible= (int[][]) partie.demanderTirsPossiblesSecondaire()[0];
+						deg=(Integer) partie.demanderTirsPossiblesPrincipal()[1];
+						modeMvnt=false;
+						modeSelectNav=false;
+						modeTir1=false;
+						modeTir2=true;
+					}else{
+						InFenDebug.println("Ce navire ne peut plus tirer");
+
+					}
 
 				}else{
-					InFenDebug.println("Selectionnez un navire");
+					InFenDebug.println("Sélectionnez un navire");
 
 				}
 				
@@ -284,30 +314,36 @@ public class Jeu extends ApplicationAdapter {
 			}
 			else if(Gdx.input.isKeyPressed(Input.Keys.S)){
 				if(partie.getNavireCourant()==null){
-					InFenDebug.println("Selectioner un navire: 1=Amiral, 2=Fregate");
+					InFenDebug.println("Sélectionnez un navire: 1=Amiral, 2=Fregate");
 					modeSelectNav=true;
 					modeTir1=false;
 					modeTir2=false;
 					modeMvnt=false;
 
-					aKeyIsPressed=true;
 				}else{
-					InFenDebug.println("Un autre navire est en cour d'utilisation");
+					InFenDebug.println("Un autre navire est en cours d'utilisation");
 
 				}
+				aKeyIsPressed=true;
+
 	
 			}
 			else if(Gdx.input.isKeyPressed(Input.Keys.M)){
 				if(partie.getNavireCourant()!=null){
-					InFenDebug.println("Mouvement");
-					casesAccessible=partie.demanderDeplacementsPossibles();
-					modeMvnt=true;
-					modeSelectNav=false;
-					modeTir1=false;
-					modeTir2=false;
+					if(partie.getNavireCourant().deplacementsRestants()>0){
+						InFenDebug.println("Déplacement, entrez la première coordonnée de la case");
+						casesAccessible=partie.demanderDeplacementsPossibles();
+						modeMvnt=true;
+						modeSelectNav=false;
+						modeTir1=false;
+						modeTir2=false;
+					}else{
+						InFenDebug.println("Ce navire ne peut plus ce déplacer");
+
+					}
 
 				}else{
-					InFenDebug.println("Selectionnez un navire");
+					InFenDebug.println("Sélectionnez un navire");
 
 				}
 				
@@ -328,9 +364,11 @@ public class Jeu extends ApplicationAdapter {
 						entree="";
 						boolean tmp=false;
 						int i=0;
-						for(i=0;i<casesAccessible.length;i++){
-							if(eX==casesAccessible[i][0] &&  eY==casesAccessible[i][1]){
-								tmp=true;
+						if(casesAccessible!=null){
+							for(i=0;i<casesAccessible.length;i++){
+								if(eX==casesAccessible[i][0] &&  eY==casesAccessible[i][1]){
+									tmp=true;
+								}
 							}
 						}
 						
@@ -347,11 +385,15 @@ public class Jeu extends ApplicationAdapter {
 
 							}else if(modeTir1 || modeTir2){
 								int[] pos={eX, eY};
-								partie.tirerSurUneCase(pos,deg);
+								boolean b=partie.tirerSurUneCase(pos,deg);
+								if(b){
+									InFenDebug.println("Navire touché, "+deg+" dégât");
+								}
 								modeTir2=false;
 								modeTir1=false;
-	
+									
 							}
+							casesAccessible=null;
 						}
 						eX=-1;
 						eY=-1;
@@ -367,7 +409,7 @@ public class Jeu extends ApplicationAdapter {
 			else if(Gdx.input.isKeyPressed(Input.Keys.NUMPAD_1)){
 				if(modeSelectNav){
 					pte.selectionnerNavire(pte.getCurrentPlayer().getNavires()[0]);
-					InFenDebug.println("Amiral selectionné");
+					InFenDebug.println("Amiral sélectionné");
 					modeSelectNav=false;
 
 				}else{
@@ -384,8 +426,12 @@ public class Jeu extends ApplicationAdapter {
 			}
 			else if(Gdx.input.isKeyPressed(Input.Keys.NUMPAD_2)){
 				if(modeSelectNav){
-					pte.selectionnerNavire(pte.getCurrentPlayer().getNavires()[1]);
-					InFenDebug.println("Fregate selectionné");
+					boolean btmp=pte.selectionnerNavire(pte.getCurrentPlayer().getNavires()[1]);
+					if(btmp==true){
+						InFenDebug.println("Frégate sélectionné");
+					}else{
+						InFenDebug.println("Ce navire ne peut pas être selectionné");
+					}
 					modeSelectNav=false;
 
 				}else{
@@ -468,6 +514,7 @@ public class Jeu extends ApplicationAdapter {
 		}else{
 			if(!(      Gdx.input.isKeyPressed(Input.Keys.F)
 					|| Gdx.input.isKeyPressed(Input.Keys.T)
+					|| Gdx.input.isKeyPressed(Input.Keys.N)
 					|| Gdx.input.isKeyPressed(Input.Keys.Y)
 					|| Gdx.input.isKeyPressed(Input.Keys.S)
 					|| Gdx.input.isKeyPressed(Input.Keys.M)

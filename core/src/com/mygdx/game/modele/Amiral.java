@@ -46,6 +46,7 @@ public class Amiral extends Navire {
         int [][] tabCasePoss=tirPrincipalCasePoss();
         int deg=DEG_CAN_PRINC;
         Object[] res={tabCasePoss,deg};
+        aTire=true;
         return res;
     }
 
@@ -106,6 +107,7 @@ public class Amiral extends Navire {
         int [][] tabCasePoss=tirSecondaireCasePoss();
         int deg=DEG_CAN_SEC;
         Object[] res={tabCasePoss,deg};
+        aTire=true;
         return res;
     }
     
