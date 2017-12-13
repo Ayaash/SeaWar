@@ -1,6 +1,8 @@
 package com.mygdx.game.modele;
 
 
+import java.util.Arrays;
+
 import com.badlogic.gdx.graphics.Texture;
 import com.mygdx.game.graphique.InWorldObj;
 
@@ -31,9 +33,9 @@ public class Amiral extends Navire {
         Orientation bar=ar.incremente();
         Orientation bav=bar.incremente();
         int[] case0=plateau.voisin(position,av);
-        int[] case1=plateau.voisin(plateau.voisin(position,av),av);
-        int[] case2=plateau.voisin(plateau.voisin(position,av),av);
-        int[] case3=plateau.voisin(plateau.voisin(position,av) , av);
+        int[] case1=plateau.voisin(case0,av);
+        int[] case2=plateau.voisin(case1,av);
+        int[] case3=plateau.voisin(case2,av);
 
         res[0]=case0;
         res[1]=case1;
@@ -69,8 +71,7 @@ public class Amiral extends Navire {
         
         
         int[] caseErr={-1,-1};
-        
-        if (plateau.voisin(position,tav)==caseErr){
+        if (Arrays.equals(plateau.voisin(position,tav), caseErr)){
         	case0=plateau.voisin(position,av);
 	    	case1=plateau.voisin(plateau.voisin(position,av),av);
 	    	case2=plateau.voisin(position,tav);
@@ -78,7 +79,7 @@ public class Amiral extends Navire {
 	    	case4=plateau.voisin(position,bav);
 	    	case5=plateau.voisin(plateau.voisin(position,bav),av);
         }
-        else if (plateau.voisin(position,bav)==caseErr){
+        else if (Arrays.equals(plateau.voisin(position,bav), caseErr)){
         	case0=plateau.voisin(position,av);
 	    	case1=plateau.voisin(plateau.voisin(position,av),av);
 	    	case2=plateau.voisin(position,tav);

@@ -26,7 +26,6 @@ public abstract class Navire extends InWorldObj {
 	protected int pVAct;
 	protected int deplAct;
 	protected Boolean aTire;
-	
     
 	protected Plateau plateau;
 	
@@ -167,25 +166,20 @@ public abstract class Navire extends InWorldObj {
 			//Erreur
 			return false;
 		}*/
-		int[] nouvelleCase = new int[2];		
-		System.arraycopy(nouvelleCase, 0, plateau.voisin(position, orientation.decremente()), 0, 2);
-		
-		
+		int[] nouvelleCase = plateau.voisin(position, orientation.decremente());
 		if(Arrays.equals(pos, nouvelleCase)){
 			plateau.enleverNavire(position);
 			this.orientation = orientation.decremente();
 			this.position = plateau.voisin(position, orientation);
 			plateau.ajouterNavire(position, this);
 		}else{
-			System.arraycopy(nouvelleCase, 0, plateau.voisin(position, orientation), 0, 2);
-			
+			nouvelleCase = plateau.voisin(position, orientation);
 			if(Arrays.equals(pos, nouvelleCase)){
 				plateau.enleverNavire(position);
 				this.position = plateau.voisin(position, orientation);
 				plateau.ajouterNavire(position, this);
 			}else{
-				System.arraycopy(nouvelleCase, 0, plateau.voisin(position, orientation.incremente()), 0, 2);
-				
+				nouvelleCase = plateau.voisin(position, orientation.incremente());
 				if(Arrays.equals(pos, nouvelleCase)){
 					plateau.enleverNavire(position);
 					this.orientation = orientation.incremente();
