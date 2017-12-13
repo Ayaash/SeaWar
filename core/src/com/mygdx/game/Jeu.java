@@ -102,10 +102,10 @@ public class Jeu extends ApplicationAdapter {
 				+ "   T: tire 1\n"
 				+ "   Y: tire 2\n"
 				+ "   M: mouvement d'une case\n"
-				+ "   Enter: valider une entrée clavier",font);
+				+ "   Enter: valider une entrï¿½e clavier",font);
 
 
-		pad0=new Label(Gdx.graphics.getWidth()-200,150,"Entrées clavier:\n"
+		pad0=new Label(Gdx.graphics.getWidth()-200,150,"Entrï¿½es clavier:\n"
 												   +   "    7  8  9 \n"
 												   +   "    4  5  6 \n"
 												   +   "    1  2  3 \n"
@@ -196,7 +196,7 @@ public class Jeu extends ApplicationAdapter {
 		
 		lb1.setText("fps:"+Integer.toString(Gdx.graphics.getFramesPerSecond()));
 		
-		if(victoire==0){
+		if(victoire<=0){
 			controles();
 		}
 		//InFenDebug.println("("+Gdx.graphics.getHeight()+","+Gdx.graphics.getHeight()+")");
@@ -245,27 +245,35 @@ public class Jeu extends ApplicationAdapter {
 				victoire=pte.finirTourGlobal();
 				if(victoire==0){
 					InFenDebug.println("Nouveau tour");
+				}else if(victoire>0){
+					InFenDebug.println("Joueur "+victoire+" a gagnï¿½");
 				}else{
-					InFenDebug.println("Joueur "+victoire+" a gagné");
-
+					InFenDebug.println("Tout les navires doivent se deplacer avant de finir le tour");
 				}
 				
 				aKeyIsPressed=true;
 			}
 			
 			else if(Gdx.input.isKeyPressed(Input.Keys.N)){
-				InFenDebug.println("Fin du tour du navire");
-				casesAccessible=null;
+				
+				boolean possible = partie.finirTourNavire();
+				if(possible){
+					InFenDebug.println("Fin du tour du navire");
+					casesAccessible=null;
+				}else{
+					InFenDebug.println("Le navire doit se deplacer avant de finir son tour");
+				}
+				
 
-				partie.finirTourNavire();
+				
 				aKeyIsPressed=true;
 	
 			}
 			
 			else if(Gdx.input.isKeyPressed(Input.Keys.T)){
 				if(partie.getNavireCourant()!=null){
-					if(partie.getNavireCourant().getATire()==false){	
-						InFenDebug.println("Tir Principal, entrez la première coordonnée de la case");
+					if(partie.getNavireCourant().peutTirerPrincipal()){	
+						InFenDebug.println("Tir Principal, entrez la premiï¿½re coordonnï¿½e de la case");
 						casesAccessible= (int[][]) partie.demanderTirsPossiblesPrincipal()[0];
 						deg=(Integer) partie.demanderTirsPossiblesPrincipal()[1];
 						modeMvnt=false;
@@ -274,12 +282,12 @@ public class Jeu extends ApplicationAdapter {
 						modeTir2=false;
 					
 					}else{
-						InFenDebug.println("Ce navire ne peut plus tirer");
+						InFenDebug.println("Ce navire ne peut pas tirer son canon principal");
 	
 					}
 
 				}else{
-					InFenDebug.println("Sélectionnez un navire");
+					InFenDebug.println("Sï¿½lectionnez un navire");
 
 				}
 				
@@ -289,8 +297,8 @@ public class Jeu extends ApplicationAdapter {
 			}
 			else if(Gdx.input.isKeyPressed(Input.Keys.Y)){
 				if(partie.getNavireCourant()!=null){
-					if(partie.getNavireCourant().getATire()==false){
-						InFenDebug.println("Tir secondaire, entrez la première coordonnée de la case");
+					if(partie.getNavireCourant().peutTirerSecondaire()){
+						InFenDebug.println("Tir secondaire, entrez la premiï¿½re coordonnï¿½e de la case");
 						casesAccessible= (int[][]) partie.demanderTirsPossiblesSecondaire()[0];
 						deg=(Integer) partie.demanderTirsPossiblesPrincipal()[1];
 						modeMvnt=false;
@@ -298,12 +306,12 @@ public class Jeu extends ApplicationAdapter {
 						modeTir1=false;
 						modeTir2=true;
 					}else{
-						InFenDebug.println("Ce navire ne peut plus tirer");
+						InFenDebug.println("Ce navire ne peut pas tirer son canon secondaire");
 
 					}
 
 				}else{
-					InFenDebug.println("Sélectionnez un navire");
+					InFenDebug.println("Sï¿½lectionnez un navire");
 
 				}
 				
@@ -314,7 +322,7 @@ public class Jeu extends ApplicationAdapter {
 			}
 			else if(Gdx.input.isKeyPressed(Input.Keys.S)){
 				if(partie.getNavireCourant()==null){
-					InFenDebug.println("Sélectionnez un navire: 1=Amiral, 2=Fregate");
+					InFenDebug.println("Sï¿½lectionnez un navire: 1=Amiral, 2=Fregate");
 					modeSelectNav=true;
 					modeTir1=false;
 					modeTir2=false;
@@ -331,19 +339,19 @@ public class Jeu extends ApplicationAdapter {
 			else if(Gdx.input.isKeyPressed(Input.Keys.M)){
 				if(partie.getNavireCourant()!=null){
 					if(partie.getNavireCourant().deplacementsRestants()>0){
-						InFenDebug.println("Déplacement, entrez la première coordonnée de la case");
+						InFenDebug.println("Dï¿½placement, entrez la premiï¿½re coordonnï¿½e de la case");
 						casesAccessible=partie.demanderDeplacementsPossibles();
 						modeMvnt=true;
 						modeSelectNav=false;
 						modeTir1=false;
 						modeTir2=false;
 					}else{
-						InFenDebug.println("Ce navire ne peut plus ce déplacer");
+						InFenDebug.println("Ce navire ne peut plus ce dï¿½placer");
 
 					}
 
 				}else{
-					InFenDebug.println("Sélectionnez un navire");
+					InFenDebug.println("Sï¿½lectionnez un navire");
 
 				}
 				
@@ -357,7 +365,7 @@ public class Jeu extends ApplicationAdapter {
 					if(eX==-1){
 						eX=Integer.parseInt(entree);
 						entree="";
-						InFenDebug.println("entrez la 2e coordonnée");
+						InFenDebug.println("entrez la 2e coordonnï¿½e");
 					}else{
 	
 						eY=Integer.parseInt(entree);
@@ -387,7 +395,7 @@ public class Jeu extends ApplicationAdapter {
 								int[] pos={eX, eY};
 								boolean b=partie.tirerSurUneCase(pos,deg);
 								if(b){
-									InFenDebug.println("Navire touché, "+deg+" dégât");
+									InFenDebug.println("Navire touchï¿½, "+deg+" dï¿½gï¿½t");
 								}
 								modeTir2=false;
 								modeTir1=false;
@@ -408,9 +416,14 @@ public class Jeu extends ApplicationAdapter {
 			//COMMANDES DE SELECTION DE CASE
 			else if(Gdx.input.isKeyPressed(Input.Keys.NUMPAD_1)){
 				if(modeSelectNav){
-					pte.selectionnerNavire(pte.getCurrentPlayer().getNavires()[0]);
-					InFenDebug.println("Amiral sélectionné");
-					modeSelectNav=false;
+					if(pte.selectionnerNavire(pte.getCurrentPlayer().getNavires()[0])){
+						
+						InFenDebug.println("Amiral sï¿½lectionnï¿½");
+						modeSelectNav=false;
+					}else{
+						InFenDebug.println("Le navire Amiral a ete coule");
+					}
+					
 
 				}else{
 					entree+="1";
@@ -426,11 +439,10 @@ public class Jeu extends ApplicationAdapter {
 			}
 			else if(Gdx.input.isKeyPressed(Input.Keys.NUMPAD_2)){
 				if(modeSelectNav){
-					boolean btmp=pte.selectionnerNavire(pte.getCurrentPlayer().getNavires()[1]);
-					if(btmp==true){
-						InFenDebug.println("Frégate sélectionné");
+					if(pte.selectionnerNavire(pte.getCurrentPlayer().getNavires()[1])){
+						InFenDebug.println("Frï¿½gate sï¿½lectionnï¿½");
 					}else{
-						InFenDebug.println("Ce navire ne peut pas être selectionné");
+						InFenDebug.println("Ce navire ne peut pas ï¿½tre selectionnï¿½");
 					}
 					modeSelectNav=false;
 

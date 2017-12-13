@@ -26,11 +26,10 @@ public abstract class Navire extends InWorldObj {
 	protected int pVAct;
 	protected int deplAct;
 	protected Boolean aTire;
+	protected Boolean mort;
     
 	protected Plateau plateau;
 	
-	protected Joueur joueur;
-
 	public Navire(Texture img,int[] posi, Orientation o){
 		super(img,posi[0],posi[1],0);
 		this.position = posi;
@@ -38,14 +37,11 @@ public abstract class Navire extends InWorldObj {
 		this.aTire=false;
 		this.etatCanPrinc=0;
 		this.etatCanSec=0;
+		this.mort = false;
 		this.plateau = Plateau.getInstance();
 		plateau.ajouterNavire(position, this);
 	}
 
-	
-	public void setJoueur(Joueur j){
-		joueur=j;
-	}
 	
 	public int[] getPosition(){
 		return this.position;
@@ -59,10 +55,10 @@ public abstract class Navire extends InWorldObj {
 	}
 	
 	public boolean peutTirerPrincipal(){
-		return etatCanPrinc == 0 || !aTire;
+		return (etatCanPrinc == 0) && !aTire && !mort;
 	}
 	public boolean peutTirerSecondaire(){
-		return etatCanSec == 0 || !aTire;
+		return (etatCanSec == 0) && !aTire && !mort;
 	}
 	
 	//Ces fonctions renvoient un tableau de coordonnées de cases (int[][]) et les dégats du tir (int) 
@@ -98,12 +94,16 @@ public abstract class Navire extends InWorldObj {
     		return true;
     	}else{
     		plateau.enleverNavire(position);
-    		joueur.enleverNavire(this);
+    		this.mort = true;
     		return false;
     	}
     }
  	
- 	public int deplacementsRestants(){
+ 	public boolean sEstDeplace(){
+ 		return !(DEPL_MAX == deplAct) || mort;
+ 	}
+ 	
+  	public int deplacementsRestants(){
 		return this.deplAct;
 	}
 	
@@ -138,11 +138,6 @@ public abstract class Navire extends InWorldObj {
 		this.orientation = orientation.incremente().incremente().incremente();
 	}
 	
-	/**
-	 * 
-	 * @param l'indice de la case selectionnée dans le tableau renvoyé par deplacementsPossibles
-	 * @return False si i != 0, 1, ou 2.
-	 */
 	public boolean deplacer(int pos[]){
 		/*switch(i){
 		case 0:
@@ -204,8 +199,10 @@ public abstract class Navire extends InWorldObj {
 	}
 
 	public void commencerTour(){
-		this.recharger();
-		this.deplAct = DEPL_MAX;
+		if(!mort){
+			this.recharger();
+			this.deplAct = DEPL_MAX;
+		}
 	}
 	
 	@Override

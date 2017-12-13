@@ -15,9 +15,9 @@ public class Amiral extends Navire {
     	PV_MAX=50;
         DEPL_MAX=3;
         TPS_RECH_CAN_PRINC=3;
-        DEG_CAN_PRINC=30;
+        DEG_CAN_PRINC=50;
         TPS_RECH_CAN_SEC=1;
-        DEG_CAN_SEC=10;
+        DEG_CAN_SEC=30;
 
         //etat variable
         
@@ -49,6 +49,7 @@ public class Amiral extends Navire {
         int deg=DEG_CAN_PRINC;
         Object[] res={tabCasePoss,deg};
         aTire=true;
+        this.etatCanPrinc = TPS_RECH_CAN_PRINC+1;
         return res;
     }
 
@@ -109,6 +110,7 @@ public class Amiral extends Navire {
         int deg=DEG_CAN_SEC;
         Object[] res={tabCasePoss,deg};
         aTire=true;
+        this.etatCanSec = TPS_RECH_CAN_SEC+1;
         return res;
     }
     

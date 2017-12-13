@@ -68,8 +68,13 @@ public class Partie implements Serializable{
 			if(getCurrentPlayer().getNavires()[0] != n && getCurrentPlayer().getNavires()[1] != n ){
 				return false;
 			}else{
-				navireCourant = n;
-				return true;
+				if(n.encaisserDegats(0) == true){
+					navireCourant = n;
+					return true;
+				}else{
+					return false;
+				}
+				
 			}
 		}else{
 			return false;
@@ -96,16 +101,32 @@ public class Partie implements Serializable{
 		return plateau.recevoirTir(position, degats);
 	}
 	
-	public void finirTourNavire(){
+	public boolean finirTourNavire(){
 		if(navireCourant != null){
-			navireCourant.finirTour();
-			tourEnCours = false;
-			navireCourant = null;
+			if(navireCourant.sEstDeplace()){
+				navireCourant.finirTour();
+				tourEnCours = false;
+				navireCourant = null;
+				return true;
+			}else{
+				return false;
+			}
+			
+		}else{
+			return false;
 		}
 		
 	}
 	
 	public int finirTourGlobal(){
+		
+		for(int i=0; i< Joueur.NOMBRE_NAVIRES;i++){
+			if(getCurrentPlayer().getNavires()[i].sEstDeplace() == false){
+				return -1;
+			}
+		}
+		
+		
 		for(int i = 0; i<Joueur.NOMBRE_NAVIRES; i++){
 			//getCurrentPlayer().getNavires()[i].recharger();
 			getCurrentPlayer().getNavires()[i].commencerTour();

@@ -29,7 +29,10 @@ public class Plateau {
 				plateau[i][j].setColor(Jeu.cmer.r,Jeu.cmer.g,Jeu.cmer.b,Jeu.cmer.a);
 				
 			}
-	}
+		}
+		plateau[2][2] = new Terre(Textures.HEXAGON,2,2);
+		plateau[2][2].setColor(0.2f,0.75f,0f,1f);
+		
 		int posX0=(int) (Math.random()*TAILLE_HORIZONTALE);
 		int posY0=(int) (Math.random()*TAILLE_VERTICALE);
 
