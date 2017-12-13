@@ -187,7 +187,7 @@ public class Plateau {
 		int j = t[1];
 		//Test de parité des coordonnées
 		//Paire
-		if(j%2 == 0){
+		if(j%2 == 1){
 			if(i<TAILLE_HORIZONTALE-1){
 				coor[0] = i+1;
 				coor[1] = j;
@@ -217,7 +217,7 @@ public class Plateau {
 		int j = t[1];
 		//Test de parité des coordonnées
 		//Impaire
-		if(j%2 == 1){
+		if(j%2 == 0){
 			if(i<TAILLE_HORIZONTALE-1){
 				coor[0] = i+1;
 				coor[1] = j;
@@ -261,7 +261,7 @@ public class Plateau {
 		int j = t[1];
 		//Test de parité des coordonnées
 		//Impaire
-		if(j%2 == 1){
+		if(j%2 == 0){
 			if(i>0){
 				coor[0] = i-1;
 				coor[1] = j;
@@ -291,7 +291,7 @@ public class Plateau {
 		int j = t[1];
 		//Test de parité des coordonnées
 		//Paire
-		if(j%2 == 0){
+		if(j%2 == 1){
 			if(i>0){
 				coor[0] = i-1;
 				coor[1] = j;

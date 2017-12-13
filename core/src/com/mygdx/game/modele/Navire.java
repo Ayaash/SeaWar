@@ -166,20 +166,25 @@ public abstract class Navire extends InWorldObj {
 			//Erreur
 			return false;
 		}*/
-		int[] nouvelleCase = plateau.voisin(position, orientation.decremente());
+		int[] nouvelleCase = new int[2];		
+		System.arraycopy(nouvelleCase, 0, plateau.voisin(position, orientation.decremente()), 0, 2);
+		
+		
 		if(Arrays.equals(pos, nouvelleCase)){
 			plateau.enleverNavire(position);
 			this.orientation = orientation.decremente();
 			this.position = plateau.voisin(position, orientation);
 			plateau.ajouterNavire(position, this);
 		}else{
-			nouvelleCase = plateau.voisin(position, orientation);
+			System.arraycopy(nouvelleCase, 0, plateau.voisin(position, orientation), 0, 2);
+			
 			if(Arrays.equals(pos, nouvelleCase)){
 				plateau.enleverNavire(position);
 				this.position = plateau.voisin(position, orientation);
 				plateau.ajouterNavire(position, this);
 			}else{
-				nouvelleCase = plateau.voisin(position, orientation.incremente());
+				System.arraycopy(nouvelleCase, 0, plateau.voisin(position, orientation.incremente()), 0, 2);
+				
 				if(Arrays.equals(pos, nouvelleCase)){
 					plateau.enleverNavire(position);
 					this.orientation = orientation.incremente();

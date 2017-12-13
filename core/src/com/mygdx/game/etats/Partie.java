@@ -1,5 +1,6 @@
 package com.mygdx.game.etats;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
 import com.mygdx.game.modele.Joueur;
@@ -7,7 +8,9 @@ import com.mygdx.game.modele.Navire;
 import com.mygdx.game.modele.Phare;
 import com.mygdx.game.modele.Plateau;
 
-public class Partie {
+public class Partie implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
 	
 	private static Partie instance = null;
 	private static boolean exists = false;
