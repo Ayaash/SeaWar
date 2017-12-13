@@ -26,6 +26,7 @@ public abstract class Navire extends InWorldObj {
 	protected int pVAct;
 	protected int deplAct;
 	protected Boolean aTire;
+	
     
 	protected Plateau plateau;
 	

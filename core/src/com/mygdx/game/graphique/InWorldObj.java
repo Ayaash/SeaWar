@@ -78,7 +78,7 @@ public class InWorldObj extends Affichable{
 		//posX=(int) Jeu.minWX + (Jeu.maxWX-Jeu.minWX)*position[0];
 		//posY=(int) Jeu.minWY + (Jeu.maxWX-Jeu.minWX)*position[1];
 
-		if(position[0]%2==0){//TODO Peut etre revoir la parité
+		if(position[0]%2==1){//TODO Peut etre revoir la paritï¿½
 			posY+=sy/2;
 		}
 		
