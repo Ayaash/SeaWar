@@ -1,6 +1,10 @@
 package com.mygdx.game.modele;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
+
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.mygdx.game.graphique.InWorldObj;
 
 
@@ -21,30 +25,44 @@ public abstract class Navire extends InWorldObj {
 	protected int etatCanSec;
 	protected int pVAct;
 	protected int deplAct;
-	protected int[] position;
 	protected Boolean aTire;
     
 	protected Plateau plateau;
+	
+	protected Joueur joueur;
 
-	public Navire(int[] posi, Orientation o){
+	public Navire(Texture img,int[] posi, Orientation o){
+		super(img,posi[0],posi[1],0);
 		this.position = posi;
 		this.orientation = o;
 		this.aTire=false;
 		this.etatCanPrinc=0;
 		this.etatCanSec=0;
 		this.plateau = Plateau.getInstance();
+		plateau.ajouterNavire(position, this);
 	}
 
+	
+	public void setJoueur(Joueur j){
+		joueur=j;
+	}
 	
 	public int[] getPosition(){
 		return this.position;
 	}
 	
+	/**
+	 * @return
+	 */
+	public boolean getATire(){
+		return aTire;
+	}
+	
 	public boolean peutTirerPrincipal(){
-		return etatCanPrinc == 0;
+		return etatCanPrinc == 0 || !aTire;
 	}
 	public boolean peutTirerSecondaire(){
-		return etatCanSec == 0;
+		return etatCanSec == 0 || !aTire;
 	}
 	
 	//Ces fonctions renvoient un tableau de coordonnées de cases (int[][]) et les dégats du tir (int) 
@@ -80,6 +98,7 @@ public abstract class Navire extends InWorldObj {
     		return true;
     	}else{
     		plateau.enleverNavire(position);
+    		joueur.enleverNavire(this);
     		return false;
     	}
     }
@@ -109,6 +128,7 @@ public abstract class Navire extends InWorldObj {
 		}else{
 			if(deplAct == DEPL_MAX) retournerNavire();
 			deplAct = 0;
+			aTire = true;
 			return null;
 		}
 		
@@ -123,8 +143,8 @@ public abstract class Navire extends InWorldObj {
 	 * @param l'indice de la case selectionnée dans le tableau renvoyé par deplacementsPossibles
 	 * @return False si i != 0, 1, ou 2.
 	 */
-	public boolean deplacer(int i){
-		switch(i){
+	public boolean deplacer(int pos[]){
+		/*switch(i){
 		case 0:
 			plateau.enleverNavire(position);
 			this.orientation = orientation.decremente();
@@ -145,15 +165,53 @@ public abstract class Navire extends InWorldObj {
 		default:
 			//Erreur
 			return false;
+		}*/
+		int[] nouvelleCase = plateau.voisin(position, orientation.decremente());
+		if(Arrays.equals(pos, nouvelleCase)){
+			plateau.enleverNavire(position);
+			this.orientation = orientation.decremente();
+			this.position = plateau.voisin(position, orientation);
+			plateau.ajouterNavire(position, this);
+		}else{
+			nouvelleCase = plateau.voisin(position, orientation);
+			if(Arrays.equals(pos, nouvelleCase)){
+				plateau.enleverNavire(position);
+				this.position = plateau.voisin(position, orientation);
+				plateau.ajouterNavire(position, this);
+			}else{
+				nouvelleCase = plateau.voisin(position, orientation.incremente());
+				if(Arrays.equals(pos, nouvelleCase)){
+					plateau.enleverNavire(position);
+					this.orientation = orientation.incremente();
+					this.position = plateau.voisin(position, orientation);
+					plateau.ajouterNavire(position, this);
+				}else{
+					return false;
+				}
+			}
 		}
 		
 		this.deplAct--;
 		return true;
 	}
 	
+	public void finirTour(){
+		if(deplAct != DEPL_MAX){
+			aTire = true;
+			deplAct = 0;
+		}
+		
+	}
+
+	public void commencerTour(){
+		this.recharger();
+		this.deplAct = DEPL_MAX;
+	}
 	
-	
-	
-	
+	@Override
+	protected void actualizeSprite(Image ob){
+		angle=-orientation.ordinal()*60-90+180;
+		super.actualizeSprite(ob);
+	}
 	
 }

@@ -1,10 +1,29 @@
 package com.mygdx.game.modele;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 public class Phare extends Mer {
 
-	private int joueur = 0;
+	protected Texture tPhare;
+	protected Image obj2;
+
+	private Joueur joueur;
+
+	
+	public Phare(int i, int j) {
+		super(i, j);
+		// TODO Auto-generated constructor stub
+	}
+	
+	public Phare(Texture img2, Texture img1, int i, int j) {
+		super(img1, i, j);
+		// TODO Auto-generated constructor stub
+		obj2=createSprite(img2);
+	}
+	
+	/*private int joueur = 0;
 	
 	public int getJoueur(){
 		return joueur;
@@ -16,6 +35,33 @@ public class Phare extends Mer {
 		}else{
 			return false;
 		}
+	}*/
+	
+	
+	public Joueur getJoueur(){
+		return joueur;
 	}
-
+	public void setJoueur(Joueur j){
+			joueur = j;
+		
+	}
+	@Override
+	public boolean afficher(Batch b){
+		super.afficher(b);
+		try {
+			this.actualizeSprite(obj2);
+			if(joueur!=null){
+				obj2.setColor(joueur.getColor());
+			}else{
+				obj2.setColor(1, 1, 1, 1);
+			}
+			obj2.draw(b, 1);
+			
+			return true;
+		} catch (Exception e) {
+			return false;
+		}	
+		
+	}
+	
 }

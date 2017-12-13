@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 /**
  * 
@@ -23,9 +25,9 @@ public class Affichable implements Serializable{
 	protected int posY;
 	protected int lX;
 	protected int lY;
-	protected int angle;
+	protected int angle=0;
 	
-	protected Sprite spr;
+	protected Image obj;
 	protected Color clr;
 
 	
@@ -66,38 +68,41 @@ public class Affichable implements Serializable{
 		
 	}
 	
-	private void init(){
+	protected void init(){
 		initColor();
 		if(img!=null){
-			createSprite();
+			obj=createSprite(img);
 		}
 
 	}
 	
-	private void createSprite(){
-		spr=new Sprite(img);
-		spr.rotate(angle);
-		spr.setOrigin(0,0);
-		spr.setBounds(posX, posY, lX, lY);
-		spr.setColor(clr);
+	protected Image createSprite(Texture im){
+		Image ob=new Image(im);//(img);
+		ob.setRotation(angle);
+		//spr.setOrigin(0,0);
+		ob.setBounds(posX, posY, lX, lY);
+		ob.setOrigin(lX/2,lY/2);
+		ob.setColor(clr);
+		
+		return ob;
 	}
 	
-	private void actualizeSprite(){
-		spr.setRotation(angle);
-		//spr.setOrigin(lX/2,lY/2);
-		spr.setBounds(posX, posY, lX, lY);
-		spr.setColor(clr);
+	protected void actualizeSprite(Image ob){
+		ob.setRotation(angle);
+		ob.setOrigin(lX/2,lY/2);
+		ob.setBounds(posX, posY, lX, lY);
+		ob.setColor(clr);
 	}
 	
 	/**Permet d'avoir une couleur*/
-	private void initColor(){
+	protected void initColor(){
 		clr=new Color(1,1,1,1);
 	}
 	
 	/**Permet de specifier la couleur*/
 	public void setColor(float R, float V, float B, float A){
 		clr.set(R, V, B, A);
-		actualizeSprite();
+		actualizeSprite(obj);
 	}
 	
 	/**Renvoie la couleur de l'objet*/
@@ -108,8 +113,8 @@ public class Affichable implements Serializable{
 	/**Affiche l'objet a l'ecran*/
 	boolean afficher(Batch b){
 		try {
-			actualizeSprite();
-			spr.draw(b);
+			//actualizeSprite();//TODO A gerer ailleurs
+			obj.draw(b,1);
 			return true;
 		} catch (Exception e) {
 			return false;

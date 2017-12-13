@@ -2,13 +2,13 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-
+import com.mygdx.game.etats.Partie;
 import com.mygdx.game.graphique.Bouton;
 import com.mygdx.game.graphique.InFenDebug;
 import com.mygdx.game.graphique.Label;
@@ -22,22 +22,56 @@ import com.mygdx.game.modele.*;
 public class Jeu extends ApplicationAdapter {
 	GameLoop loop;
 	SpriteBatch batch;
-	Texture img;
-	Bouton btn1;
+	//Bouton btn1;
 	Label lb1;
+	Label infos;
+	Label pad0;
+
+	public static Color cmer=new Color(0.06f, 0.38f, 0.58f, 1f);
+	public static Color cbrille=new Color(1f, 1f, 0.58f, 1f);
+
+	
 	BitmapFont font;
+	public static BitmapFont baseFont;
+
 	boolean isClicking; // Clic gauche
 	
 	boolean gameRuning;
 	
-	
+	Partie ptmp;//TODO Temporaire, a changer
+	Joueur jEnCour;//TODO Temporaire? peut etre a changer ou a mettre dans partie
 	private Partie partie;
 	private int victoire;
 	
+	private boolean aKeyIsPressed=false;
+	
+	
+	
+	public boolean modeTir1=false;
+	public boolean modeTir2=false;
+	public boolean modeMvnt=false;
+	public boolean modeSelectNav=false;
+
+	
+	public static int minWX=20;
+	public static int minWY=220;
+	public static int maxWX=1180;
+	public static int maxWY=780;
+	
+	public String entree;
+	public int eX;
+	public int eY;
+	
+	public static int[][] casesAccessible;
+	public static int deg;
 	
 	@Override
  	public void create () {
-		
+		victoire=0;
+		entree="";
+		eX=-1;
+		eY=-1;
+		deg=0;
 		
 		Textures.chargerTextures();
 		
@@ -52,17 +86,35 @@ public class Jeu extends ApplicationAdapter {
 		batch.setColor(1,1,1,1);
 		
 		
-		img = new Texture("../images/bouton_test.png");
-		
+		baseFont=new BitmapFont();
+		baseFont.setColor(1,0,0,1);
+				
 		font = new BitmapFont();
 		font.setColor(Color.WHITE);
 		
 		
+
+		lb1=new Label(Gdx.graphics.getWidth()-100,180,"fps",font);
+		infos=new Label(Gdx.graphics.getWidth()-500,150,"Commandes:\n"
+				+ "   F: changement de tour \n"
+				+ "   N: fin de tour de navire \n"
+				+ "   S: selection d'un navires \n"
+				+ "   T: tire 1\n"
+				+ "   Y: tire 2\n"
+				+ "   M: mouvement d'une case\n"
+				+ "   Enter: valider une entrée clavier",font);
+
+
+		pad0=new Label(Gdx.graphics.getWidth()-200,150,"Entrées clavier:\n"
+												   +   "    7  8  9 \n"
+												   +   "    4  5  6 \n"
+												   +   "    1  2  3 \n"
+												   +   "       0    \n",font);
+
 		
-		lb1=new Label(20,Gdx.graphics.getHeight()-20,"fps",font);
 		
-		btn1=new Bouton(Textures.WIMG, 200, 300, 100, 80, "Test", font);
-		btn1.setColor(0.2f, 0.2f, 0.2f, 1f);
+		//btn1=new Bouton(Textures.WIMG, 200, 300, 100, 80, "Test", font);
+		//btn1.setColor(0.2f, 0.2f, 0.2f, 1f);
 		//btn1.setColor(1, 0, 0, 1);
 		
 		setupGame();
@@ -82,12 +134,20 @@ public class Jeu extends ApplicationAdapter {
 		batch.begin();
 				
 		//batch.draw(img, 0, 0);
-		for(int i=0;i<1;i++){
-			btn1.afficher(batch);
+		/*for(int i=0;i<1;i++){//TODO A gerer
+			//btn1.afficher(batch);
+		}*/
+		Plateau pl=Plateau.getInstance();
+		for(int i=0;i<pl.TAILLE_HORIZONTALE;i++){
+			for(int j=0;j<pl.TAILLE_VERTICALE;j++){
+				pl.getCases(i, j).afficher(batch);
+			}
 		}
+		
 
 		lb1.afficher(batch);
-		
+		infos.afficher(batch);
+		pad0.afficher(batch);
 		
 		InFenDebug.afficher(batch);
 		//Fin des affichage
@@ -100,19 +160,56 @@ public class Jeu extends ApplicationAdapter {
 		
 	}
 	
-	public void gameLoop(){
-		lb1.setText("fps:"+Integer.toString(Gdx.graphics.getFramesPerSecond()));
-		controles();
+	public void colorMapGestion(){
+		Plateau pl=Plateau.getInstance();
 		
+		
+		if(casesAccessible!=null){
+			for(int i=0;i<pl.TAILLE_HORIZONTALE;i++){
+				for(int j=0;j<pl.TAILLE_VERTICALE;j++){
+					boolean tmp=false;
+					for(int k=0;k<casesAccessible.length;k++){
+						if(i==casesAccessible[k][0] &&  j==casesAccessible[k][1]){
+							tmp=true;
+						}
+						if(tmp){
+							pl.getCases(i, j).setColor(cbrille.r, cbrille.g, cbrille.b, 1);
+						}else{
+							pl.getCases(i, j).setColor(cmer.r, cmer.g, cmer.b, 1);
+						}
+					}
+				}
+			}
+		}else{
+			for(int i=0;i<pl.TAILLE_HORIZONTALE;i++){
+				for(int j=0;j<pl.TAILLE_VERTICALE;j++){
+					pl.getCases(i, j).setColor(cmer.r, cmer.g, cmer.b, 1);
+				}
+			}
+		}
+	}
+	
+	public void gameLoop(){
+		
+		
+		colorMapGestion();
+		
+		lb1.setText("fps:"+Integer.toString(Gdx.graphics.getFramesPerSecond()));
+		
+		if(victoire==0){
+			controles();
+		}
 		//InFenDebug.println("("+Gdx.graphics.getHeight()+","+Gdx.graphics.getHeight()+")");
 		//InFenDebug.println("("+Gdx.input.getX()+","+Gdx.input.getY()+")");
 
 		
 		
 	}
+	
 	@Override
 	public void resize(int widht,int height){
 		//TODO a completer
+		//InFenDebug.println("12");
 	}
 	
 	public void controles(){
@@ -122,7 +219,7 @@ public class Jeu extends ApplicationAdapter {
 
 				
 				
-				btn1.tryClic(Gdx.input.getX(), Gdx.input.getY());
+				//btn1.tryClic(Gdx.input.getX(), Gdx.input.getY());
 				isClicking=true;
 			}
 		}else{
@@ -131,9 +228,315 @@ public class Jeu extends ApplicationAdapter {
 			}
 		}
 		
+		
 		//TODO clic droit nettoi la console, a supprimer dans le jeu final
 		if(Gdx.input.isButtonPressed(1)){
 			InFenDebug.nettoyer();
+		}
+		
+		
+		if(aKeyIsPressed==false){
+			Partie pte=Partie.getInstance();
+			//COMMANDES DE BASE
+			if(Gdx.input.isKeyPressed(Input.Keys.F)){
+				InFenDebug.println("Fin du tour");
+				casesAccessible=null;
+
+				victoire=pte.finirTourGlobal();
+				if(victoire==0){
+					InFenDebug.println("Nouveau tour");
+				}else{
+					InFenDebug.println("Joueur "+victoire+" a gagné");
+
+				}
+				
+				aKeyIsPressed=true;
+			}
+			
+			else if(Gdx.input.isKeyPressed(Input.Keys.N)){
+				InFenDebug.println("Fin du tour du navire");
+				casesAccessible=null;
+
+				partie.finirTourNavire();
+				aKeyIsPressed=true;
+	
+			}
+			
+			else if(Gdx.input.isKeyPressed(Input.Keys.T)){
+				if(partie.getNavireCourant()!=null){
+					if(partie.getNavireCourant().getATire()==false){	
+						InFenDebug.println("Tir Principal, entrez la première coordonnée de la case");
+						casesAccessible= (int[][]) partie.demanderTirsPossiblesPrincipal()[0];
+						deg=(Integer) partie.demanderTirsPossiblesPrincipal()[1];
+						modeMvnt=false;
+						modeSelectNav=false;
+						modeTir1=true;
+						modeTir2=false;
+					
+					}else{
+						InFenDebug.println("Ce navire ne peut plus tirer");
+	
+					}
+
+				}else{
+					InFenDebug.println("Sélectionnez un navire");
+
+				}
+				
+				
+				aKeyIsPressed=true;
+	
+			}
+			else if(Gdx.input.isKeyPressed(Input.Keys.Y)){
+				if(partie.getNavireCourant()!=null){
+					if(partie.getNavireCourant().getATire()==false){
+						InFenDebug.println("Tir secondaire, entrez la première coordonnée de la case");
+						casesAccessible= (int[][]) partie.demanderTirsPossiblesSecondaire()[0];
+						deg=(Integer) partie.demanderTirsPossiblesPrincipal()[1];
+						modeMvnt=false;
+						modeSelectNav=false;
+						modeTir1=false;
+						modeTir2=true;
+					}else{
+						InFenDebug.println("Ce navire ne peut plus tirer");
+
+					}
+
+				}else{
+					InFenDebug.println("Sélectionnez un navire");
+
+				}
+				
+				
+				
+				aKeyIsPressed=true;
+	
+			}
+			else if(Gdx.input.isKeyPressed(Input.Keys.S)){
+				if(partie.getNavireCourant()==null){
+					InFenDebug.println("Sélectionnez un navire: 1=Amiral, 2=Fregate");
+					modeSelectNav=true;
+					modeTir1=false;
+					modeTir2=false;
+					modeMvnt=false;
+
+				}else{
+					InFenDebug.println("Un autre navire est en cours d'utilisation");
+
+				}
+				aKeyIsPressed=true;
+
+	
+			}
+			else if(Gdx.input.isKeyPressed(Input.Keys.M)){
+				if(partie.getNavireCourant()!=null){
+					if(partie.getNavireCourant().deplacementsRestants()>0){
+						InFenDebug.println("Déplacement, entrez la première coordonnée de la case");
+						casesAccessible=partie.demanderDeplacementsPossibles();
+						modeMvnt=true;
+						modeSelectNav=false;
+						modeTir1=false;
+						modeTir2=false;
+					}else{
+						InFenDebug.println("Ce navire ne peut plus ce déplacer");
+
+					}
+
+				}else{
+					InFenDebug.println("Sélectionnez un navire");
+
+				}
+				
+				aKeyIsPressed=true;
+	
+			}
+			
+			else if(Gdx.input.isKeyPressed(Input.Keys.ENTER)){
+				//FIXME finir la getion des entrees
+				if(entree!=""){
+					if(eX==-1){
+						eX=Integer.parseInt(entree);
+						entree="";
+						InFenDebug.println("entrez la 2e coordonnée");
+					}else{
+	
+						eY=Integer.parseInt(entree);
+						entree="";
+						boolean tmp=false;
+						int i=0;
+						if(casesAccessible!=null){
+							for(i=0;i<casesAccessible.length;i++){
+								if(eX==casesAccessible[i][0] &&  eY==casesAccessible[i][1]){
+									tmp=true;
+								}
+							}
+						}
+						
+						if(tmp==false){
+							InFenDebug.println("case non accessible");
+							
+						}else{
+							if(modeMvnt){
+								//TODO ajouter fct 
+								modeMvnt=false;
+								int[] pos={eX, eY};
+
+								partie.deplacerNavire(pos);
+
+							}else if(modeTir1 || modeTir2){
+								int[] pos={eX, eY};
+								boolean b=partie.tirerSurUneCase(pos,deg);
+								if(b){
+									InFenDebug.println("Navire touché, "+deg+" dégât");
+								}
+								modeTir2=false;
+								modeTir1=false;
+									
+							}
+							casesAccessible=null;
+						}
+						eX=-1;
+						eY=-1;
+					}
+					
+	
+				}
+				aKeyIsPressed=true;
+
+			}
+			
+			//COMMANDES DE SELECTION DE CASE
+			else if(Gdx.input.isKeyPressed(Input.Keys.NUMPAD_1)){
+				if(modeSelectNav){
+					pte.selectionnerNavire(pte.getCurrentPlayer().getNavires()[0]);
+					InFenDebug.println("Amiral sélectionné");
+					modeSelectNav=false;
+
+				}else{
+					entree+="1";
+					InFenDebug.println(entree);
+
+				}
+				
+				
+				
+				
+				aKeyIsPressed=true;
+	
+			}
+			else if(Gdx.input.isKeyPressed(Input.Keys.NUMPAD_2)){
+				if(modeSelectNav){
+					boolean btmp=pte.selectionnerNavire(pte.getCurrentPlayer().getNavires()[1]);
+					if(btmp==true){
+						InFenDebug.println("Frégate sélectionné");
+					}else{
+						InFenDebug.println("Ce navire ne peut pas être selectionné");
+					}
+					modeSelectNav=false;
+
+				}else{
+					entree+="2";
+					InFenDebug.println(entree);
+
+				}
+				
+				aKeyIsPressed=true;
+	
+			}else if(Gdx.input.isKeyPressed(Input.Keys.NUMPAD_3)){
+				
+				entree+="3";
+				InFenDebug.println(entree);
+
+				
+				aKeyIsPressed=true;
+	
+			}else if(Gdx.input.isKeyPressed(Input.Keys.NUMPAD_4)){
+				
+				entree+="4";
+				InFenDebug.println(entree);
+
+				
+				aKeyIsPressed=true;
+	
+			}else if(Gdx.input.isKeyPressed(Input.Keys.NUMPAD_5)){
+				
+				entree+="5";
+				InFenDebug.println(entree);
+
+				
+				aKeyIsPressed=true;
+	
+			}else if(Gdx.input.isKeyPressed(Input.Keys.NUMPAD_6)){
+				
+				entree+="6";
+				InFenDebug.println(entree);
+
+				
+				aKeyIsPressed=true;
+	
+			}else if(Gdx.input.isKeyPressed(Input.Keys.NUMPAD_7)){
+				
+				entree+="7";
+				InFenDebug.println(entree);
+
+				
+				aKeyIsPressed=true;
+	
+			}else if(Gdx.input.isKeyPressed(Input.Keys.NUMPAD_8)){
+				
+				entree+="8";
+				InFenDebug.println(entree);
+
+				
+				aKeyIsPressed=true;
+	
+			}else if(Gdx.input.isKeyPressed(Input.Keys.NUMPAD_9)){
+				
+				entree+="9";
+				InFenDebug.println(entree);
+
+				
+				aKeyIsPressed=true;
+	
+			}else if(Gdx.input.isKeyPressed(Input.Keys.NUMPAD_0)){
+				
+				entree+="0";
+				InFenDebug.println(entree);
+
+				
+				aKeyIsPressed=true;
+	
+			}
+			
+			else{
+				
+			}
+		}else{
+			if(!(      Gdx.input.isKeyPressed(Input.Keys.F)
+					|| Gdx.input.isKeyPressed(Input.Keys.T)
+					|| Gdx.input.isKeyPressed(Input.Keys.N)
+					|| Gdx.input.isKeyPressed(Input.Keys.Y)
+					|| Gdx.input.isKeyPressed(Input.Keys.S)
+					|| Gdx.input.isKeyPressed(Input.Keys.M)
+					
+					|| Gdx.input.isKeyPressed(Input.Keys.ENTER)
+
+					
+					|| Gdx.input.isKeyPressed(Input.Keys.NUMPAD_1)
+					|| Gdx.input.isKeyPressed(Input.Keys.NUMPAD_2)
+					|| Gdx.input.isKeyPressed(Input.Keys.NUMPAD_3)
+					|| Gdx.input.isKeyPressed(Input.Keys.NUMPAD_4)
+					|| Gdx.input.isKeyPressed(Input.Keys.NUMPAD_5)
+					|| Gdx.input.isKeyPressed(Input.Keys.NUMPAD_6)
+					|| Gdx.input.isKeyPressed(Input.Keys.NUMPAD_7)
+					|| Gdx.input.isKeyPressed(Input.Keys.NUMPAD_8)
+					|| Gdx.input.isKeyPressed(Input.Keys.NUMPAD_9)
+					|| Gdx.input.isKeyPressed(Input.Keys.NUMPAD_0)
+
+
+				)){
+				aKeyIsPressed=false;
+			}
 		}
 
 	}
@@ -144,21 +547,30 @@ public class Jeu extends ApplicationAdapter {
 		//Plateau crÃ©Ã© dans Partie
 		partie = Partie.getInstance();
 		
-		int[] pos = {0,0};
-		Amiral J1Amiral = new Amiral(pos, Orientation.SudEst);
-		pos[0] = 1;
-		Amiral J1Fregate = new Amiral(pos, Orientation.SudEst);
-		pos[0] = Plateau.TAILLE_HORIZONTALE-1;
-		pos[1] = Plateau.TAILLE_VERTICALE-1;
-		Amiral J2Amiral = new Amiral(pos, Orientation.NordOuest);
-		pos[1] = Plateau.TAILLE_VERTICALE-2;
-		Amiral J2Fregate = new Amiral(pos, Orientation.NordOuest);
+		int[] pos0 = {0,0};
+		int[] pos1 = {1,0};
+		int[] pos2 = {Plateau.TAILLE_HORIZONTALE-1,Plateau.TAILLE_VERTICALE-1};
+		int[] pos3 = {Plateau.TAILLE_HORIZONTALE-1,Plateau.TAILLE_VERTICALE-2};
+
+		
+		Amiral J1Amiral = new Amiral(Textures.AMIRAL,pos0, Orientation.SudEst);
+		//pos[0] = 1;
+		Fregate J1Fregate = new Fregate(Textures.FREGATE,pos1, Orientation.SudEst);
+		//pos[0] = Plateau.TAILLE_HORIZONTALE-1;
+		//pos[1] = Plateau.TAILLE_VERTICALE-1;
+		Amiral J2Amiral = new Amiral(Textures.AMIRAL,pos2, Orientation.NordOuest);
+		//pos[1] = Plateau.TAILLE_VERTICALE-2;
+		Fregate J2Fregate = new Fregate(Textures.FREGATE,pos3, Orientation.NordOuest);
 		
 		Navire[] naviresJ1 = {J1Amiral, J1Fregate};
 		Navire[] naviresJ2 = {J2Amiral, J2Fregate};
 		
-		Joueur j1 = new Joueur("Nimitz", naviresJ1);
-		Joueur j2 = new Joueur("Yamamoto", naviresJ2);
+		Joueur j1 = new Joueur("Nimitz", naviresJ1, 1);
+		Joueur j2 = new Joueur("Yamamoto", naviresJ2, 2);
+		
+		j1.setColor(0, 0, 1);
+		j2.setColor(1, 0, 0);
+
 		
 		partie.ajouterJoueurs(j1, j2);
 		
@@ -169,7 +581,8 @@ public class Jeu extends ApplicationAdapter {
 	@Override
 	public void dispose () {
 		batch.dispose();
-		img.dispose();
+		//img.dispose();
+		//TODO crere une fonction pour disposer tt les textures
 		gameRuning=false;
 	}
 

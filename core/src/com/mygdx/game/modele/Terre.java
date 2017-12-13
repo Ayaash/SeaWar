@@ -2,6 +2,11 @@ package com.mygdx.game.modele;
 
 public class Terre extends Case {
 
+	public Terre(int x, int y) {
+		super(x, y);
+		// TODO Auto-generated constructor stub
+	}
+
 	public boolean estNavigable() {
 		return false;
 	}

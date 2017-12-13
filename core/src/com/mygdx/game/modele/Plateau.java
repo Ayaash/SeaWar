@@ -1,5 +1,8 @@
 package com.mygdx.game.modele;
 
+import com.mygdx.game.Jeu;
+import com.mygdx.game.graphique.Textures;
+
 public class Plateau {
 	public static final int TAILLE_HORIZONTALE = 13;
 	public static final int TAILLE_VERTICALE = 11;
@@ -22,15 +25,54 @@ public class Plateau {
 	private Plateau(){
 		for(int i=0;i<TAILLE_HORIZONTALE;i++){
 			for(int j=0;j<TAILLE_VERTICALE;j++){
-				plateau[i][j] = new Mer();
+				plateau[i][j] = new Mer(Textures.HEXAGON,i,j);
+				plateau[i][j].setColor(Jeu.cmer.r,Jeu.cmer.g,Jeu.cmer.b,Jeu.cmer.a);
+				
 			}
 	}
-		phares[0] = new Phare();
-		phares[1] = new Phare();
-		phares[2] = new Phare();
-		plateau[TAILLE_HORIZONTALE-1][0] = phares[0];
-		plateau[TAILLE_HORIZONTALE-2][0] = phares[1];
-		plateau[TAILLE_HORIZONTALE-1][1] = phares[2];
+		int posX0=(int) (Math.random()*TAILLE_HORIZONTALE);
+		int posY0=(int) (Math.random()*TAILLE_VERTICALE);
+
+		int posX1=(int) (Math.random()*TAILLE_HORIZONTALE);
+		int posY1=(int) (Math.random()*TAILLE_VERTICALE);
+		
+		int posX2=(int) (Math.random()*TAILLE_HORIZONTALE);
+		int posY2=(int) (Math.random()*TAILLE_VERTICALE);
+		
+		while((posX0==posX1 || posX2==posX1 || posX0==posX2) &&(posY0==posY1 || posY2==posY1 || posY0==posY2)){
+			posX1=(int) (Math.random()*TAILLE_HORIZONTALE);
+			posY1=(int) (Math.random()*TAILLE_VERTICALE);
+			
+			posX2=(int) (Math.random()*TAILLE_HORIZONTALE);
+			posY2=(int) (Math.random()*TAILLE_VERTICALE);
+		}
+		
+		
+		phares[0] = new Phare(Textures.PHARE,Textures.HEXAGON,posX0,posY0);
+		phares[1] = new Phare(Textures.PHARE,Textures.HEXAGON,posX1,posY1);
+		phares[2] = new Phare(Textures.PHARE,Textures.HEXAGON,posX2,posY2);
+	
+		phares[0].setColor(Jeu.cmer.r,Jeu.cmer.g,Jeu.cmer.b,Jeu.cmer.a);
+		phares[1].setColor(Jeu.cmer.r,Jeu.cmer.g,Jeu.cmer.b,Jeu.cmer.a);
+		phares[2].setColor(Jeu.cmer.r,Jeu.cmer.g,Jeu.cmer.b,Jeu.cmer.a);
+		
+		
+		plateau[posX0][posY0] = phares[0];
+		plateau[posX1][posY1] = phares[1];
+		plateau[posX2][posY2] = phares[2];
+		
+//		phares[0] = new Phare(Textures.PHARE,Textures.HEXAGON,TAILLE_HORIZONTALE-1,0);
+//		phares[1] = new Phare(Textures.PHARE,Textures.HEXAGON,TAILLE_HORIZONTALE-2,0);
+//		phares[2] = new Phare(Textures.PHARE,Textures.HEXAGON,TAILLE_HORIZONTALE-1,1);
+//	
+//		phares[0].setColor(Jeu.cmer.r,Jeu.cmer.g,Jeu.cmer.b,Jeu.cmer.a);
+//		phares[1].setColor(Jeu.cmer.r,Jeu.cmer.g,Jeu.cmer.b,Jeu.cmer.a);
+//		phares[2].setColor(Jeu.cmer.r,Jeu.cmer.g,Jeu.cmer.b,Jeu.cmer.a);
+//		
+//		
+//		plateau[TAILLE_HORIZONTALE-1][0] = phares[0];
+//		plateau[TAILLE_HORIZONTALE-2][0] = phares[1];
+//		plateau[TAILLE_HORIZONTALE-1][1] = phares[2];
 	}
 	
 	
@@ -40,6 +82,11 @@ public class Plateau {
 	public boolean enleverNavire(int[] t){
 		return plateau[t[0]][t[1]].enleverNavire();
 	}
+	
+	public Phare[] getPhares(){
+		return phares;
+	}
+
 
 	public boolean recevoirTir(int[] pos, int degats){
 		if(pos[0] == -1 || pos[1] == -1){
@@ -86,24 +133,37 @@ public class Plateau {
 	*/
 	
 	
+	public Case getCases(int x,int y){
+		return plateau[x][y];
+	}
+	
 	//Renvoie un tableau des 2 coordonnées de la case voisine
 	protected int[] voisin(int[] t, Orientation o){
+		
 		int r[] = {-1,-1};
-		switch(o){
-		case Nord:
-			return voisinN(t);
-		case NordEst:
-			return voisinNE(t);
-		case SudEst:
-			return voisinSE(t);
-		case Sud:
-			return voisinS(t);
-		case SudOuest:
-			return voisinSO(t);
-		case NordOuest:
-			return voisinNO(t);
-		default:
+		
+		if(t[0] == -1 || t[1] == -1){
 			return r;
+
+		}else{
+			switch(o){
+			case Nord:
+				return voisinN(t);
+			case NordEst:
+				return voisinNE(t);
+			case SudEst:
+				return voisinSE(t);
+			case Sud:
+				return voisinS(t);
+			case SudOuest:
+				return voisinSO(t);
+			case NordOuest:
+				return voisinNO(t);
+			default:
+				return r;
+	
+			}
+
 		}
 	}
 	
