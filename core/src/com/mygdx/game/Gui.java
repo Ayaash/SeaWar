@@ -1,13 +1,12 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.ApplicationListener;
-//import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.modele.Plateau;
 
-import core.mygdx.game.actor.graphPlateau;
+import core.mygdx.game.actor.GraphPlateau;
 
 public class Gui implements ApplicationListener {
 	
@@ -18,7 +17,7 @@ public class Gui implements ApplicationListener {
 	public void create() {
 		viewport = new ScreenViewport();
 		stageJeu = new Stage(viewport);
-		stageJeu.addActor(new graphPlateau(Plateau.getInstance()));
+		stageJeu.addActor(new GraphPlateau(Plateau.getInstance()));
 
 	}
 

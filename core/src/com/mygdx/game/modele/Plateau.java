@@ -3,6 +3,8 @@ package com.mygdx.game.modele;
 import com.mygdx.game.Jeu;
 import com.mygdx.game.graphique.Textures;
 
+import core.mygdx.game.actor.GraphCase;
+
 public class Plateau {
 	public static final int TAILLE_HORIZONTALE = 13;
 	public static final int TAILLE_VERTICALE = 11;
@@ -316,7 +318,10 @@ public class Plateau {
 		
 	}
 		
-
+	public GraphCase getGraphCase(int i, int j) {
+		GraphCase gCase = plateau[i][j].getGraphCase();
+		return gCase;
+	}
 	
 }
 

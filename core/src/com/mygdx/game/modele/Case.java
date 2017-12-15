@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.mygdx.game.Jeu;
 import com.mygdx.game.graphique.InWorldObj;
-import com.mygdx.game.graphique.Textures;
+import core.mygdx.game.actor.GraphCase;
 
 public abstract class Case extends InWorldObj{
 
@@ -40,4 +40,6 @@ public abstract class Case extends InWorldObj{
 		return false;
 		
 	}
+	
+	public abstract GraphCase getGraphCase();
 }
