@@ -4,6 +4,8 @@ import com.badlogic.gdx.graphics.Texture;
 
 public class Terre extends Case {
 
+	private static final long serialVersionUID = 1L;
+
 	public Terre(int x, int y) {
 		super(x, y);
 		// TODO Auto-generated constructor stub

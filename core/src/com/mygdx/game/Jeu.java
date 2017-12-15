@@ -188,8 +188,8 @@ public class Jeu extends ApplicationAdapter {
 				}
 			}
 		}else{
-			for(int i=0;i<pl.TAILLE_HORIZONTALE;i++){
-				for(int j=0;j<pl.TAILLE_VERTICALE;j++){
+			for(int i=0;i<Plateau.TAILLE_HORIZONTALE;i++){
+				for(int j=0;j<Plateau.TAILLE_VERTICALE;j++){
 					if(pl.getCases(i ,j ) instanceof Terre){
 						pl.getCases(i, j).setColor(cterre.r, cterre.g, cterre.b, 1);
 					}else{
@@ -288,8 +288,11 @@ public class Jeu extends ApplicationAdapter {
 							InFenDebug.println("Deplacement impossible, le navire passe son tour et se retourne");
 						}else{
 							InFenDebug.println("Tir Principal, entrez la premi�re coordonn�e de la case");
-							casesAccessible= (int[][]) partie.demanderTirsPossiblesPrincipal()[0];
-							deg=(Integer) partie.demanderTirsPossiblesPrincipal()[1];
+							
+							Tir tir = partie.demanderTirsPossiblesPrincipal();
+							casesAccessible = tir.cases;
+							deg = tir.degats;
+							
 							modeMvnt=false;
 							modeSelectNav=false;
 							modeTir1=true;
@@ -312,8 +315,11 @@ public class Jeu extends ApplicationAdapter {
 				if(partie.getNavireCourant()!=null){
 					if(partie.getNavireCourant().peutTirerSecondaire()){
 						InFenDebug.println("Tir secondaire, entrez la premi�re coordonn�e de la case");
-						casesAccessible= (int[][]) partie.demanderTirsPossiblesSecondaire()[0];
-						deg=(Integer) partie.demanderTirsPossiblesPrincipal()[1];
+
+						Tir tir = partie.demanderTirsPossiblesSecondaire();
+						casesAccessible = tir.cases;
+						deg = tir.degats;
+						
 						modeMvnt=false;
 						modeSelectNav=false;
 						modeTir1=false;

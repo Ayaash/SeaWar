@@ -7,6 +7,7 @@ import com.mygdx.game.modele.Joueur;
 import com.mygdx.game.modele.Navire;
 import com.mygdx.game.modele.Phare;
 import com.mygdx.game.modele.Plateau;
+import com.mygdx.game.modele.Tir;
 
 public class Partie implements Serializable{
 	
@@ -91,10 +92,10 @@ public class Partie implements Serializable{
 	public boolean deplacerNavire(int[] choix){
 		return navireCourant.deplacer(choix);
 	}
-	public Object[] demanderTirsPossiblesPrincipal(){
+	public Tir demanderTirsPossiblesPrincipal(){
 		return navireCourant.tirPrincipal();
 	}
-	public Object[] demanderTirsPossiblesSecondaire(){
+	public Tir demanderTirsPossiblesSecondaire(){
 		return navireCourant.tirSecondaire();
 	}
 	public boolean tirerSurUneCase(int[] position, int degats){

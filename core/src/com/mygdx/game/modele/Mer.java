@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 
 public class Mer extends Case {
 
+	private static final long serialVersionUID = 1L;
 	private Navire bateau;
 	
 	public Mer(int i, int j) {

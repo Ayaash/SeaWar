@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 public class Phare extends Mer {
 
+	private static final long serialVersionUID = 1L;
 	protected Texture tPhare;
 	protected Image obj2;
 

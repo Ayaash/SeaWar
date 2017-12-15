@@ -1,6 +1,5 @@
 package com.mygdx.game.modele;
 import com.badlogic.gdx.graphics.Texture;
-import com.mygdx.game.graphique.InWorldObj;
 
 public class Fregate extends Navire {
 
@@ -23,7 +22,7 @@ public class Fregate extends Navire {
 
 	}
 
-	private int[][] tirPrincipalCasePoss(){
+	public int[][] tirPrincipalCasesPos(){
 		int [][] res={{-1,-1},{-1,-1},{-1,-1},{-1,-1},{-1,-1},{-1,-1}};
 		Orientation av=orientation;
 		Orientation tav=av.incremente();
@@ -48,17 +47,8 @@ public class Fregate extends Navire {
 
 	}
 
-	public Object[] tirPrincipal(){
-		int [][] tabCasePoss=tirPrincipalCasePoss();
-		int deg=DEG_CAN_PRINC;
-		Object[] res={tabCasePoss,deg};
-		aTire=true;
-		this.etatCanPrinc = TPS_RECH_CAN_PRINC+1;
-		return res;
-	}
 
-
-	private int[][] tirSecondaireCasePoss(){
+	public int[][] tirSecondaireCasesPos(){
 		int [][] res={{-1,-1},{-1,-1},{-1,-1},{-1,-1},{-1,-1},{-1,-1}};
 		Orientation av=orientation;
 		Orientation tav=av.incremente();
@@ -82,12 +72,4 @@ public class Fregate extends Navire {
 		return res;
 	}
 
-	public Object[] tirSecondaire(){
-		int [][] tabCasePoss=tirSecondaireCasePoss();
-		int deg=DEG_CAN_SEC;
-		Object[] res={tabCasePoss,deg};
-		aTire=true;
-		this.etatCanSec = TPS_RECH_CAN_SEC+1;
-		return res;
-	}
 }

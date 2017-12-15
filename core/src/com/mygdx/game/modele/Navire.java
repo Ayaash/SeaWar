@@ -1,6 +1,5 @@
 package com.mygdx.game.modele;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 
 import com.badlogic.gdx.graphics.Texture;
@@ -61,9 +60,25 @@ public abstract class Navire extends InWorldObj {
 		return (etatCanSec == 0) && !aTire && !mort;
 	}
 	
-	//Ces fonctions renvoient un tableau de coordonnées de cases (int[][]) et les dégats du tir (int) 
-	public abstract Object[] tirPrincipal();
-	public abstract Object[] tirSecondaire();
+	public abstract int[][] tirPrincipalCasesPos();
+	public abstract int[][] tirSecondaireCasesPos();
+	
+	public Tir tirPrincipal(){
+        int [][] tabCasePoss=tirPrincipalCasesPos();
+        int deg=DEG_CAN_PRINC;
+        Tir res=new Tir(tabCasePoss,deg);
+        aTire=true;
+        this.etatCanPrinc = TPS_RECH_CAN_PRINC+1;
+        return res;
+    }
+	public Tir tirSecondaire(){
+        int [][] tabCasePoss=tirSecondaireCasesPos();
+        int deg=DEG_CAN_SEC;
+        Tir res=new Tir(tabCasePoss,deg);
+        aTire=true;
+        this.etatCanSec = TPS_RECH_CAN_SEC+1;
+        return res;
+    }
 	
 	
 	public void miseEnRechargementCanPrinc(){
