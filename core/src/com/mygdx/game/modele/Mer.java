@@ -95,4 +95,8 @@ public class Mer extends Case {
 	public GraphCase getGraphCase() {
 		return new GraphMer(this);
 	}
+	
+	public boolean hasNavire() {
+		return !this.estNavigable();
+	}
 }

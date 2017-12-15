@@ -1,6 +1,8 @@
 package com.mygdx.game.modele;
 import com.badlogic.gdx.graphics.Texture;
-import com.mygdx.game.graphique.InWorldObj;
+
+import core.mygdx.game.actor.GraphFregate;
+import core.mygdx.game.actor.GraphNavire;
 
 public class Fregate extends Navire {
 
@@ -88,4 +90,9 @@ public class Fregate extends Navire {
         aTire=true;
         return res;
      }
+
+	@Override
+	public GraphNavire getGraph() {
+		return new GraphFregate(this);
+	}
 }

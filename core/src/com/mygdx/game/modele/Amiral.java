@@ -2,7 +2,9 @@ package com.mygdx.game.modele;
 
 
 import com.badlogic.gdx.graphics.Texture;
-import com.mygdx.game.graphique.InWorldObj;
+
+import core.mygdx.game.actor.GraphAmiral;
+import core.mygdx.game.actor.GraphNavire;
 
 public class Amiral extends Navire {
 
@@ -25,11 +27,6 @@ public class Amiral extends Navire {
 	private int[][] tirPrincipalCasePoss(){
         int [][] res={{-1,-1},{-1,-1},{-1,-1},{-1,-1},{-1,-1},{-1,-1}};
         Orientation av=orientation;
-        Orientation tav=av.incremente();
-        Orientation tar=tav.incremente();
-        Orientation ar=tar.incremente();
-        Orientation bar=ar.incremente();
-        Orientation bav=bar.incremente();
         int[] case0=plateau.voisin(position,av);
         int[] case1=plateau.voisin(plateau.voisin(position,av),av);
         int[] case2=plateau.voisin(plateau.voisin(position,av),av);
@@ -110,6 +107,10 @@ public class Amiral extends Navire {
         aTire=true;
         return res;
     }
+	@Override
+	public GraphNavire getGraph() {
+		return new GraphAmiral(this);
+	}
     
     
     

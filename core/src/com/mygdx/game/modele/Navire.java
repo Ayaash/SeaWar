@@ -1,11 +1,12 @@
 package com.mygdx.game.modele;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.mygdx.game.graphique.InWorldObj;
+
+import core.mygdx.game.actor.GraphNavire;
 
 
 public abstract class Navire extends InWorldObj {
@@ -213,5 +214,7 @@ public abstract class Navire extends InWorldObj {
 		angle=-orientation.ordinal()*60-90+180;
 		super.actualizeSprite(ob);
 	}
+	
+	public abstract GraphNavire getGraph(); 
 	
 }
