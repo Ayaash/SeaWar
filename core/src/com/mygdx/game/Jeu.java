@@ -28,6 +28,7 @@ public class Jeu extends ApplicationAdapter {
 	Label pad0;
 
 	public static Color cmer=new Color(0.06f, 0.38f, 0.58f, 1f);
+	public static Color cterre=new Color(0.8f, 0.7f, 0f, 1f);
 	public static Color cbrille=new Color(1f, 1f, 0.58f, 1f);
 
 	
@@ -175,7 +176,13 @@ public class Jeu extends ApplicationAdapter {
 						if(tmp){
 							pl.getCases(i, j).setColor(cbrille.r, cbrille.g, cbrille.b, 1);
 						}else{
-							pl.getCases(i, j).setColor(cmer.r, cmer.g, cmer.b, 1);
+							if(pl.getCases(i ,j ) instanceof Terre){
+								pl.getCases(i, j).setColor(cterre.r, cterre.g, cterre.b, 1);
+							}else{
+								pl.getCases(i, j).setColor(cmer.r, cmer.g, cmer.b, 1);
+							}
+						
+							
 						}
 					}
 				}
@@ -183,7 +190,11 @@ public class Jeu extends ApplicationAdapter {
 		}else{
 			for(int i=0;i<pl.TAILLE_HORIZONTALE;i++){
 				for(int j=0;j<pl.TAILLE_VERTICALE;j++){
-					pl.getCases(i, j).setColor(cmer.r, cmer.g, cmer.b, 1);
+					if(pl.getCases(i ,j ) instanceof Terre){
+						pl.getCases(i, j).setColor(cterre.r, cterre.g, cterre.b, 1);
+					}else{
+						pl.getCases(i, j).setColor(cmer.r, cmer.g, cmer.b, 1);
+					}
 				}
 			}
 		}
@@ -273,17 +284,19 @@ public class Jeu extends ApplicationAdapter {
 			else if(Gdx.input.isKeyPressed(Input.Keys.T)){
 				if(partie.getNavireCourant()!=null){
 					if(partie.getNavireCourant().peutTirerPrincipal()){	
-						InFenDebug.println("Tir Principal, entrez la premi�re coordonn�e de la case");
-						casesAccessible= (int[][]) partie.demanderTirsPossiblesPrincipal()[0];
-						deg=(Integer) partie.demanderTirsPossiblesPrincipal()[1];
-						modeMvnt=false;
-						modeSelectNav=false;
-						modeTir1=true;
-						modeTir2=false;
-					
+						if(partie.getNavireCourant().deplacementsPossibles() == null){
+							InFenDebug.println("Deplacement impossible, le navire passe son tour et se retourne");
+						}else{
+							InFenDebug.println("Tir Principal, entrez la premi�re coordonn�e de la case");
+							casesAccessible= (int[][]) partie.demanderTirsPossiblesPrincipal()[0];
+							deg=(Integer) partie.demanderTirsPossiblesPrincipal()[1];
+							modeMvnt=false;
+							modeSelectNav=false;
+							modeTir1=true;
+							modeTir2=false;
+						}
 					}else{
 						InFenDebug.println("Ce navire ne peut pas tirer son canon principal");
-	
 					}
 
 				}else{
@@ -562,7 +575,7 @@ public class Jeu extends ApplicationAdapter {
 		int[] pos0 = {0,0};
 		int[] pos1 = {1,0};
 		int[] pos2 = {Plateau.TAILLE_HORIZONTALE-1,Plateau.TAILLE_VERTICALE-1};
-		int[] pos3 = {Plateau.TAILLE_HORIZONTALE-1,Plateau.TAILLE_VERTICALE-2};
+		int[] pos3 = {Plateau.TAILLE_HORIZONTALE-2,Plateau.TAILLE_VERTICALE-1};
 
 		
 		Amiral J1Amiral = new Amiral(Textures.AMIRAL,pos0, Orientation.SudEst);
