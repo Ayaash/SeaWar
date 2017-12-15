@@ -4,6 +4,7 @@ import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.mygdx.game.etats.Partie;
 import com.mygdx.game.modele.Plateau;
 
 import core.mygdx.game.actor.GraphPlateau;
@@ -17,6 +18,7 @@ public class Gui implements ApplicationListener {
 	public void create() {
 		viewport = new ScreenViewport();
 		stageJeu = new Stage(viewport);
+		Partie partie = Partie.getInstance();
 		stageJeu.addActor(new GraphPlateau(Plateau.getInstance()));
 
 	}
