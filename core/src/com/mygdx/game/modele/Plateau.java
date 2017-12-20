@@ -6,9 +6,15 @@ import com.mygdx.game.Jeu;
 import com.mygdx.game.graphique.Textures;
 
 
-public class Plateau {
-	public static final int TAILLE_HORIZONTALE = 13;
-	public static final int TAILLE_VERTICALE = 12;
+
+public class Plateau implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+	
+	public static final int TAILLE_HORIZONTALE = 14;
+	public static final int TAILLE_VERTICALE = 11;
+
+
 	public static final int NOMBRE_PHARE = 3;
 	
 	Case plateau[][] = new Case[TAILLE_HORIZONTALE][TAILLE_VERTICALE];
