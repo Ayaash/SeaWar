@@ -5,18 +5,15 @@ import java.io.Serializable;
 import com.mygdx.game.Jeu;
 import com.mygdx.game.graphique.Textures;
 
-<<<<<<< HEAD
+
 public class Plateau implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
 	public static final int TAILLE_HORIZONTALE = 14;
 	public static final int TAILLE_VERTICALE = 11;
-=======
-public class Plateau {
-	public static final int TAILLE_HORIZONTALE = 13;
-	public static final int TAILLE_VERTICALE = 12;
->>>>>>> e78a0672d425b73c16d509b80f3e7610fc2f1f65
+
+
 	public static final int NOMBRE_PHARE = 3;
 	
 	Case plateau[][] = new Case[TAILLE_HORIZONTALE][TAILLE_VERTICALE];
