@@ -562,7 +562,7 @@ public class Jeu extends ApplicationAdapter {
 		int[] pos0 = {0,0};
 		int[] pos1 = {1,0};
 		int[] pos2 = {Plateau.TAILLE_HORIZONTALE-1,Plateau.TAILLE_VERTICALE-1};
-		int[] pos3 = {Plateau.TAILLE_HORIZONTALE-1,Plateau.TAILLE_VERTICALE-2};
+		int[] pos3 = {Plateau.TAILLE_HORIZONTALE-2,Plateau.TAILLE_VERTICALE-1};
 
 		
 		Amiral J1Amiral = new Amiral(Textures.AMIRAL,pos0, Orientation.SudEst);

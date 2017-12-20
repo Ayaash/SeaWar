@@ -4,7 +4,7 @@ import com.mygdx.game.Jeu;
 import com.mygdx.game.graphique.Textures;
 
 public class Plateau {
-	public static final int TAILLE_HORIZONTALE = 13;
+	public static final int TAILLE_HORIZONTALE = 14;
 	public static final int TAILLE_VERTICALE = 11;
 	public static final int NOMBRE_PHARE = 3;
 	
