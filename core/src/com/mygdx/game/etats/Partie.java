@@ -1,4 +1,4 @@
-package com.mygdx.game.etats;
+ package com.mygdx.game.etats;
 
 import java.util.Arrays;
 
