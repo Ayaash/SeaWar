@@ -4,7 +4,7 @@ import com.mygdx.game.Jeu;
 import com.mygdx.game.graphique.Textures;
 
 public class Plateau {
-	public static final int TAILLE_HORIZONTALE = 14;
+	public static final int TAILLE_HORIZONTALE = 12;
 	public static final int TAILLE_VERTICALE = 11;
 	public static final int NOMBRE_PHARE = 3;
 	
@@ -30,14 +30,14 @@ public class Plateau {
 				
 			}
 		}
-		plateau[6][4] = new Terre(Textures.HEXAGON,6,4);
+		/*plateau[6][4] = new Terre(Textures.HEXAGON,6,4);
 		plateau[6][4].setColor(0.2f,0.75f,0f,1f);
 		plateau[6][5] = new Terre(Textures.HEXAGON,6,5);
 		plateau[6][4].setColor(0.2f,0.75f,0f,1f);
 		plateau[5][5] = new Terre(Textures.HEXAGON,5,5);
 		plateau[5][5].setColor(0.2f,0.75f,0f,1f);
 		plateau[7][5] = new Terre(Textures.HEXAGON,7,5);
-		plateau[7][5].setColor(0.2f,0.75f,0f,1f);
+		plateau[7][5].setColor(0.2f,0.75f,0f,1f);*/
 		
 		int posX0=(int) (Math.random()*TAILLE_HORIZONTALE);
 		int posY0=(int) (Math.random()*TAILLE_VERTICALE);
