@@ -1,5 +1,9 @@
 package com.mygdx.game.modele;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.Arrays;
 
@@ -33,6 +37,27 @@ public class Partie implements Serializable{
 		plateau = Plateau.getInstance();
 		tour = 1;
 	}
+	/*
+	public boolean sauvegarderPartie(){
+		try{
+			FileOutputStream fileOut =
+					new FileOutputStream("/users/elo/lpicholl/Reptravail/SeaWarSave.ser");
+			ObjectOutputStream out = new ObjectOutputStream(fileOut);
+			out.writeObject(this);
+			out.close();
+			fileOut.close();
+			System.out.printf("Serialized data is saved in ~/Reptravail");
+		}catch (FileNotFoundException f){
+			
+		} catch (IOException i) {
+			i.printStackTrace();
+		}
+
+
+		
+		return true;
+	}
+	*/
 	
 	public void ajouterJoueurs(Joueur j1, Joueur j2){
 		this.joueur1 = j1;

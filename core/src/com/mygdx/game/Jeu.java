@@ -1,5 +1,10 @@
 package com.mygdx.game;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -535,10 +540,17 @@ public class Jeu extends ApplicationAdapter {
 
 				
 				aKeyIsPressed=true;
-	
-			}
-			
-			else{
+			/*
+			}else if(Gdx.input.isKeyPressed(Input.Keys.A)){
+				if(partie.sauvegarderPartie() == true){
+					InFenDebug.println("Partie sauvegardée");
+				}else{
+					InFenDebug.println("Echec de la sauvegarde");
+				}
+				
+				aKeyIsPressed=true;
+				*/
+			}else{
 				
 			}
 		}else{
@@ -575,6 +587,31 @@ public class Jeu extends ApplicationAdapter {
 	//Une seule partie possible pour le moment
 	public void setupGame(){
 		//Plateau créé dans Partie
+		
+		
+		/*try {
+			FileInputStream fileIn = new FileInputStream("/users/elo/lpicholl/Reptravail/SeaWarSave.ser");
+			ObjectInputStream in = new ObjectInputStream(fileIn);
+			partie = (Partie) in.readObject();
+			in.close();
+			fileIn.close();
+		}catch (FileNotFoundException f){
+			partie = null;
+		} catch (IOException i) {
+			i.printStackTrace();
+			return;
+		} catch (ClassNotFoundException c) {
+			System.out.println("Employee class not found");
+			c.printStackTrace();
+			return;
+		}
+
+		if(partie != null){
+			return;
+		}
+*/
+
+		
 		partie = Partie.getInstance();
 		
 		int[] pos0 = {0,0};

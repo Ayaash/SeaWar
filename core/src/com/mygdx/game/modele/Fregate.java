@@ -3,9 +3,7 @@ import com.badlogic.gdx.graphics.Texture;
 
 public class Fregate extends Navire {
 
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	public Fregate(Texture img,int[] posi , Orientation ori){
 		super(img,posi,ori);

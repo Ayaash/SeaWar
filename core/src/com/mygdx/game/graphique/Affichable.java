@@ -26,8 +26,12 @@ public class Affichable implements Serializable{
 	protected int angle=0;
 	
 	protected Image obj;
-	protected Color clr;
-
+	//protected transient Color clr;
+	
+	private float R;
+	private float G;
+	private float B;
+	private float A;
 	
 	public Affichable(Texture img,int x,int y){
 		this.img=img;
@@ -80,7 +84,7 @@ public class Affichable implements Serializable{
 		//spr.setOrigin(0,0);
 		ob.setBounds(posX, posY, lX, lY);
 		ob.setOrigin(lX/2,lY/2);
-		ob.setColor(clr);
+		ob.setColor(getColor());
 		
 		return ob;
 	}
@@ -89,23 +93,31 @@ public class Affichable implements Serializable{
 		ob.setRotation(angle);
 		ob.setOrigin(lX/2,lY/2);
 		ob.setBounds(posX, posY, lX, lY);
-		ob.setColor(clr);
+		ob.setColor(getColor());
 	}
 	
 	/**Permet d'avoir une couleur*/
 	protected void initColor(){
-		clr=new Color(1,1,1,1);
+		//clr=new Color(1,1,1,1);
+		R = 1;
+		G = 1;
+		B = 1;
+		A = 1;
 	}
 	
 	/**Permet de specifier la couleur*/
 	public void setColor(float R, float V, float B, float A){
-		clr.set(R, V, B, A);
+		//clr.set(R, V, B, A);
+		this.R = R;
+		this.G = V;
+		this.B = B;
+		this.A = A;
 		actualizeSprite(obj);
 	}
 	
 	/**Renvoie la couleur de l'objet*/
 	public Color getColor(){
-		return clr;
+		return new Color(R,G,B,A);
 	}
 	
 	/**Affiche l'objet a l'ecran*/

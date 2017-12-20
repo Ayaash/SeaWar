@@ -1,15 +1,18 @@
 package com.mygdx.game.modele;
 
+import java.io.Serializable;
+
 import com.badlogic.gdx.graphics.Color;
 
-public class Joueur {
+public class Joueur implements Serializable{
+
+	private static final long serialVersionUID = 1L;
 
 	public static final int NOMBRE_NAVIRES = 2;
 	
 	private String nom;
 	protected Navire navires[];
 	private int id;
-	
 	
 	private float R;
 	private float V;

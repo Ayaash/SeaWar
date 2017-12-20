@@ -1,9 +1,14 @@
 package com.mygdx.game.modele;
 
+import java.io.Serializable;
+
 import com.mygdx.game.Jeu;
 import com.mygdx.game.graphique.Textures;
 
-public class Plateau {
+public class Plateau implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+	
 	public static final int TAILLE_HORIZONTALE = 14;
 	public static final int TAILLE_VERTICALE = 11;
 	public static final int NOMBRE_PHARE = 3;
