@@ -1,18 +1,19 @@
 package com.mygdx.game.modele;
 
-import com.badlogic.gdx.graphics.Texture;
+import core.mygdx.game.actor.GraphCase;
+import core.mygdx.game.actor.GraphTerre;
 
 public class Terre extends Case {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	public Terre(int x, int y) {
 		super(x, y);
 		// TODO Auto-generated constructor stub
 	}
-	
-	public Terre(Texture img, int i, int j) {
-		super(img,i,j);
-	}
-
 
 	public boolean estNavigable() {
 		return false;
@@ -33,6 +34,11 @@ public class Terre extends Case {
 	@Override
 	public boolean recevoirTir(int degats) {
 		return false;
+	}
+
+	@Override
+	public GraphCase getGraphCase() {
+		return new GraphTerre(this);
 	}
 
 }

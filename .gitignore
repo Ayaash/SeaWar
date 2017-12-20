@@ -1,7 +1,6 @@
 
 **/.classpath
 .metadata
-**/bin/
 **/tmp/
 **/*.class
 *.tmp

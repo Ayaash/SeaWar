@@ -3,6 +3,8 @@ package com.mygdx.game.modele;
 import com.mygdx.game.Jeu;
 import com.mygdx.game.graphique.Textures;
 
+import core.mygdx.game.actor.GraphCase;
+
 public class Plateau {
 	public static final int TAILLE_HORIZONTALE = 13;
 	public static final int TAILLE_VERTICALE = 11;
@@ -48,7 +50,6 @@ public class Plateau {
 		}
 		
 		
-		
 		phares[0] = new Phare(Textures.PHARE,Textures.HEXAGON,posX0,posY0);
 		phares[1] = new Phare(Textures.PHARE,Textures.HEXAGON,posX1,posY1);
 		phares[2] = new Phare(Textures.PHARE,Textures.HEXAGON,posX2,posY2);
@@ -61,10 +62,6 @@ public class Plateau {
 		plateau[posX0][posY0] = phares[0];
 		plateau[posX1][posY1] = phares[1];
 		plateau[posX2][posY2] = phares[2];
-		
-		plateau[2][2] = new Terre(Textures.HEXAGON,2,2);
-		plateau[2][2].setColor(1, 0.8f, 0, 1);
-
 		
 //		phares[0] = new Phare(Textures.PHARE,Textures.HEXAGON,TAILLE_HORIZONTALE-1,0);
 //		phares[1] = new Phare(Textures.PHARE,Textures.HEXAGON,TAILLE_HORIZONTALE-2,0);
@@ -321,7 +318,10 @@ public class Plateau {
 		
 	}
 		
-
+	public GraphCase getGraphCase(int i, int j) {
+		GraphCase gCase = plateau[i][j].getGraphCase();
+		return gCase;
+	}
 	
 }
 

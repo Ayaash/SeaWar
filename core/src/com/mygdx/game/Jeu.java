@@ -6,18 +6,8 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.Event;
-import com.badlogic.gdx.scenes.scene2d.EventListener;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.etats.Partie;
 import com.mygdx.game.graphique.Bouton;
 import com.mygdx.game.graphique.InFenDebug;
@@ -38,10 +28,8 @@ public class Jeu extends ApplicationAdapter {
 	Label pad0;
 
 	public static Color cmer=new Color(0.06f, 0.38f, 0.58f, 1f);
-	public static Color cterre=new Color(1f, 0.8f, 0f, 1f);
 	public static Color cbrille=new Color(1f, 1f, 0.58f, 1f);
 
-	
 	
 	BitmapFont font;
 	public static BitmapFont baseFont;
@@ -77,17 +65,6 @@ public class Jeu extends ApplicationAdapter {
 	public static int[][] casesAccessible;
 	public static int deg;
 	
-	/**Test graph{*/
-	
-		ScreenViewport vp;
-		Stage st;
-		Drawable dr;
-		ImageButton bt0;
-		
-	/**}*/
-	
-	
-	
 	@Override
  	public void create () {
 		victoire=0;
@@ -108,6 +85,7 @@ public class Jeu extends ApplicationAdapter {
 		batch = new SpriteBatch();
 		batch.setColor(1,1,1,1);
 		
+		
 		baseFont=new BitmapFont();
 		baseFont.setColor(1,0,0,1);
 				
@@ -120,14 +98,14 @@ public class Jeu extends ApplicationAdapter {
 		infos=new Label(Gdx.graphics.getWidth()-500,150,"Commandes:\n"
 				+ "   F: changement de tour \n"
 				+ "   N: fin de tour de navire \n"
-				+ "   S: selection imageUpd'un navires \n"
+				+ "   S: selection d'un navires \n"
 				+ "   T: tire 1\n"
 				+ "   Y: tire 2\n"
 				+ "   M: mouvement d'une case\n"
-				+ "   Enter: valider une entrï¿½e clavier",font);
+				+ "   Enter: valider une entrée clavier",font);
 
 
-		pad0=new Label(Gdx.graphics.getWidth()-200,150,"Entrï¿½es clavier:\n"
+		pad0=new Label(Gdx.graphics.getWidth()-200,150,"Entrées clavier:\n"
 												   +   "    7  8  9 \n"
 												   +   "    4  5  6 \n"
 												   +   "    1  2  3 \n"
@@ -141,39 +119,7 @@ public class Jeu extends ApplicationAdapter {
 		
 		setupGame();
 		
-		createTestConfig();
-		
 		loop.start();
-	}
-	
-	
-	public void createTestConfig(){
-		vp=new ScreenViewport();
-		st=new Stage(vp);
-	    Gdx.input.setInputProcessor(st);
-		dr=new Drawbt0();
-				
-		bt0=new ImageButton(dr);
-		bt0.setX(0);
-		bt0.setY(0);
-		bt0.setHeight(100);
-		bt0.setWidth(100);
-		bt0.addListener(new InputListener(){
-			  @Override
-			  public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-			    InFenDebug.println("Press a Button up");
-			    System.out.println("1");
-			  }
-			  @Override
-			  public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-				    InFenDebug.println("Press a Button down");
-				    System.out.println("2");
-
-			    return true;
-			  }
-			});
-		
-		st.addActor(bt0);
 	}
 
 	@Override
@@ -186,7 +132,6 @@ public class Jeu extends ApplicationAdapter {
 		
 		//debut des affichages
 		batch.begin();
-		
 				
 		//batch.draw(img, 0, 0);
 		/*for(int i=0;i<1;i++){//TODO A gerer
@@ -203,18 +148,8 @@ public class Jeu extends ApplicationAdapter {
 		lb1.afficher(batch);
 		infos.afficher(batch);
 		pad0.afficher(batch);
-
-		
-		
 		
 		InFenDebug.afficher(batch);
-		
-		
-		//dr.draw(batch, 0, 0, 100, 100);
-		//bt0.draw(batch,1);
-		st.act();
-		st.draw();
-		
 		//Fin des affichage
 		batch.end();
 		
@@ -241,7 +176,6 @@ public class Jeu extends ApplicationAdapter {
 							pl.getCases(i, j).setColor(cbrille.r, cbrille.g, cbrille.b, 1);
 						}else{
 							pl.getCases(i, j).setColor(cmer.r, cmer.g, cmer.b, 1);
-							
 						}
 					}
 				}
@@ -249,11 +183,7 @@ public class Jeu extends ApplicationAdapter {
 		}else{
 			for(int i=0;i<pl.TAILLE_HORIZONTALE;i++){
 				for(int j=0;j<pl.TAILLE_VERTICALE;j++){
-					if(pl.getCases(i,j) instanceof Mer){
-						pl.getCases(i, j).setColor(cmer.r, cmer.g, cmer.b, 1);
-					}else{
-						pl.getCases(i, j).setColor(cterre.r, cterre.g, cterre.b, 1);
-					}
+					pl.getCases(i, j).setColor(cmer.r, cmer.g, cmer.b, 1);
 				}
 			}
 		}
@@ -316,7 +246,7 @@ public class Jeu extends ApplicationAdapter {
 				if(victoire==0){
 					InFenDebug.println("Nouveau tour");
 				}else{
-					InFenDebug.println("Joueur "+victoire+" a gagnï¿½");
+					InFenDebug.println("Joueur "+victoire+" a gagné");
 
 				}
 				
@@ -335,7 +265,7 @@ public class Jeu extends ApplicationAdapter {
 			else if(Gdx.input.isKeyPressed(Input.Keys.T)){
 				if(partie.getNavireCourant()!=null){
 					if(partie.getNavireCourant().getATire()==false){	
-						InFenDebug.println("Tir Principal, entrez la premiï¿½re coordonnï¿½e de la case");
+						InFenDebug.println("Tir Principal, entrez la première coordonnée de la case");
 						casesAccessible= (int[][]) partie.demanderTirsPossiblesPrincipal()[0];
 						deg=(Integer) partie.demanderTirsPossiblesPrincipal()[1];
 						modeMvnt=false;
@@ -349,7 +279,7 @@ public class Jeu extends ApplicationAdapter {
 					}
 
 				}else{
-					InFenDebug.println("Sï¿½lectionnez un navire");
+					InFenDebug.println("Sélectionnez un navire");
 
 				}
 				
@@ -360,7 +290,7 @@ public class Jeu extends ApplicationAdapter {
 			else if(Gdx.input.isKeyPressed(Input.Keys.Y)){
 				if(partie.getNavireCourant()!=null){
 					if(partie.getNavireCourant().getATire()==false){
-						InFenDebug.println("Tir secondaire, entrez la premiï¿½re coordonnï¿½e de la case");
+						InFenDebug.println("Tir secondaire, entrez la première coordonnée de la case");
 						casesAccessible= (int[][]) partie.demanderTirsPossiblesSecondaire()[0];
 						deg=(Integer) partie.demanderTirsPossiblesPrincipal()[1];
 						modeMvnt=false;
@@ -373,7 +303,7 @@ public class Jeu extends ApplicationAdapter {
 					}
 
 				}else{
-					InFenDebug.println("Sï¿½lectionnez un navire");
+					InFenDebug.println("Sélectionnez un navire");
 
 				}
 				
@@ -384,7 +314,7 @@ public class Jeu extends ApplicationAdapter {
 			}
 			else if(Gdx.input.isKeyPressed(Input.Keys.S)){
 				if(partie.getNavireCourant()==null){
-					InFenDebug.println("Sï¿½lectionnez un navire: 1=Amiral, 2=Fregate");
+					InFenDebug.println("Sélectionnez un navire: 1=Amiral, 2=Fregate");
 					modeSelectNav=true;
 					modeTir1=false;
 					modeTir2=false;
@@ -401,19 +331,19 @@ public class Jeu extends ApplicationAdapter {
 			else if(Gdx.input.isKeyPressed(Input.Keys.M)){
 				if(partie.getNavireCourant()!=null){
 					if(partie.getNavireCourant().deplacementsRestants()>0){
-						InFenDebug.println("Dï¿½placement, entrez la premiï¿½re coordonnï¿½e de la case");
+						InFenDebug.println("Déplacement, entrez la première coordonnée de la case");
 						casesAccessible=partie.demanderDeplacementsPossibles();
 						modeMvnt=true;
 						modeSelectNav=false;
 						modeTir1=false;
 						modeTir2=false;
 					}else{
-						InFenDebug.println("Ce navire ne peut plus ce dï¿½placer");
+						InFenDebug.println("Ce navire ne peut plus ce déplacer");
 
 					}
 
 				}else{
-					InFenDebug.println("Sï¿½lectionnez un navire");
+					InFenDebug.println("Sélectionnez un navire");
 
 				}
 				
@@ -427,7 +357,7 @@ public class Jeu extends ApplicationAdapter {
 					if(eX==-1){
 						eX=Integer.parseInt(entree);
 						entree="";
-						InFenDebug.println("entrez la 2e coordonnï¿½e");
+						InFenDebug.println("entrez la 2e coordonnée");
 					}else{
 	
 						eY=Integer.parseInt(entree);
@@ -457,7 +387,7 @@ public class Jeu extends ApplicationAdapter {
 								int[] pos={eX, eY};
 								boolean b=partie.tirerSurUneCase(pos,deg);
 								if(b){
-									InFenDebug.println("Navire touchï¿½, "+deg+" dï¿½gï¿½t");
+									InFenDebug.println("Navire touché, "+deg+" dégât");
 								}
 								modeTir2=false;
 								modeTir1=false;
@@ -479,7 +409,7 @@ public class Jeu extends ApplicationAdapter {
 			else if(Gdx.input.isKeyPressed(Input.Keys.NUMPAD_1)){
 				if(modeSelectNav){
 					pte.selectionnerNavire(pte.getCurrentPlayer().getNavires()[0]);
-					InFenDebug.println("Amiral sï¿½lectionnï¿½");
+					InFenDebug.println("Amiral sélectionné");
 					modeSelectNav=false;
 
 				}else{
@@ -498,9 +428,9 @@ public class Jeu extends ApplicationAdapter {
 				if(modeSelectNav){
 					boolean btmp=pte.selectionnerNavire(pte.getCurrentPlayer().getNavires()[1]);
 					if(btmp==true){
-						InFenDebug.println("Frï¿½gate sï¿½lectionnï¿½");
+						InFenDebug.println("Frégate sélectionné");
 					}else{
-						InFenDebug.println("Ce navire ne peut pas ï¿½tre selectionnï¿½");
+						InFenDebug.println("Ce navire ne peut pas être selectionné");
 					}
 					modeSelectNav=false;
 
@@ -655,8 +585,6 @@ public class Jeu extends ApplicationAdapter {
 		//TODO crere une fonction pour disposer tt les textures
 		gameRuning=false;
 	}
-	
-	
 
 
 	public class GameLoop extends Thread{
@@ -687,105 +615,4 @@ public class Jeu extends ApplicationAdapter {
 			
 	}
 
-	
-	public class evt0 implements EventListener{
-
-		@Override
-		public boolean handle(Event event) {
-			// TODO Auto-generated method stub
-			InFenDebug.println("hello");
-			return true;
-		}
-		
-	}
-	
-	
-	public class Drawbt0 implements Drawable{
-
-		@Override
-		public void draw(Batch batch, float x, float y, float width,
-				float height) {
-			
-			Color ctmp=batch.getColor();
-			batch.setColor(1, 0, 0, 1);
-			batch.draw(Textures.BOUTON_TEST, x, y, width, height);
-			batch.setColor(ctmp);
-			
-		}
-
-		@Override
-		public float getLeftWidth() {
-			// TODO Auto-generated method stub
-			return 100;
-		}
-
-		@Override
-		public void setLeftWidth(float leftWidth) {
-			// TODO Auto-generated method stub
-			
-			
-		}
-
-		@Override
-		public float getRightWidth() {
-			// TODO Auto-generated method stub
-			return 100;
-		}
-
-		@Override
-		public void setRightWidth(float rightWidth) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public float getTopHeight() {
-			// TODO Auto-generated method stub
-			return 0;
-		}
-
-		@Override
-		public void setTopHeight(float topHeight) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public float getBottomHeight() {
-			// TODO Auto-generated method stub
-			return 0;
-		}
-
-		@Override
-		public void setBottomHeight(float bottomHeight) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public float getMinWidth() {
-			// TODO Auto-generated method stub
-			return 100;
-		}
-
-		@Override
-		public void setMinWidth(float minWidth) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public float getMinHeight() {
-			// TODO Auto-generated method stub
-			return 100;
-		}
-
-		@Override
-		public void setMinHeight(float minHeight) {
-			// TODO Auto-generated method stub
-			
-		}
-		
-	}
-	
 }
