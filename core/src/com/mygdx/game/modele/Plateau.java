@@ -1,7 +1,10 @@
 package com.mygdx.game.modele;
 
+import java.io.Serializable;
+
 import com.mygdx.game.Jeu;
 import com.mygdx.game.graphique.Textures;
+
 
 public class Plateau {
 	public static final int TAILLE_HORIZONTALE = 13;
