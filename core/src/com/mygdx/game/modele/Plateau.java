@@ -6,11 +6,12 @@ import com.mygdx.game.Jeu;
 import com.mygdx.game.graphique.Textures;
 
 
+
 public class Plateau implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	public static final int TAILLE_HORIZONTALE = 14;
+	public static final int TAILLE_HORIZONTALE = 13;
 	public static final int TAILLE_VERTICALE = 11;
 
 
@@ -38,25 +39,28 @@ public class Plateau implements Serializable {
 				
 			}
 		}
-		/*plateau[6][4] = new Terre(Textures.HEXAGON,6,4);
-		plateau[6][4].setColor(0.2f,0.75f,0f,1f);
-		plateau[6][5] = new Terre(Textures.HEXAGON,6,5);
-		plateau[6][4].setColor(0.2f,0.75f,0f,1f);
-		plateau[5][5] = new Terre(Textures.HEXAGON,5,5);
-		plateau[5][5].setColor(0.2f,0.75f,0f,1f);
-		plateau[7][5] = new Terre(Textures.HEXAGON,7,5);
-		plateau[7][5].setColor(0.2f,0.75f,0f,1f);*/
+		int[] posTerre1={6,4};
+		placerTerreSym(posTerre1);
+		int[] posTerre2={6,5};
+		placerTerreSym(posTerre2);
+		int[] posTerre3={5,5};
+		placerTerreSym(posTerre3);
+		
 		
 		int posX0=(int) (TAILLE_HORIZONTALE/2);
 		int posY0=(int) (Math.random()*TAILLE_VERTICALE);
+		int[] posPhare0 ={posX0,posY0};
 		
 		int randomX=(int) (Math.random()*TAILLE_HORIZONTALE/2);
 		int randomY=(int) (Math.random()*TAILLE_VERTICALE);
+		
 		int posX1=TAILLE_HORIZONTALE/2+randomX;
 		int posY1=randomY;
+		int[] posPhare1 ={posX1,posY1};
 		
 		int posX2=TAILLE_HORIZONTALE/2-randomX;
 		int posY2=randomY;
+		int[] posPhare2 ={posX2,posY2};
 		
 		while((posX0==posX1 || posX2==posX1 || posX0==posX2) &&(posY0==posY1 || posY2==posY1 || posY0==posY2)){
 			randomX=(int) (Math.random()*TAILLE_HORIZONTALE/2);
@@ -69,32 +73,9 @@ public class Plateau implements Serializable {
 			posY2=randomY;
 		}
 		
-		
-		phares[0] = new Phare(Textures.PHARE,Textures.HEXAGON,posX0,posY0);
-		phares[1] = new Phare(Textures.PHARE,Textures.HEXAGON,posX1,posY1);
-		phares[2] = new Phare(Textures.PHARE,Textures.HEXAGON,posX2,posY2);
-	
-		phares[0].setColor(Jeu.cmer.r,Jeu.cmer.g,Jeu.cmer.b,Jeu.cmer.a);
-		phares[1].setColor(Jeu.cmer.r,Jeu.cmer.g,Jeu.cmer.b,Jeu.cmer.a);
-		phares[2].setColor(Jeu.cmer.r,Jeu.cmer.g,Jeu.cmer.b,Jeu.cmer.a);
-		
-		
-		plateau[posX0][posY0] = phares[0];
-		plateau[posX1][posY1] = phares[1];
-		plateau[posX2][posY2] = phares[2];
-		
-//		phares[0] = new Phare(Textures.PHARE,Textures.HEXAGON,TAILLE_HORIZONTALE-1,0);
-//		phares[1] = new Phare(Textures.PHARE,Textures.HEXAGON,TAILLE_HORIZONTALE-2,0);
-//		phares[2] = new Phare(Textures.PHARE,Textures.HEXAGON,TAILLE_HORIZONTALE-1,1);
-//	
-//		phares[0].setColor(Jeu.cmer.r,Jeu.cmer.g,Jeu.cmer.b,Jeu.cmer.a);
-//		phares[1].setColor(Jeu.cmer.r,Jeu.cmer.g,Jeu.cmer.b,Jeu.cmer.a);
-//		phares[2].setColor(Jeu.cmer.r,Jeu.cmer.g,Jeu.cmer.b,Jeu.cmer.a);
-//		
-//		
-//		plateau[TAILLE_HORIZONTALE-1][0] = phares[0];
-//		plateau[TAILLE_HORIZONTALE-2][0] = phares[1];
-//		plateau[TAILLE_HORIZONTALE-1][1] = phares[2];
+		placerPhare(0,posPhare0);
+		placerPhare(1,posPhare1);
+		placerPhare(2,posPhare2);
 	}
 	
 	
@@ -275,7 +256,6 @@ public class Plateau implements Serializable {
 			coor[1] = j+1;
 		}
 		return coor;
-		
 	}
 	protected int[] voisinSO(int[] t){
 		int[] coor = new int[2];
@@ -339,6 +319,61 @@ public class Plateau implements Serializable {
 	}
 		
 
+	
+	protected void placerTerre(int[] pos){
+		plateau[pos[0]][pos[1]] = new Terre(Textures.HEXAGON,pos[0],pos[1]);
+		plateau[pos[0]][pos[1]].setColor(0.2f,0.75f,0f,1f);
+	}
+	
+	protected void placerTerreSym(int[] pos){
+		if (pos[0]<(TAILLE_HORIZONTALE/2)){
+			int[] posSym={0,0};
+			int ecartMotie=(TAILLE_HORIZONTALE/2)-pos[0];
+			posSym[0]=TAILLE_HORIZONTALE/2+ecartMotie;
+			posSym[1]=pos[1];
+			placerTerre(pos);
+			placerTerre(posSym);
+			
+		}else{
+			int[] posSym={0,0};
+			int ecartMotie=pos[0]-(TAILLE_HORIZONTALE/2);
+			posSym[0]=TAILLE_HORIZONTALE/2-ecartMotie;
+			posSym[1]=pos[1];
+			placerTerre(pos);
+			placerTerre(posSym);
+		}
+	}
+	
+	protected void placerMer(int[] pos){
+		plateau[pos[0]][pos[1]] = new Mer(Textures.HEXAGON,pos[0],pos[1]);
+		plateau[pos[0]][pos[1]].setColor(Jeu.cmer.r,Jeu.cmer.g,Jeu.cmer.b,Jeu.cmer.a);
+	}
+	
+	
+	protected void placerMerSym(int[] pos){
+		if (pos[0]<(TAILLE_HORIZONTALE/2)){
+			int[] posSym={0,0};
+			int ecartMotie=(TAILLE_HORIZONTALE/2)-pos[0];
+			posSym[0]=TAILLE_HORIZONTALE/2+ecartMotie;
+			posSym[1]=pos[1];
+			placerMer(pos);
+			placerMer(posSym);
+			
+		}else{
+			int[] posSym={0,0};
+			int ecartMotie=pos[0]-(TAILLE_HORIZONTALE/2);
+			posSym[0]=TAILLE_HORIZONTALE/2-ecartMotie;
+			posSym[1]=pos[1];
+			placerTerre(pos);
+			placerTerre(posSym);
+		}
+	}
+	
+	protected void placerPhare(int numPhare,int[] pos){
+		phares[numPhare] = new Phare(Textures.PHARE,Textures.HEXAGON,pos[0],pos[1]);
+		phares[numPhare].setColor(Jeu.cmer.r,Jeu.cmer.g,Jeu.cmer.b,Jeu.cmer.a);
+		plateau[pos[0]][pos[1]] = phares[numPhare];
+	}
 	
 }
 
