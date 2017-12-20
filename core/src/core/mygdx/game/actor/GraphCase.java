@@ -57,10 +57,10 @@ public abstract class GraphCase extends ImageButton { // TODO passer en ImageBut
 		public Drawbt(int _x,int _y,Case c){
 			wx=_x;
 			wy=_y;
-			x=wx;
-			y=wy;
-			h=1;
-			w=1;
+			x=wx*100;
+			y=wy*100;
+			h=100;
+			w=100;
 			selected=false;
 			
 		}
@@ -74,6 +74,9 @@ public abstract class GraphCase extends ImageButton { // TODO passer en ImageBut
 				batch.setColor(1, 0, 0, 1);
 			}
 			batch.setColor(1, 0, 0, 1);
+			
+			System.out.println(c);
+			
 			batch.draw(Textures.HEXAGON, x, y, w, h);
 			batch.setColor(ctmp);
 			

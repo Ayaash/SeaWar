@@ -2,6 +2,7 @@ package com.mygdx.game.desktop;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
+import com.mygdx.game.Gui;
 import com.mygdx.game.Jeu;
 /**
  * 
@@ -22,6 +23,6 @@ public class DesktopLauncher {
 		
 		
 		//Lancement du jeu
-		new LwjglApplication(new Jeu(), config);
+		new LwjglApplication(new Gui(), config);
 	}
 }
