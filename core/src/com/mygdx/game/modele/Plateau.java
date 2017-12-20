@@ -46,14 +46,6 @@ public class Plateau implements Serializable {
 		int[] posTerre3={5,5};
 		placerTerreSym(posTerre3);
 		
-		/*plateau[6][4] = new Terre(Textures.HEXAGON,6,4);
-		plateau[6][4].setColor(0.2f,0.75f,0f,1f);
-		plateau[6][5] = new Terre(Textures.HEXAGON,6,5);
-		plateau[6][4].setColor(0.2f,0.75f,0f,1f);
-		plateau[5][5] = new Terre(Textures.HEXAGON,5,5);
-		plateau[5][5].setColor(0.2f,0.75f,0f,1f);
-		plateau[7][5] = new Terre(Textures.HEXAGON,7,5);
-		plateau[7][5].setColor(0.2f,0.75f,0f,1f);*/
 		
 		int posX0=(int) (TAILLE_HORIZONTALE/2);
 		int posY0=(int) (Math.random()*TAILLE_VERTICALE);
