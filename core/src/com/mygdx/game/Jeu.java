@@ -577,20 +577,20 @@ public class Jeu extends ApplicationAdapter {
 		//Plateau créé dans Partie
 		partie = Partie.getInstance();
 		
-		int[] pos0 = {0,0};
-		int[] pos1 = {1,0};
-		int[] pos2 = {Plateau.TAILLE_HORIZONTALE-2,Plateau.TAILLE_VERTICALE-1};
-		int[] pos3 = {Plateau.TAILLE_HORIZONTALE-1,Plateau.TAILLE_VERTICALE-1};
+		int[] pos0 = {0,Plateau.TAILLE_VERTICALE/2-1};
+		int[] pos1 = {0,Plateau.TAILLE_VERTICALE/2};
+		int[] pos2 = {Plateau.TAILLE_HORIZONTALE-1,Plateau.TAILLE_VERTICALE/2-1};
+		int[] pos3 = {Plateau.TAILLE_HORIZONTALE-1,Plateau.TAILLE_VERTICALE/2};
 
 		
-		Amiral J1Amiral = new Amiral(Textures.AMIRAL,pos0, Orientation.SudEst);
+		Amiral J1Amiral = new Amiral(Textures.AMIRAL,pos0, Orientation.NordEst);
 		//pos[0] = 1;
 		Fregate J1Fregate = new Fregate(Textures.FREGATE,pos1, Orientation.SudEst);
 		//pos[0] = Plateau.TAILLE_HORIZONTALE-1;
 		//pos[1] = Plateau.TAILLE_VERTICALE-1;
 		Amiral J2Amiral = new Amiral(Textures.AMIRAL,pos2, Orientation.NordOuest);
 		//pos[1] = Plateau.TAILLE_VERTICALE-2;
-		Fregate J2Fregate = new Fregate(Textures.FREGATE,pos3, Orientation.NordOuest);
+		Fregate J2Fregate = new Fregate(Textures.FREGATE,pos3, Orientation.SudOuest);
 		
 		Navire[] naviresJ1 = {J1Amiral, J1Fregate};
 		Navire[] naviresJ2 = {J2Amiral, J2Fregate};
