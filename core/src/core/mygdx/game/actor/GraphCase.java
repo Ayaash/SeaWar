@@ -7,8 +7,10 @@ import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.mygdx.game.Jeu;
 import com.mygdx.game.graphique.Textures;
 import com.mygdx.game.modele.Case;
+import com.mygdx.game.modele.Plateau;
 
 public abstract class GraphCase extends ImageButton { // TODO passer en ImageButton
 	private Case m_case;
@@ -54,7 +56,7 @@ public abstract class GraphCase extends ImageButton { // TODO passer en ImageBut
 		private Case c;
 		private boolean selected;//TODO a ajouter aussi dans case
 		
-		public Drawbt(int _x,int _y,Case c){
+		public Drawbt(int _x,int _y,Case _c){
 			wx=_x;
 			wy=_y;
 			x=wx*100;
@@ -62,6 +64,8 @@ public abstract class GraphCase extends ImageButton { // TODO passer en ImageBut
 			h=100;
 			w=100;
 			selected=false;
+			c=_c;
+
 			
 		}
 		
@@ -75,11 +79,42 @@ public abstract class GraphCase extends ImageButton { // TODO passer en ImageBut
 			}
 			batch.setColor(1, 0, 0, 1);
 			
-			System.out.println(c);
+			actualizePosSize();
 			
-			batch.draw(Textures.HEXAGON, x, y, w, h);
+			batch.draw(Textures.HEXAGON, wx*100, wy*100, w, h);
 			batch.setColor(ctmp);
 			
+		}
+		
+		protected void actualizePosSize(){
+			//posX=(int) position[0]*10;
+			//posY=(int) position[1]*10;
+			
+			double sx=(Jeu.maxWX-Jeu.minWX+0f)/(Plateau.getInstance().TAILLE_HORIZONTALE+0f);
+			double sy=(Jeu.maxWY-Jeu.minWY+0f)/(Plateau.getInstance().TAILLE_VERTICALE+0f);
+			
+			
+			w=(int) (sx/0.8);
+			h=(int) (sy/1);
+			
+			x=(int) (Jeu.minWX  + wx*sx );
+			y=(int) ( Jeu.maxWY+Jeu.minWY-1.5*h-(Jeu.minWY  + wy*sy ) );
+
+			
+			
+			
+			//posX=(int) Jeu.minWX + (Jeu.maxWX-Jeu.minWX)*position[0];
+			//posY=(int) Jeu.minWY + (Jeu.maxWX-Jeu.minWX)*position[1];
+
+			if(wx%2==0){//TODO Peut etre revoir la parit�
+				y+=sy/2;
+			}
+			
+			
+
+			
+			
+			//this.actualizeSprite(obj);
 		}
 	
 		@Override
