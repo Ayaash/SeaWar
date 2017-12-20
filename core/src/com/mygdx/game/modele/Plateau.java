@@ -30,6 +30,13 @@ public class Plateau {
 				
 			}
 		}
+		int[] posTerre1={3,4};
+		placerTerreSym(posTerre1);
+		int[] posTerre2={3,3};
+		placerTerreSym(posTerre2);
+		int[] posTerre3={3,5};
+		placerTerreSym(posTerre3);
+		placerMerSym(posTerre1);
 		/*plateau[6][4] = new Terre(Textures.HEXAGON,6,4);
 		plateau[6][4].setColor(0.2f,0.75f,0f,1f);
 		plateau[6][5] = new Terre(Textures.HEXAGON,6,5);
@@ -267,7 +274,6 @@ public class Plateau {
 			coor[1] = j+1;
 		}
 		return coor;
-		
 	}
 	protected int[] voisinSO(int[] t){
 		int[] coor = new int[2];
@@ -331,6 +337,55 @@ public class Plateau {
 	}
 		
 
+	
+	protected void placerTerre(int[] pos){
+		plateau[pos[0]][pos[1]] = new Terre(Textures.HEXAGON,pos[0],pos[1]);
+		plateau[pos[0]][pos[1]].setColor(0.2f,0.75f,0f,1f);
+	}
+	
+	protected void placerTerreSym(int[] pos){
+		if (pos[0]<(TAILLE_HORIZONTALE/2)){
+			int[] posSym={0,0};
+			int ecartMotie=(TAILLE_HORIZONTALE/2)-pos[0];
+			posSym[0]=TAILLE_HORIZONTALE/2+ecartMotie;
+			posSym[1]=pos[1];
+			placerTerre(pos);
+			placerTerre(posSym);
+			
+		}else{
+			int[] posSym={0,0};
+			int ecartMotie=pos[0]-(TAILLE_HORIZONTALE/2);
+			posSym[0]=TAILLE_HORIZONTALE/2-ecartMotie;
+			posSym[1]=pos[1];
+			placerTerre(pos);
+			placerTerre(posSym);
+		}
+	}
+	
+	protected void placerMer(int[] pos){
+		plateau[pos[0]][pos[1]] = new Mer(Textures.HEXAGON,pos[0],pos[1]);
+		plateau[pos[0]][pos[1]].setColor(Jeu.cmer.r,Jeu.cmer.g,Jeu.cmer.b,Jeu.cmer.a);
+	}
+	
+	
+	protected void placerMerSym(int[] pos){
+		if (pos[0]<(TAILLE_HORIZONTALE/2)){
+			int[] posSym={0,0};
+			int ecartMotie=(TAILLE_HORIZONTALE/2)-pos[0];
+			posSym[0]=TAILLE_HORIZONTALE/2+ecartMotie;
+			posSym[1]=pos[1];
+			placerMer(pos);
+			placerMer(posSym);
+			
+		}else{
+			int[] posSym={0,0};
+			int ecartMotie=pos[0]-(TAILLE_HORIZONTALE/2);
+			posSym[0]=TAILLE_HORIZONTALE/2-ecartMotie;
+			posSym[1]=pos[1];
+			placerTerre(pos);
+			placerTerre(posSym);
+		}
+	}
 	
 }
 
