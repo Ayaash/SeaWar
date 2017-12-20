@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.mygdx.game.etats.Partie;
 import com.mygdx.game.graphique.Bouton;
 import com.mygdx.game.graphique.InFenDebug;
 import com.mygdx.game.graphique.Label;
@@ -28,6 +27,7 @@ public class Jeu extends ApplicationAdapter {
 	Label pad0;
 
 	public static Color cmer=new Color(0.06f, 0.38f, 0.58f, 1f);
+	public static Color cterre=new Color(0.8f, 0.7f, 0f, 1f);
 	public static Color cbrille=new Color(1f, 1f, 0.58f, 1f);
 
 	
@@ -175,15 +175,25 @@ public class Jeu extends ApplicationAdapter {
 						if(tmp){
 							pl.getCases(i, j).setColor(cbrille.r, cbrille.g, cbrille.b, 1);
 						}else{
-							pl.getCases(i, j).setColor(cmer.r, cmer.g, cmer.b, 1);
+							if(pl.getCases(i ,j ) instanceof Terre){
+								pl.getCases(i, j).setColor(cterre.r, cterre.g, cterre.b, 1);
+							}else{
+								pl.getCases(i, j).setColor(cmer.r, cmer.g, cmer.b, 1);
+							}
+						
+							
 						}
 					}
 				}
 			}
 		}else{
-			for(int i=0;i<pl.TAILLE_HORIZONTALE;i++){
-				for(int j=0;j<pl.TAILLE_VERTICALE;j++){
-					pl.getCases(i, j).setColor(cmer.r, cmer.g, cmer.b, 1);
+			for(int i=0;i<Plateau.TAILLE_HORIZONTALE;i++){
+				for(int j=0;j<Plateau.TAILLE_VERTICALE;j++){
+					if(pl.getCases(i ,j ) instanceof Terre){
+						pl.getCases(i, j).setColor(cterre.r, cterre.g, cterre.b, 1);
+					}else{
+						pl.getCases(i, j).setColor(cmer.r, cmer.g, cmer.b, 1);
+					}
 				}
 			}
 		}
@@ -273,17 +283,22 @@ public class Jeu extends ApplicationAdapter {
 			else if(Gdx.input.isKeyPressed(Input.Keys.T)){
 				if(partie.getNavireCourant()!=null){
 					if(partie.getNavireCourant().peutTirerPrincipal()){	
-						InFenDebug.println("Tir Principal, entrez la premi�re coordonn�e de la case");
-						casesAccessible= (int[][]) partie.demanderTirsPossiblesPrincipal()[0];
-						deg=(Integer) partie.demanderTirsPossiblesPrincipal()[1];
-						modeMvnt=false;
-						modeSelectNav=false;
-						modeTir1=true;
-						modeTir2=false;
-					
+						if(partie.getNavireCourant().deplacementsPossibles() == null){
+							InFenDebug.println("Deplacement impossible, le navire passe son tour et se retourne");
+						}else{
+							InFenDebug.println("Tir Principal, entrez la premi�re coordonn�e de la case");
+							
+							Tir tir = partie.demanderTirsPossiblesPrincipal();
+							casesAccessible = tir.cases;
+							deg = tir.degats;
+							
+							modeMvnt=false;
+							modeSelectNav=false;
+							modeTir1=true;
+							modeTir2=false;
+						}
 					}else{
 						InFenDebug.println("Ce navire ne peut pas tirer son canon principal");
-	
 					}
 
 				}else{
@@ -299,8 +314,11 @@ public class Jeu extends ApplicationAdapter {
 				if(partie.getNavireCourant()!=null){
 					if(partie.getNavireCourant().peutTirerSecondaire()){
 						InFenDebug.println("Tir secondaire, entrez la premi�re coordonn�e de la case");
-						casesAccessible= (int[][]) partie.demanderTirsPossiblesSecondaire()[0];
-						deg=(Integer) partie.demanderTirsPossiblesPrincipal()[1];
+
+						Tir tir = partie.demanderTirsPossiblesSecondaire();
+						casesAccessible = tir.cases;
+						deg = tir.degats;
+						
 						modeMvnt=false;
 						modeSelectNav=false;
 						modeTir1=false;
