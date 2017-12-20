@@ -5,12 +5,18 @@ import java.io.Serializable;
 import com.mygdx.game.Jeu;
 import com.mygdx.game.graphique.Textures;
 
+<<<<<<< HEAD
 public class Plateau implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
 	public static final int TAILLE_HORIZONTALE = 14;
 	public static final int TAILLE_VERTICALE = 11;
+=======
+public class Plateau {
+	public static final int TAILLE_HORIZONTALE = 13;
+	public static final int TAILLE_VERTICALE = 12;
+>>>>>>> e78a0672d425b73c16d509b80f3e7610fc2f1f65
 	public static final int NOMBRE_PHARE = 3;
 	
 	Case plateau[][] = new Case[TAILLE_HORIZONTALE][TAILLE_VERTICALE];
@@ -35,30 +41,35 @@ public class Plateau implements Serializable {
 				
 			}
 		}
-		plateau[6][4] = new Terre(Textures.HEXAGON,6,4);
+		/*plateau[6][4] = new Terre(Textures.HEXAGON,6,4);
 		plateau[6][4].setColor(0.2f,0.75f,0f,1f);
 		plateau[6][5] = new Terre(Textures.HEXAGON,6,5);
 		plateau[6][4].setColor(0.2f,0.75f,0f,1f);
 		plateau[5][5] = new Terre(Textures.HEXAGON,5,5);
 		plateau[5][5].setColor(0.2f,0.75f,0f,1f);
 		plateau[7][5] = new Terre(Textures.HEXAGON,7,5);
-		plateau[7][5].setColor(0.2f,0.75f,0f,1f);
+		plateau[7][5].setColor(0.2f,0.75f,0f,1f);*/
 		
-		int posX0=(int) (Math.random()*TAILLE_HORIZONTALE);
+		int posX0=(int) (TAILLE_HORIZONTALE/2);
 		int posY0=(int) (Math.random()*TAILLE_VERTICALE);
-
-		int posX1=(int) (Math.random()*TAILLE_HORIZONTALE);
-		int posY1=(int) (Math.random()*TAILLE_VERTICALE);
 		
-		int posX2=(int) (Math.random()*TAILLE_HORIZONTALE);
-		int posY2=(int) (Math.random()*TAILLE_VERTICALE);
+		int randomX=(int) (Math.random()*TAILLE_HORIZONTALE/2);
+		int randomY=(int) (Math.random()*TAILLE_VERTICALE);
+		int posX1=TAILLE_HORIZONTALE/2+randomX;
+		int posY1=randomY;
+		
+		int posX2=TAILLE_HORIZONTALE/2-randomX;
+		int posY2=randomY;
 		
 		while((posX0==posX1 || posX2==posX1 || posX0==posX2) &&(posY0==posY1 || posY2==posY1 || posY0==posY2)){
-			posX1=(int) (Math.random()*TAILLE_HORIZONTALE);
-			posY1=(int) (Math.random()*TAILLE_VERTICALE);
+			randomX=(int) (Math.random()*TAILLE_HORIZONTALE/2);
+			randomY=(int) (Math.random()*TAILLE_VERTICALE);
 			
-			posX2=(int) (Math.random()*TAILLE_HORIZONTALE);
-			posY2=(int) (Math.random()*TAILLE_VERTICALE);
+			posX1=TAILLE_HORIZONTALE/2+randomX;
+			posY1=randomY;
+			
+			posX2=TAILLE_HORIZONTALE/2-randomX;
+			posY2=randomY;
 		}
 		
 		
