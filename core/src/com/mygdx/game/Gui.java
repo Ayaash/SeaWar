@@ -16,11 +16,14 @@ public class Gui implements ApplicationListener {
 	
 	@Override
 	public void create() {
+		Partie partie = Partie.getInstance();
 		viewport = new ScreenViewport();
 		stageJeu = new Stage(viewport);
-		Partie partie = Partie.getInstance();
+		
+		// Ajout de l'UI du plateau
 		stageJeu.addActor(new GraphPlateau(Plateau.getInstance()));
 
+		
 	}
 
 	@Override
