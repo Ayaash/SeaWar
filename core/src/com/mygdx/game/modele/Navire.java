@@ -80,12 +80,10 @@ public abstract class Navire extends InWorldObj {
         return res;
     }
 	
-	
 	public void miseEnRechargementCanPrinc(){
 		etatCanPrinc=TPS_RECH_CAN_PRINC+1;
 		aTire=true;
 	}
-	
 	public void miseEnRechargementCanSec(){
 		etatCanSec=TPS_RECH_CAN_SEC+1;
 		aTire=true;
@@ -113,6 +111,15 @@ public abstract class Navire extends InWorldObj {
     		return false;
     	}
     }
+ 	
+ 	
+ 	
+ 	public boolean peutSeDeplacer(){
+ 		return plateau.caseLibre(plateau.voisin(position, orientation.decremente()))
+ 				||plateau.caseLibre(plateau.voisin(position, orientation))
+ 				||plateau.caseLibre(plateau.voisin(position, orientation.incremente()))
+ 				;
+ 	}
  	
  	public boolean sEstDeplace(){
  		return !(DEPL_MAX == deplAct) || mort;
@@ -151,6 +158,7 @@ public abstract class Navire extends InWorldObj {
 	
 	private void retournerNavire(){
 		this.orientation = orientation.incremente().incremente().incremente();
+		
 	}
 	
 	public boolean deplacer(int pos[]){
@@ -176,6 +184,15 @@ public abstract class Navire extends InWorldObj {
 			//Erreur
 			return false;
 		}*/
+		
+		if(pos[0] == -1 && pos[1] == -1){
+			retournerNavire();
+			deplAct = 0;
+			aTire = true;
+			return true;
+		}
+		
+		
 		int[] nouvelleCase = plateau.voisin(position, orientation.decremente());
 		if(Arrays.equals(pos, nouvelleCase)){
 			plateau.enleverNavire(position);

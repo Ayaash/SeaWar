@@ -98,7 +98,12 @@ public class Partie implements Serializable{
 		}
 	}
 	
-	
+	public boolean peutSeDeplacer(){
+		return navireCourant.peutSeDeplacer();
+	}
+	public boolean sEstDeplace(){
+		return navireCourant.sEstDeplace();
+	}
 	public int demanderNbDeplacements(){
 		return navireCourant.deplacementsRestants();
 	}
