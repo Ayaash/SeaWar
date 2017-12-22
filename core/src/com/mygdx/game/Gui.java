@@ -35,7 +35,7 @@ public class Gui implements ApplicationListener {
 		stageJeu = new Stage(viewport);
 		
 		// Ajout de l'UI du plateau
-		stageJeu.addActor(new GraphPlateau(Plateau.getInstance()));
+		//stageJeu.addActor(new GraphPlateau(Plateau.getInstance()));
 		
 		// Ajout du HUD
 		Group hud = new Group();
