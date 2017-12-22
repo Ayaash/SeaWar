@@ -15,7 +15,7 @@ import com.mygdx.game.modele.Terre;
 
 public class GraphTerre extends GraphCase {
 	
-	public static final Color BASECOLOR=new Color(0.06f, 0.38f, 0.58f, 1f);
+	public static final Color BASECOLOR=new Color(1f, 0.9f, 0f, 1f);
 
 	
 	

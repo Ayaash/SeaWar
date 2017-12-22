@@ -13,7 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.mygdx.game.etats.Partie;
+import com.mygdx.game.modele.Partie;
 import com.mygdx.game.graphique.Textures;
 import com.mygdx.game.modele.Amiral;
 import com.mygdx.game.modele.Fregate;
