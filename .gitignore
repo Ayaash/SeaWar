@@ -2,7 +2,7 @@
 **/.classpath
 .metadata
 **/tmp/
-**/*.class
+*.class
 *.tmp
 *.bak
 *.swp

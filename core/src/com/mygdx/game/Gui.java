@@ -28,17 +28,23 @@ public class Gui implements ApplicationListener {
 	private TextAmiral m_amiral;
 	private Viewport viewport;
 	private Stage stageJeu; 
+	private Partie m_partie;
+	
+	//520x614
+	public static int minWX=333;//0+200;
+	public static int minWY=100;//0+200;
+	public static int maxWX=1280-333;//1280-200;
+	public static int maxWY=620;//720-200;
 	
 	@Override
 	public void create() {
 		Textures.chargerTextures();
 		Skin skin = new Skin(Gdx.files.internal("skin/rusty-robot-ui.json"));
 		
-		Partie partie = Partie.getInstance();
+		m_partie = Partie.getInstance();
 		viewport = new ScreenViewport();
 		stageJeu = new Stage(viewport);
 		Gdx.input.setInputProcessor(stageJeu);
-		
 		
 		// Ajout de l'UI du plateau
 		stageJeu.addActor(new GraphPlateau(Plateau.getInstance()));
@@ -80,10 +86,10 @@ public class Gui implements ApplicationListener {
 		hud.addActor(pannelInfo);
 		
 		/*
-		m_fregate = new TextFregate((Fregate) partie.getCurrentPlayer().getNavires()[1]); //FIXME joueur à null
+		m_fregate = new TextFregate((Fregate) m_partie.getCurrentPlayer().getNavires()[1]); //FIXME joueur à null
 		pannelInfo.addActor(m_fregate);
 		
-		m_amiral = new TextAmiral((Amiral) partie.getCurrentPlayer().getNavires()[0]);//FIXME joueur à null
+		m_amiral = new TextAmiral((Amiral) m_partie.getCurrentPlayer().getNavires()[0]);//FIXME joueur à null
 		pannelInfo.addActor(m_fregate);
 		*/
 		stageJeu.addActor(hud);

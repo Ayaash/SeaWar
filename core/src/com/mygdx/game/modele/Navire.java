@@ -48,6 +48,10 @@ public abstract class Navire extends InWorldObj {
 		joueur=j;
 	}
 	
+	public Joueur getJoueur(){
+		return joueur;
+	}
+	
 	public int[] getPosition(){
 		return this.position;
 	}

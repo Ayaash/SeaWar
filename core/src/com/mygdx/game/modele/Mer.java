@@ -90,13 +90,20 @@ public class Mer extends Case {
 	}
 
 
-
+	/*
 	@Override
 	public GraphCase getGraphCase() {
 		return new GraphMer(this);
 	}
+	*/
 	
 	public boolean hasNavire() {
 		return !this.estNavigable();
+	}
+	
+	@Override
+	public GraphCase getGraphCase() {
+		gc=new GraphMer(this);
+		return gc;
 	}
 }

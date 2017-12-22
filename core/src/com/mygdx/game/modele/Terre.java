@@ -35,10 +35,18 @@ public class Terre extends Case {
 	public boolean recevoirTir(int degats) {
 		return false;
 	}
-
+	
+	/*
 	@Override
 	public GraphCase getGraphCase() {
 		return new GraphTerre(this);
+	}
+	*/
+	
+	@Override
+	public GraphCase getGraphCase() {
+		gc=new GraphTerre(this);
+		return gc;
 	}
 
 }
