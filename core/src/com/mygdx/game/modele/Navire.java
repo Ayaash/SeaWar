@@ -6,17 +6,19 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.mygdx.game.graphique.InWorldObj;
 
+import core.mygdx.game.actor.GraphNavire;
+
 
 public abstract class Navire extends InWorldObj {
 	private static final long serialVersionUID = 1L;
 	
 	//Constantes du navire
-	protected int PV_MAX;
-	protected int DEPL_MAX;
-	protected int TPS_RECH_CAN_PRINC;
-	protected int DEG_CAN_PRINC;
-	protected int TPS_RECH_CAN_SEC;
-	protected int DEG_CAN_SEC;
+	public static int PV_MAX;
+	public static int DEPL_MAX;
+	public static int TPS_RECH_CAN_PRINC;
+	public static int DEG_CAN_PRINC;
+	public static int TPS_RECH_CAN_SEC;
+	public static int DEG_CAN_SEC;
 	
 	//Variables du navire
 	protected Orientation orientation;
@@ -42,6 +44,14 @@ public abstract class Navire extends InWorldObj {
 	}
 
 	
+	public void setJoueur(Joueur j){
+		joueur=j;
+	}
+	
+	public Joueur getJoueur(){
+		return joueur;
+	}
+	
 	public int[] getPosition(){
 		return this.position;
 	}
@@ -62,6 +72,13 @@ public abstract class Navire extends InWorldObj {
 	
 	public abstract int[][] tirPrincipalCasesPos();
 	public abstract int[][] tirSecondaireCasesPos();
+	public int rechargePrincipal() {
+		return etatCanPrinc;
+	}
+	
+	public int rechargeSecondaire() {
+		return etatCanSec;
+	}
 	
 	public Tir tirPrincipal(){
         int [][] tabCasePoss=tirPrincipalCasesPos();
@@ -237,10 +254,16 @@ public abstract class Navire extends InWorldObj {
 		}
 	}
 	
+	public int getVie() {
+		return this.pVAct;
+	}
+	
 	@Override
 	protected void actualizeSprite(Image ob){
 		angle=-orientation.ordinal()*60-90+180;
 		super.actualizeSprite(ob);
 	}
+	
+	public abstract GraphNavire getGraph(); 
 	
 }

@@ -1,6 +1,9 @@
 package com.mygdx.game.modele;
 
+
 import com.badlogic.gdx.graphics.Texture;
+import core.mygdx.game.actor.GraphCase;
+import core.mygdx.game.actor.GraphTerre;
 
 public class Terre extends Case {
 
@@ -33,6 +36,19 @@ public class Terre extends Case {
 	@Override
 	public boolean recevoirTir(int degats) {
 		return false;
+	}
+	
+	/*
+	@Override
+	public GraphCase getGraphCase() {
+		return new GraphTerre(this);
+	}
+	*/
+	
+	@Override
+	public GraphCase getGraphCase() {
+		gc=new GraphTerre(this);
+		return gc;
 	}
 
 }

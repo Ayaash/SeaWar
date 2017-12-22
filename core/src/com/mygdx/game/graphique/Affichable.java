@@ -74,7 +74,9 @@ public class Affichable implements Serializable{
 		initColor();
 		if(img!=null){
 			obj=createSprite(img);
-		}
+		}/*else{
+			obj=createSprite(Textures.NOIMAGE);
+		}*/
 
 	}
 	

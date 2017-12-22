@@ -1,9 +1,8 @@
 
 **/.classpath
 .metadata
-**/bin/
 **/tmp/
-**/*.class
+*.class
 *.tmp
 *.bak
 *.swp

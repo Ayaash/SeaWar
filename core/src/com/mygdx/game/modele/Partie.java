@@ -1,5 +1,4 @@
 package com.mygdx.game.modele;
-
 import java.io.Serializable;
 import java.util.Arrays;
 
@@ -33,7 +32,7 @@ public class Partie implements Serializable{
 		plateau = Plateau.getInstance();
 		tour = 1;
 	}
-	/*
+	/* //TODO
 	public boolean sauvegarderPartie(){
 		try{
 			FileOutputStream fileOut =

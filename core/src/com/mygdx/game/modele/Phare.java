@@ -4,8 +4,10 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
-public class Phare extends Mer {
+import core.mygdx.game.actor.GraphCase;
+import core.mygdx.game.actor.GraphPhare;
 
+public class Phare extends Mer {
 	private static final long serialVersionUID = 1L;
 	protected Texture tPhare;
 	protected Image obj2;
@@ -63,6 +65,12 @@ public class Phare extends Mer {
 			return false;
 		}	
 		
+	}
+	
+	@Override
+	public GraphCase getGraphCase() {
+		gc=new GraphPhare(this);
+		return gc;
 	}
 	
 }

@@ -5,12 +5,12 @@ import java.io.Serializable;
 import com.mygdx.game.Jeu;
 import com.mygdx.game.graphique.Textures;
 
-
+import core.mygdx.game.actor.GraphCase;
 
 public class Plateau implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	public static final int TAILLE_HORIZONTALE = 13;
 	public static final int TAILLE_VERTICALE = 11;
 
@@ -318,7 +318,10 @@ public class Plateau implements Serializable {
 		
 	}
 		
-
+	public GraphCase getGraphCase(int i, int j) {
+		GraphCase gCase = plateau[i][j].getGraphCase();
+		return gCase;
+	}
 	
 	protected void placerTerre(int[] pos){
 		plateau[pos[0]][pos[1]] = new Terre(Textures.HEXAGON,pos[0],pos[1]);

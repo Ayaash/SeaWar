@@ -3,6 +3,9 @@ package com.mygdx.game.modele;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 
+import core.mygdx.game.actor.GraphCase;
+import core.mygdx.game.actor.GraphMer;
+
 public class Mer extends Case {
 
 	private static final long serialVersionUID = 1L;
@@ -77,5 +80,27 @@ public class Mer extends Case {
 			return false;
 		}
 		
+	}
+	
+	public Navire getNavire() {
+		return this.bateau;
+	}
+
+
+	/*
+	@Override
+	public GraphCase getGraphCase() {
+		return new GraphMer(this);
+	}
+	*/
+	
+	public boolean hasNavire() {
+		return !this.estNavigable();
+	}
+	
+	@Override
+	public GraphCase getGraphCase() {
+		gc=new GraphMer(this);
+		return gc;
 	}
 }
