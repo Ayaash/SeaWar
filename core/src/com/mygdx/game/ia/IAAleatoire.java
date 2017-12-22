@@ -13,14 +13,29 @@ public class IAAleatoire extends AbstractIA {
 	@Override
 	public Coup getCoup() {
 		Coup meilleur = null;
-		
 		Partie copie = copiePartie();
+		int mouvement[][] = null;
+		
+		//Deplacements
 		if(!copie.peutSeDeplacer() && !copie.sEstDeplace()){
-			
+			int demiTour[] = {-1,-1};
+			meilleur = new Coup(TypeCoup.Mouvement, demiTour);
+			return meilleur;
+		}
+		if(!copie.peutSeDeplacer() && copie.sEstDeplace()){
+			//mouvement = null;
+		}else if(copie.peutSeDeplacer() && copie.sEstDeplace()){
+			mouvement = copie.demanderDeplacementsPossibles();
 		}
 		
+		//Tirs
+		//if(copie.)
 		
-		int mouvement[][] = null;
+		
+		
+		
+		
+		
 		Navire navire = partie.getNavireCourant();
 		boolean peutBouger = navire.deplacementsRestants() != 0;
 		if(peutBouger){

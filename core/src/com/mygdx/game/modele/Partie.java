@@ -99,24 +99,60 @@ public class Partie implements Serializable{
 	}
 	
 	public boolean peutSeDeplacer(){
+		if(navireCourant == null){
+			return false;
+		}
 		return navireCourant.peutSeDeplacer();
 	}
 	public boolean sEstDeplace(){
+		if(navireCourant == null){
+			return false;
+		}
 		return navireCourant.sEstDeplace();
 	}
 	public int demanderNbDeplacements(){
+		if(navireCourant == null){
+			return -1;
+		}
 		return navireCourant.deplacementsRestants();
 	}
 	public int[][] demanderDeplacementsPossibles(){
+		if(navireCourant == null){
+			return null;
+		}
 		return navireCourant.deplacementsPossibles();
 	}
 	public boolean deplacerNavire(int[] choix){
+		if(navireCourant == null){
+			return false;
+		}
 		return navireCourant.deplacer(choix);
 	}
+	public boolean peutTirerPrincipal(){
+		if(navireCourant == null){
+			return false;
+		}else{
+			return navireCourant.peutTirerPrincipal();
+		}
+	}
+	public boolean peutTirerSecondaire(){
+		if(navireCourant == null){
+			return false;
+		}else{
+			return navireCourant.peutTirerSecondaire();
+		}
+	}
+
 	public Tir demanderTirsPossiblesPrincipal(){
+		if(navireCourant == null){
+			return null;
+		}
 		return navireCourant.tirPrincipal();
 	}
 	public Tir demanderTirsPossiblesSecondaire(){
+		if(navireCourant == null){
+			return null;
+		}
 		return navireCourant.tirSecondaire();
 	}
 	public boolean tirerSurUneCase(int[] position, int degats){
