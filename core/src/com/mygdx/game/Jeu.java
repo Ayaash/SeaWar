@@ -17,6 +17,7 @@ import com.mygdx.game.graphique.Bouton;
 import com.mygdx.game.graphique.InFenDebug;
 import com.mygdx.game.graphique.Label;
 import com.mygdx.game.graphique.Textures;
+import com.mygdx.game.ia.IAAleatoire;
 import com.mygdx.game.modele.*;
 
 
@@ -540,6 +541,16 @@ public class Jeu extends ApplicationAdapter {
 
 				
 				aKeyIsPressed=true;
+			}else if(Gdx.input.isKeyPressed(Input.Keys.R)){
+				if(pte.getNavireCourant() == null){
+					InFenDebug.println("Pas de navire selectionne");
+				}else{
+					IAAleatoire ia = new IAAleatoire(pte);
+					ia.getCoup().faireCoup(pte);
+					InFenDebug.println("Coup aleatoire !");
+				}
+				aKeyIsPressed=true;
+			
 			/*
 			}else if(Gdx.input.isKeyPressed(Input.Keys.A)){
 				if(partie.sauvegarderPartie() == true){
@@ -549,6 +560,7 @@ public class Jeu extends ApplicationAdapter {
 				}
 				
 				aKeyIsPressed=true;
+				{
 				*/
 			}else{
 				

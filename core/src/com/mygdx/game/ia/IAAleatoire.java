@@ -14,6 +14,7 @@ public class IAAleatoire extends AbstractIA {
 	}
 
 	@Override
+	//TODO: Selectionner le navire
 	public Coup getCoup() {
 		Coup meilleur = null;
 		Partie copie = copiePartie();
