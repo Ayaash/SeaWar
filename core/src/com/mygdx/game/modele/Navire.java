@@ -13,12 +13,12 @@ public abstract class Navire extends InWorldObj {
 	private static final long serialVersionUID = 1L;
 	
 	//Constantes du navire
-	protected int PV_MAX;
-	protected int DEPL_MAX;
-	protected int TPS_RECH_CAN_PRINC;
-	protected int DEG_CAN_PRINC;
-	protected int TPS_RECH_CAN_SEC;
-	protected int DEG_CAN_SEC;
+	public static int PV_MAX;
+	public static int DEPL_MAX;
+	public static int TPS_RECH_CAN_PRINC;
+	public static int DEG_CAN_PRINC;
+	public static int TPS_RECH_CAN_SEC;
+	public static int DEG_CAN_SEC;
 	
 	//Variables du navire
 	protected Orientation orientation;
@@ -64,6 +64,14 @@ public abstract class Navire extends InWorldObj {
 	}
 	public boolean peutTirerSecondaire(){
 		return etatCanSec == 0 || !aTire;
+	}
+	
+	public int rechargePrincipal() {
+		return etatCanPrinc;
+	}
+	
+	public int rechargeSecondaire() {
+		return etatCanSec;
 	}
 	
 	//Ces fonctions renvoient un tableau de coordonnées de cases (int[][]) et les dégats du tir (int) 
@@ -207,6 +215,10 @@ public abstract class Navire extends InWorldObj {
 	public void commencerTour(){
 		this.recharger();
 		this.deplAct = DEPL_MAX;
+	}
+	
+	public int getVie() {
+		return this.pVAct;
 	}
 	
 	@Override

@@ -7,17 +7,18 @@ import core.mygdx.game.actor.GraphAmiral;
 import core.mygdx.game.actor.GraphNavire;
 
 public class Amiral extends Navire {
+	
+	public static final int PV_MAX = 100;
+	public static final int DEPL_MAX = 3;
+	public static final int TPS_RECH_CAN_PRINC = 3;
+	public static final int DEG_CAN_PRINC = 50;
+	public static final int TPS_RECH_CAN_SEC = 1;
+	public static final int DEG_CAN_SEC = 30;
 
 	private static final long serialVersionUID = 1L;
 
 	public Amiral(Texture img,int[] posi , Orientation ori){
-    	super(img,posi,ori);    	
-    	PV_MAX=50;
-        DEPL_MAX=3;
-        TPS_RECH_CAN_PRINC=3;
-        DEG_CAN_PRINC=30;
-        TPS_RECH_CAN_SEC=1;
-        DEG_CAN_SEC=10;
+    	super(img,posi,ori);
 
         //etat variable
         

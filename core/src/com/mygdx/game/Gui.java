@@ -15,27 +15,33 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.etats.Partie;
 import com.mygdx.game.graphique.Textures;
+import com.mygdx.game.modele.Amiral;
+import com.mygdx.game.modele.Fregate;
 import com.mygdx.game.modele.Plateau;
 
 import core.mygdx.game.actor.GraphPlateau;
+import core.mygdx.game.actor.TextAmiral;
+import core.mygdx.game.actor.TextFregate;
 
 public class Gui implements ApplicationListener {
-	
+	private TextFregate m_fregate;
+	private TextAmiral m_amiral;
 	private Viewport viewport;
 	private Stage stageJeu; 
 	
 	@Override
 	public void create() {
-		
 		Textures.chargerTextures();
 		Skin skin = new Skin(Gdx.files.internal("skin/rusty-robot-ui.json"));
 		
 		Partie partie = Partie.getInstance();
 		viewport = new ScreenViewport();
 		stageJeu = new Stage(viewport);
+		Gdx.input.setInputProcessor(stageJeu);
+		
 		
 		// Ajout de l'UI du plateau
-		//stageJeu.addActor(new GraphPlateau(Plateau.getInstance()));
+		stageJeu.addActor(new GraphPlateau(Plateau.getInstance()));
 		
 		// Ajout du HUD
 		Group hud = new Group();
@@ -73,7 +79,13 @@ public class Gui implements ApplicationListener {
 		pannelInfo.setPosition(950,40);
 		hud.addActor(pannelInfo);
 		
+		/*
+		m_fregate = new TextFregate((Fregate) partie.getCurrentPlayer().getNavires()[1]); //FIXME joueur à null
+		pannelInfo.addActor(m_fregate);
 		
+		m_amiral = new TextAmiral((Amiral) partie.getCurrentPlayer().getNavires()[0]);//FIXME joueur à null
+		pannelInfo.addActor(m_fregate);
+		*/
 		stageJeu.addActor(hud);
 	}
 

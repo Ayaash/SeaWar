@@ -5,21 +5,20 @@ import core.mygdx.game.actor.GraphFregate;
 import core.mygdx.game.actor.GraphNavire;
 
 public class Fregate extends Navire {
+	
 
-    /**
-	 * 
-	 */
+	public static final int PV_MAX = 50;
+	public static final int DEPL_MAX = 7;
+	public static final int TPS_RECH_CAN_PRINC = 1;
+	public static final int DEG_CAN_PRINC = 30;
+	public static final int TPS_RECH_CAN_SEC = 0;
+	public static final int DEG_CAN_SEC = 10;
+
+    
 	private static final long serialVersionUID = 1L;
 	public Fregate(Texture img,int[] posi , Orientation ori){
 		super(img,posi,ori);
 	
-		PV_MAX=50;
-        DEPL_MAX=7;
-        TPS_RECH_CAN_PRINC=2; //Valeur à 2 et non à 1 car on compte le tour actuel dans le temps de recharge
-        DEG_CAN_PRINC=30;
-        TPS_RECH_CAN_SEC=0;
-        DEG_CAN_SEC=10;
-        //etat variable
         pVAct=PV_MAX;
         deplAct=DEPL_MAX;
 
