@@ -17,7 +17,7 @@ public class DesktopLauncher {
 		
 		config.height=720;
 		config.width=1280;
-		
+		config.resizable=false;
 		config.title="Sea-War";
 		
 		

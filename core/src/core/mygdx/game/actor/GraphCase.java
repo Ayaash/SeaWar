@@ -14,7 +14,7 @@ import com.mygdx.game.graphique.Textures;
 import com.mygdx.game.modele.Case;
 import com.mygdx.game.modele.Plateau;
 
-public abstract class GraphCase extends ImageButton implements Observer { // TODO passer en ImageButton
+public abstract class GraphCase extends ImageButton implements Observer { 
 	private Case m_case;
 	protected boolean selected=false;
 	protected boolean clicked=false;

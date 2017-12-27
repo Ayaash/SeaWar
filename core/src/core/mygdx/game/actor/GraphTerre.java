@@ -8,7 +8,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.mygdx.game.Gui;
 import com.mygdx.game.graphique.Textures;
 import com.mygdx.game.modele.Case;
-import com.mygdx.game.modele.Mer;
 import com.mygdx.game.modele.Plateau;
 import com.mygdx.game.modele.Terre;
 

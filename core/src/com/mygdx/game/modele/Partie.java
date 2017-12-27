@@ -28,6 +28,7 @@ public class Partie implements Serializable{
 		}
 		return instance;
 	}
+	
 	private Partie(){
 		plateau = Plateau.getInstance();
 		tour = 1;
@@ -65,6 +66,17 @@ public class Partie implements Serializable{
 			return joueur1;
 		}else{
 			return joueur2;
+		}
+	}
+	
+	public Joueur getPlayer(int i) {
+		switch(i) {
+		case 1:
+			return this.joueur1;
+		case 2: 
+			return this.joueur2;
+		default:
+			return null;	
 		}
 	}
 	
@@ -237,34 +249,6 @@ public class Partie implements Serializable{
 		tourEnCours = false;
 		navireCourant = null;
 		return victoire;
-		
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }
+		
