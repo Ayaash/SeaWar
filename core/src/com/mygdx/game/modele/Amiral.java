@@ -18,8 +18,8 @@ public class Amiral extends Navire {
 	@SuppressWarnings("unused")
 	private static final long serialVersionUID = 1L;
 
-	public Amiral(int[] posi , Orientation ori){
-    	super(posi,ori);
+	public Amiral(int[] posi , Orientation ori, Plateau p){
+    	super(posi,ori, p);
 
         //etat variable
         

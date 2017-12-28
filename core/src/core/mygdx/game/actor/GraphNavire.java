@@ -45,7 +45,7 @@ public abstract class GraphNavire extends Image { // TODO passer en Image
 		double sy=(Gui.maxWY-Gui.minWY+0f)/(Plateau.TAILLE_VERTICALE+0f);
 		
 		
-		Case c=Plateau.getInstance().getCases(m_navire.getPosition()[0], m_navire.getPosition()[1]);
+		Case c=m_navire.getPlateau().getCases(m_navire.getPosition()[0], m_navire.getPosition()[1]);
 		
 		m_w=(int) (sx/0.8);//Pour emboiter les hexagones
 		m_h=(int) (sy/1);
