@@ -2,9 +2,6 @@ package com.mygdx.game.modele;
 
 import java.io.Serializable;
 
-import com.mygdx.game.Jeu;
-import com.mygdx.game.graphique.Textures;
-
 import core.mygdx.game.actor.GraphCase;
 
 public class Plateau implements Serializable {
@@ -35,8 +32,8 @@ public class Plateau implements Serializable {
 	private Plateau(){
 		for(int i=0;i<TAILLE_HORIZONTALE;i++){
 			for(int j=0;j<TAILLE_VERTICALE;j++){
-				plateau[i][j] = new Mer(Textures.HEXAGON,i,j);
-				plateau[i][j].setColor(Jeu.cmer.r,Jeu.cmer.g,Jeu.cmer.b,Jeu.cmer.a);
+				plateau[i][j] = new Mer(i,j);
+				//plateau[i][j].setColor(Jeu.cmer.r,Jeu.cmer.g,Jeu.cmer.b,Jeu.cmer.a);
 				
 			}
 		}
@@ -325,8 +322,7 @@ public class Plateau implements Serializable {
 	}
 	
 	protected void placerTerre(int[] pos){
-		plateau[pos[0]][pos[1]] = new Terre(Textures.HEXAGON,pos[0],pos[1]);
-		plateau[pos[0]][pos[1]].setColor(0.2f,0.75f,0f,1f);
+		plateau[pos[0]][pos[1]] = new Terre(pos[0],pos[1]);
 	}
 	
 	protected void placerTerreSym(int[] pos){
@@ -349,8 +345,7 @@ public class Plateau implements Serializable {
 	}
 	
 	protected void placerMer(int[] pos){
-		plateau[pos[0]][pos[1]] = new Mer(Textures.HEXAGON,pos[0],pos[1]);
-		plateau[pos[0]][pos[1]].setColor(Jeu.cmer.r,Jeu.cmer.g,Jeu.cmer.b,Jeu.cmer.a);
+		plateau[pos[0]][pos[1]] = new Mer(pos[0],pos[1]);
 	}
 	
 	
@@ -374,8 +369,7 @@ public class Plateau implements Serializable {
 	}
 	
 	protected void placerPhare(int numPhare,int[] pos){
-		phares[numPhare] = new Phare(Textures.PHARE,Textures.HEXAGON,pos[0],pos[1]);
-		phares[numPhare].setColor(Jeu.cmer.r,Jeu.cmer.g,Jeu.cmer.b,Jeu.cmer.a);
+		phares[numPhare] = new Phare(pos[0],pos[1]);
 		plateau[pos[0]][pos[1]] = phares[numPhare];
 	}
 	

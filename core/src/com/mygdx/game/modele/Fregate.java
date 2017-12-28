@@ -1,5 +1,4 @@
 package com.mygdx.game.modele;
-import com.badlogic.gdx.graphics.Texture;
 import core.mygdx.game.actor.GraphFregate;
 import core.mygdx.game.actor.GraphNavire;
 
@@ -12,10 +11,10 @@ public class Fregate extends Navire {
 	public static final int TPS_RECH_CAN_SEC = 0;
 	public static final int DEG_CAN_SEC = 10;
 
-    
+	@SuppressWarnings("unused")
 	private static final long serialVersionUID = 1L;
-	public Fregate(Texture img,int[] posi , Orientation ori){
-		super(img,posi,ori);
+	public Fregate(int[] posi , Orientation ori){
+		super(posi,ori);
 		//etat variable
 		pVAct=PV_MAX;
 		deplAct=DEPL_MAX;

@@ -7,8 +7,9 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.modele.Partie;
-import com.mygdx.game.graphique.Textures;
 import com.mygdx.game.modele.Plateau;
+import com.mygdx.game.modele.Textures;
+
 import core.mygdx.game.actor.GraphPlateau;
 import core.mygdx.game.actor.Hud;
 
@@ -19,10 +20,10 @@ public class Gui implements ApplicationListener {
 	private Partie m_partie;
 	
 	//520x614
-	public static int minWX=333;//0+200;
-	public static int minWY=100;//0+200;
-	public static int maxWX=1280-333;//1280-200;
-	public static int maxWY=620;//720-200;
+	public static int minWX=333-150;//0+200;
+	public static int minWY=100-50;//0+200;
+	public static int maxWX=1280-333-150;//1280-200;
+	public static int maxWY=620-50;//720-200;
 	
 	@Override
 	public void create() {

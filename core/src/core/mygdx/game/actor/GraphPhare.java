@@ -4,11 +4,10 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.mygdx.game.Gui;
-import com.mygdx.game.graphique.Textures;
 import com.mygdx.game.modele.Case;
 import com.mygdx.game.modele.Phare;
 import com.mygdx.game.modele.Plateau;
-import com.mygdx.game.modele.Terre;
+import com.mygdx.game.modele.Textures;
 
 public class GraphPhare extends GraphMer {
 
@@ -37,8 +36,6 @@ public class GraphPhare extends GraphMer {
 		private int m_w;
 		private Phare c;
 		private GraphCase gc;
-
-		private boolean selected;//TODO a ajouter aussi dans case
 		
 		public Drawbt(int _x,int _y,Phare _c){
 			wx=_x;
@@ -47,7 +44,6 @@ public class GraphPhare extends GraphMer {
 			m_y=wy*100;
 			m_h=100;
 			m_w=100;
-			selected=false;
 			c=_c;
 
 			
@@ -62,8 +58,8 @@ public class GraphPhare extends GraphMer {
 			
 			//posX=(int) position[0]*10;
 			//posY=(int) position[1]*10;
-			double sx=(Gui.maxWX-Gui.minWX+0f)/(Plateau.getInstance().TAILLE_HORIZONTALE+0f);
-			double sy=(Gui.maxWY-Gui.minWY+0f)/(Plateau.getInstance().TAILLE_VERTICALE+0f);
+			double sx=(Gui.maxWX-Gui.minWX+0f)/(Plateau.TAILLE_HORIZONTALE+0f);
+			double sy=(Gui.maxWY-Gui.minWY+0f)/(Plateau.TAILLE_VERTICALE+0f);
 			
 			
 			m_w=(int) (sx/0.8);//Pour emboiter les hexagones

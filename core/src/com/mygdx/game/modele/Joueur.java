@@ -49,11 +49,7 @@ public class Joueur implements Serializable{
 	public void setColor(float R,float V,float B){
 		this.R=R;
 		this.V=V;
-		this.B=B;
-		int i=0;
-		for(i=0;i<navires.length;i++){
-			navires[i].setColor(R, V, B, 1);
-		}
+		this.B=B;		
 	}
 	public Color getColor(){
 		return new Color(R,V,B,1);

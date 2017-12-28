@@ -3,7 +3,6 @@ package com.mygdx.game.modele;
 
 import java.util.Arrays;
 
-import com.badlogic.gdx.graphics.Texture;
 import core.mygdx.game.actor.GraphAmiral;
 import core.mygdx.game.actor.GraphNavire;
 
@@ -15,11 +14,12 @@ public class Amiral extends Navire {
 	public static final int DEG_CAN_PRINC = 50;
 	public static final int TPS_RECH_CAN_SEC = 1;
 	public static final int DEG_CAN_SEC = 30;
-
+	
+	@SuppressWarnings("unused")
 	private static final long serialVersionUID = 1L;
 
-	public Amiral(Texture img,int[] posi , Orientation ori){
-    	super(img,posi,ori);
+	public Amiral(int[] posi , Orientation ori){
+    	super(posi,ori);
 
         //etat variable
         

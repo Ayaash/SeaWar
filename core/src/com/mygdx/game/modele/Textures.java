@@ -1,4 +1,4 @@
-package com.mygdx.game.graphique;
+package com.mygdx.game.modele;
 
 import com.badlogic.gdx.graphics.Texture;
 
@@ -32,21 +32,21 @@ public class Textures {
 		try {
 			BOUTON_TEST=new Texture(ADR_BOUTON_TEST);
 		} catch (Exception e) {
-				InFenDebug.println("Texture manquante :"+ADR_BOUTON_TEST);
+				System.out.println("Texture manquante :"+ADR_BOUTON_TEST);
 				noErr=false;
 		}
 		
 		try {
 			WIMG=new Texture(ADR_WIMG);
 		} catch (Exception e) {
-				InFenDebug.println("Texture manquante :"+ADR_WIMG);
+				System.out.println("Texture manquante :"+ADR_WIMG);
 				noErr=false;
 		}
 		
 		try {
 			NOIMAGE=new Texture(ADR_NOIMAGE);
 		} catch (Exception e) {
-				InFenDebug.println("Texture manquante :"+ADR_NOIMAGE);
+				System.out.println("Texture manquante :"+ADR_NOIMAGE);
 				noErr=false;
 		}
 		
@@ -54,28 +54,28 @@ public class Textures {
 		try {
 			HEXAGON=new Texture(ADR_HEXAGON);
 		} catch (Exception e) {
-				InFenDebug.println("Texture manquante :"+ADR_HEXAGON);
+				System.out.println("Texture manquante :"+ADR_HEXAGON);
 				noErr=false;
 		}
 		
 		try {
 			FREGATE=new Texture(ADR_FREGATE);
 		} catch (Exception e) {
-				InFenDebug.println("Texture manquante :"+ADR_FREGATE);
+				System.out.println("Texture manquante :"+ADR_FREGATE);
 				noErr=false;
 		}
 		
 		try {
 			AMIRAL=new Texture(ADR_AMIRAL);
 		} catch (Exception e) {
-				InFenDebug.println("Texture manquante :"+ADR_AMIRAL);
+				System.out.println("Texture manquante :"+ADR_AMIRAL);
 				noErr=false;
 		}
 		
 		try {
 			PHARE=new Texture(ADR_PHARE);
 		} catch (Exception e) {
-				InFenDebug.println("Texture manquante :"+ADR_PHARE);
+				System.out.println("Texture manquante :"+ADR_PHARE);
 				noErr=false;
 		}
 		

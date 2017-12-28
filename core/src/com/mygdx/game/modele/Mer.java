@@ -1,27 +1,18 @@
 package com.mygdx.game.modele;
 
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Batch;
 
 import core.mygdx.game.actor.GraphCase;
 import core.mygdx.game.actor.GraphMer;
 
 public class Mer extends Case {
-
+	
+	@SuppressWarnings("unused")
 	private static final long serialVersionUID = 1L;
 	private Navire bateau;
 	
 	public Mer(int i, int j) {
 		super(i,j);
 	}
-
-	
-	
-	public Mer(Texture img, int i, int j) {
-		super(img,i,j);
-	}
-
-
 
 	//Une case mer est toujours navigable, sauf s'il y a un navire sur la case
 	public boolean estNavigable() {
@@ -66,33 +57,10 @@ public class Mer extends Case {
 		
 	}
 
-	
-	
-	@Override
-	public boolean afficher(Batch b){
-		if(super.afficher(b)){
-			if	(bateau!=null){
-				return bateau.afficher(b);
-			}else{
-				return true;
-			}
-		}else{
-			return false;
-		}
-		
-	}
-	
 	public Navire getNavire() {
 		return this.bateau;
 	}
 
-
-	/*
-	@Override
-	public GraphCase getGraphCase() {
-		return new GraphMer(this);
-	}
-	*/
 	
 	public boolean hasNavire() {
 		return !this.estNavigable();

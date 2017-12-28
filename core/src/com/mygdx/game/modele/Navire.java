@@ -2,14 +2,12 @@ package com.mygdx.game.modele;
 
 import java.util.Arrays;
 
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.mygdx.game.graphique.InWorldObj;
 
 import core.mygdx.game.actor.GraphNavire;
 
 
 public abstract class Navire extends InWorldObj {
+	@SuppressWarnings("unused")
 	private static final long serialVersionUID = 1L;
 	
 	//Constantes du navire
@@ -32,8 +30,8 @@ public abstract class Navire extends InWorldObj {
     
 	protected Plateau plateau;
 	
-	public Navire(Texture img,int[] posi, Orientation o){
-		super(img,posi[0],posi[1],0);
+	public Navire(int[] posi, Orientation o){
+		super(posi[0],posi[1],0);
 		this.position = posi;
 		this.orientation = o;
 		this.aTire=false;
@@ -257,12 +255,6 @@ public abstract class Navire extends InWorldObj {
 	
 	public int getVie() {
 		return this.pVAct;
-	}
-	
-	@Override
-	protected void actualizeSprite(Image ob){
-		angle=-orientation.ordinal()*60-90+180;
-		super.actualizeSprite(ob);
 	}
 	
 	public abstract GraphNavire getGraph(); 
