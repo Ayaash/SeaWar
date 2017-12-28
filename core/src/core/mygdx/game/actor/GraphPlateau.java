@@ -9,6 +9,7 @@ public class GraphPlateau extends Group {
 	private Plateau plateau;
 	private static GraphPlateau mainInstance;//TODO A supprimer si meilleur idée, ou a transformer en vrai singloton
 	
+	/**Constructeur*/
 	public GraphPlateau(Plateau plateau) {
 		this.plateau = plateau;
 		for(int i = 0; i < Plateau.TAILLE_HORIZONTALE; i++) {
@@ -19,6 +20,13 @@ public class GraphPlateau extends Group {
 		mainInstance=this;
 	}
 
+	
+	
+	
+	
+	/*****************************Fonctions de recuperation*************************************/
+	
+	/**Permet de recuperer une case en connaisant sa position*/
 	public GraphCase getGraphCase(int x, int y){
 		
 		SnapshotArray<Actor> chidrns = this.getChildren();
@@ -33,7 +41,34 @@ public class GraphPlateau extends Group {
 		return null;
 	}
 	
-	public void deselectAll(){
+	/**Permet de recuperer un navire en connaisant sa position*/
+	public GraphNavire getGraphNavire(int x, int y){
+		
+			GraphCase gc=getGraphCase(x,y);
+			if(gc!=null){
+				if(gc.getChildren()!=null){
+					return (GraphNavire) gc.getChildren().get(0);//TODO On part du principe qu'il n'y a qu'un fils, est que c'est le navire, a modifier si ce n'est plus le cas
+				}
+			}
+			
+		return null;
+	}
+	
+	/**Renvoie l'instance principale de graphPlateau*/
+	public static GraphPlateau getMainInstance(){
+		return mainInstance;
+	}
+
+	
+	
+	
+	
+	
+	/*****************************Fonctions de deselections*************************************/
+
+	
+	/**Deselectionne toutes les cases*/
+	public void deselectAllCases(){
 		SnapshotArray<Actor> chidrns = this.getChildren();
 		for(int i=0;i<chidrns.size;i++){
 			if(chidrns.get(i) instanceof GraphCase){
@@ -43,7 +78,16 @@ public class GraphPlateau extends Group {
 		}
 	}
 	
-	public static GraphPlateau getMainInstance(){
-		return mainInstance;
+	/**Deselectionne tous les navires*/
+	public void deselectAllNavire(){
+		SnapshotArray<Actor> chidrns = this.getChildren();
+		for(int i=0;i<chidrns.size;i++){
+			if(chidrns.get(i) instanceof GraphNavire){
+				GraphCase gc=(GraphCase) chidrns.get(i);
+				gc.deselect();
+			}
+		}
 	}
+	
+
 }

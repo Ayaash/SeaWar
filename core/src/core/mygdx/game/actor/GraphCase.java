@@ -61,16 +61,16 @@ public abstract class GraphCase extends ImageButton implements Observer {
 		m_h=(int) (sy/1);
 		
 		this.m_x=(int) (Gui.minWX  +  m_case.getPosition()[0]*sx );
-		//this.m_y=(int) ( Gui.maxWY+Gui.minWY-1.5*m_h-(Gui.minWY  + wy*sy ) );
-		this.m_y=(int) (Gui.minWY  +  m_case.getPosition()[1]*sy);
-		
+		//this.m_y=(int) (Gui.minWY  +  m_case.getPosition()[1]*sy);
+		this.m_y=(int) (Gui.maxWY  -  m_case.getPosition()[1]*sy);
+
 		
 		
 		//posX=(int) Jeu.minWX + (Jeu.maxWX-Jeu.minWX)*position[0];
 		//posY=(int) Jeu.minWY + (Jeu.maxWX-Jeu.minWX)*position[1];
 
 		if( m_case.getPosition()[0]%2==0){//TODO Peut etre revoir la paritï¿½
-			m_y+=sy/2f;
+			m_y-=sy/2f;
 			//System.out.println(1);
 		}else{
 			//System.out.println(2);
@@ -84,7 +84,12 @@ public abstract class GraphCase extends ImageButton implements Observer {
 	
 	public void select(){
 		//this.setColor(SELECTEDCOLOR);
-		((GraphPlateau)this.getParent()).deselectAll();
+		((GraphPlateau)this.getParent()).deselectAllCases();//une seule case selectionnée a la fois
+		//on selectionne le navire qui est sur la case
+		/*GraphNavire n=((GraphPlateau)this.getParent()).getGraphNavire(m_case.getPosition()[0], m_case.getPosition()[1]);
+		if(n!=null){
+			n.select();
+		}*/
 		selected=true;
 
 	}
@@ -211,16 +216,16 @@ public abstract class GraphCase extends ImageButton implements Observer {
 			m_h=(int) (sy/1);
 			
 			this.m_x=(int) (Gui.minWX  +  wx*sx );
-			//this.m_y=(int) ( Gui.maxWY+Gui.minWY-1.5*m_h-(Gui.minWY  + wy*sy ) );
-			this.m_y=(int) (Gui.minWY  +  wy*sy);
-			
+			//this.m_y=(int) (Gui.minWY  +  wy*sy );
+			this.m_y=(int) (Gui.maxWY  -  wy*sy);
+
 			
 			
 			//posX=(int) Jeu.minWX + (Jeu.maxWX-Jeu.minWX)*position[0];
 			//posY=(int) Jeu.minWY + (Jeu.maxWX-Jeu.minWX)*position[1];
 
 			if( wx%2==0){//TODO Peut etre revoir la paritï¿½
-				m_y+=sy/2f;
+				m_y-=sy/2f;
 				//System.out.println(1);
 			}else{
 				//System.out.println(2);

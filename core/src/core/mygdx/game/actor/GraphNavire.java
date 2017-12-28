@@ -75,6 +75,7 @@ public abstract class GraphNavire extends Image { // TODO passer en Image
 	
 	public void select(){
 		//this.setColor(SELECTEDCOLOR);
+		((GraphPlateau)this.getParent()).deselectAllNavire();//un seul navire selectionnée a la fois
 		selected=true;
 	}
 	public void deselect(){

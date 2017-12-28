@@ -66,8 +66,8 @@ public class GraphPhare extends GraphMer {
 			m_h=(int) (sy/1);
 			
 			this.m_x=(int) (Gui.minWX  +  wx*sx );
-			//this.m_y=(int) ( Gui.maxWY+Gui.minWY-1.5*m_h-(Gui.minWY  + wy*sy ) );
-			this.m_y=(int) (Gui.minWY  +  wy*sy);
+			//this.m_y=(int) (Gui.minWY  +  wy*sy );
+			this.m_y=(int) (Gui.maxWY  -  wy*sy);
 			
 			
 			
@@ -75,7 +75,7 @@ public class GraphPhare extends GraphMer {
 			//posY=(int) Jeu.minWY + (Jeu.maxWX-Jeu.minWX)*position[1];
 
 			if( wx%2==0){//TODO Peut etre revoir la paritï¿½
-				m_y+=sy/2f;
+				m_y-=sy/2f;
 				//System.out.println(1);
 			}else{
 				//System.out.println(2);
