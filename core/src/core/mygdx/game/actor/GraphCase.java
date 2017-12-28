@@ -18,6 +18,8 @@ public abstract class GraphCase extends ImageButton implements Observer {
 	private Case m_case;
 	protected boolean selected=false;
 	protected boolean clicked=false;
+	protected boolean highlighted=false;
+
 
 	
 	protected float m_x;
@@ -26,7 +28,8 @@ public abstract class GraphCase extends ImageButton implements Observer {
 	protected float m_h;
 	public static final Color BASECOLOR=new Color(1f, 0f, 0f, 1f);
 	public static final Color CLICCOLOR=new Color(0.50f, 1f, 0.50f, 1f);
-	public static final Color SELECTEDCOLOR=new Color(1f, 1f, 0.50f, 1f);
+	public static final Color SELECTEDCOLOR=new Color(0.50f, 1f, 1f, 1f);
+	public static final Color HIGHTLIGHTEDCOLOR=new Color(1f, 1f, 0.50f, 1f);
 
 	
 	
@@ -94,6 +97,20 @@ public abstract class GraphCase extends ImageButton implements Observer {
 		return selected;
 	}
 	
+	public void highlight(){
+		highlighted=true;
+
+	}
+	public void stopHighlight(){
+		//this.setColor(BASECOLOR);
+		highlighted=false;
+	}
+	
+	public boolean isHighlighted(){
+		return highlighted;
+	}
+	
+	
 	public void clickOn(){
 		//this.setColor(CLICCOLOR);
 		clicked=true;
@@ -141,6 +158,19 @@ public abstract class GraphCase extends ImageButton implements Observer {
 	public Case getCase(){
 		return m_case;
 	}
+	
+	protected static void setCaseColor(Batch batch, GraphCase gc){
+		if(gc.isClicked()){
+			batch.setColor(CLICCOLOR);
+		}else if(gc.isSelected()){
+			batch.setColor(SELECTEDCOLOR);
+		}else if(gc.isHighlighted()){
+			batch.setColor(HIGHTLIGHTEDCOLOR);
+		}else{
+			batch.setColor(BASECOLOR);
+		}
+	}
+	
 	
 	private static class Drawbt implements Drawable{
 	
@@ -210,18 +240,9 @@ public abstract class GraphCase extends ImageButton implements Observer {
 			
 			actualizePosSize();
 
-			
 			Color ctmp=batch.getColor();
-			if(gc.isClicked()){
-				batch.setColor(CLICCOLOR);
-			}else{
-				if(gc.isSelected()){
-					batch.setColor(SELECTEDCOLOR);
-				}else{
-					batch.setColor(BASECOLOR);
-	
-				}
-			}
+
+			setCaseColor(batch, gc);
 
 			//System.out.println(45);
 

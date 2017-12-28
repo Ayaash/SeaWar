@@ -97,17 +97,7 @@ public class GraphPhare extends GraphMer {
 
 			
 			Color ctmp=batch.getColor();
-			if(gc.isClicked()){
-				batch.setColor(CLICCOLOR);
-			}else{
-				if(gc.isSelected()){
-					batch.setColor(SELECTEDCOLOR);
-				}else{
-					batch.setColor(BASECOLOR);
-					
-	
-				}
-			}
+			setCaseColor(batch,gc);
 
 			
 
