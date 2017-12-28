@@ -27,7 +27,18 @@ public class GraphMer extends GraphCase {
 		super(mer,dr);
 	}
 	
-
+	protected static void setCaseColor(Batch batch, GraphCase gc){
+		if(gc.isClicked()){
+			batch.setColor(CLICCOLOR);
+		}else if(gc.isSelected()){
+			batch.setColor(SELECTEDCOLOR);
+		}else if(gc.isHighlighted()){
+			batch.setColor(HIGHTLIGHTEDCOLOR);
+		}else{
+			batch.setColor(BASECOLOR);
+		}
+	}
+	
 
 	private static class Drawbt implements Drawable{
 	
@@ -102,16 +113,7 @@ public class GraphMer extends GraphCase {
 
 			
 			Color ctmp=batch.getColor();
-			if(gc.isClicked()){
-				batch.setColor(CLICCOLOR);
-			}else{
-				if(gc.isSelected()){
-					batch.setColor(SELECTEDCOLOR);
-				}else{
-					batch.setColor(BASECOLOR);
-	
-				}
-			}
+			setCaseColor(batch,gc);
 
 			//System.out.println(45);
 

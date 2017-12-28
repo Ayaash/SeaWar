@@ -15,6 +15,7 @@ import com.mygdx.game.modele.Textures;
 public class GraphTerre extends GraphCase {
 	
 	public static final Color BASECOLOR=new Color(1f, 0.9f, 0f, 1f);
+	public static final Color HIGHTLIGHTEDCOLOR=new Color(1f, 0.50f, 0.50f, 1f);
 
 	
 	
@@ -27,6 +28,17 @@ public class GraphTerre extends GraphCase {
 		super(t,dr);
 	}
 	
+	protected static void setCaseColor(Batch batch, GraphCase gc){
+		if(gc.isClicked()){
+			batch.setColor(CLICCOLOR);
+		}else if(gc.isSelected()){
+			batch.setColor(SELECTEDCOLOR);
+		}else if(gc.isHighlighted()){
+			batch.setColor(HIGHTLIGHTEDCOLOR);
+		}else{
+			batch.setColor(BASECOLOR);
+		}
+	}
 
 
 	private static class Drawbt implements Drawable{
@@ -100,16 +112,7 @@ public class GraphTerre extends GraphCase {
 
 			
 			Color ctmp=batch.getColor();
-			if(gc.isClicked()){
-				batch.setColor(CLICCOLOR);
-			}else{
-				if(gc.isSelected()){
-					batch.setColor(SELECTEDCOLOR);
-				}else{
-					batch.setColor(BASECOLOR);
-	
-				}
-			}
+			setCaseColor(batch, gc);
 
 			//System.out.println(45);
 
