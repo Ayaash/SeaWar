@@ -30,15 +30,15 @@ public abstract class Navire extends InWorldObj {
     
 	protected Plateau plateau;
 	
-	public Navire(int[] posi, Orientation o){
+	public Navire(int[] posi, Orientation o, Plateau p){
 		super(posi[0],posi[1],0);
-		this.position = posi;
+		this.position = posi.clone();
 		this.orientation = o;
 		this.aTire=false;
 		this.etatCanPrinc=0;
 		this.etatCanSec=0;
 		this.mort = false;
-		this.plateau = Plateau.getInstance();
+		this.plateau = p;
 		plateau.ajouterNavire(position, this);
 	}
 
@@ -49,6 +49,10 @@ public abstract class Navire extends InWorldObj {
 	
 	public Joueur getJoueur(){
 		return joueur;
+	}
+	
+	public Plateau getPlateau(){
+		return plateau;
 	}
 	
 	public int[] getPosition(){

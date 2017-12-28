@@ -13,8 +13,8 @@ public class Fregate extends Navire {
 
 	@SuppressWarnings("unused")
 	private static final long serialVersionUID = 1L;
-	public Fregate(int[] posi , Orientation ori){
-		super(posi,ori);
+	public Fregate(int[] posi , Orientation ori, Plateau p){
+		super(posi,ori, p);
 		//etat variable
 		pVAct=PV_MAX;
 		deplAct=DEPL_MAX;

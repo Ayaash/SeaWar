@@ -29,13 +29,13 @@ public class Gui implements ApplicationListener {
 	public void create() {
 		Textures.chargerTextures();
 		
-		m_partie = Partie.getInstance();
+		m_partie = new Partie();
 		m_viewport = new ScreenViewport();
 		m_stageJeu = new Stage(m_viewport);
 		Gdx.input.setInputProcessor(m_stageJeu);
 		
 		// Ajout de l'UI du plateau
-		m_stageJeu.addActor(new GraphPlateau(Plateau.getInstance()));
+		m_stageJeu.addActor(new GraphPlateau(m_partie.getPlateau()));
 		
 		// Ajout du HUD
 		m_hud = new Hud(m_partie);

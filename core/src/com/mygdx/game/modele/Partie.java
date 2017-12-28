@@ -4,34 +4,47 @@ import java.util.Arrays;
 
 
 public class Partie implements Serializable{
-	
+
 	private static final long serialVersionUID = 1L;
-	
-	private static Partie instance = null;
-	private static boolean exists = false;
-	
+
 	private Plateau plateau;
 	private Joueur joueur1;
 	private Joueur joueur2;
 	private int tour;
 	private int victoire;
-	
+
 	private Navire navireCourant = null;
 	private boolean tourEnCours = false;
-		
 
-	//Singleton
-	public static Partie getInstance(){
-		if(!exists){
-			instance = new Partie();
-			exists = true;
-		}
-		return instance;
-	}
-	
-	private Partie(){
-		plateau = Plateau.getInstance();
+
+
+	public Partie(){
+		plateau = new Plateau();
 		tour = 1;
+
+		//Ajout des navires
+		Navire naviresJ1[] = new Navire[2];
+		Navire naviresJ2[] = new Navire[2];
+		int position[] = {0,0};
+		naviresJ1[0] = new Amiral(position, Orientation.SudEst, plateau);
+
+		position[0] = 1;
+		naviresJ1[1] = new Fregate(position, Orientation.SudEst, plateau);
+
+		position[0] = Plateau.TAILLE_HORIZONTALE - 1;
+		position[1] = Plateau.TAILLE_VERTICALE - 1;
+		naviresJ2[0] = new Amiral(position, Orientation.NordOuest, plateau);
+
+		position[1] = Plateau.TAILLE_VERTICALE - 2;
+		naviresJ2[1] = new Fregate(position, Orientation.NordOuest, plateau);
+
+		joueur1 = new Joueur("Nimitz", naviresJ1, 1);
+		joueur2 = new Joueur("Yamamoto", naviresJ2, 2);
+		
+		naviresJ1[0].setJoueur(joueur1);
+		naviresJ1[1].setJoueur(joueur1);
+		naviresJ2[0].setJoueur(joueur2);
+		naviresJ2[1].setJoueur(joueur2);
 	}
 	/* //TODO
 	public boolean sauvegarderPartie(){
@@ -44,22 +57,27 @@ public class Partie implements Serializable{
 			fileOut.close();
 			System.out.printf("Serialized data is saved in ~/Reptravail");
 		}catch (FileNotFoundException f){
-			
+
 		} catch (IOException i) {
 			i.printStackTrace();
 		}
 
 
-		
+
 		return true;
 	}
-	*/
-	
+	 */
+
+	public Plateau getPlateau() {
+		return plateau;
+	}
+
+
 	public void ajouterJoueurs(Joueur j1, Joueur j2){
 		this.joueur1 = j1;
 		this.joueur2 = j2;
 	}
-	
+
 
 	public Joueur getCurrentPlayer(){
 		if(tour%2 == 1){
@@ -68,7 +86,7 @@ public class Partie implements Serializable{
 			return joueur2;
 		}
 	}
-	
+
 	public Joueur getPlayer(int i) {
 		switch(i) {
 		case 1:
@@ -79,18 +97,18 @@ public class Partie implements Serializable{
 			return null;	
 		}
 	}
-	
+
 	public void incrementerTour(){
 		tour++;
 	}
-	
+
 	public Navire getNavireCourant(){
 		return navireCourant;
 	}
 	public boolean getTourEnCours(){
 		return tourEnCours;
 	}
-	
+
 	public boolean selectionnerNavire(Navire n){
 		if(n!=null){
 			if(getCurrentPlayer().getNavires()[0] != n && getCurrentPlayer().getNavires()[1] != n ){
@@ -102,13 +120,13 @@ public class Partie implements Serializable{
 				}else{
 					return false;
 				}
-				
+
 			}
 		}else{
 			return false;
 		}
 	}
-	
+
 	public boolean peutSeDeplacer(){
 		if(navireCourant == null){
 			return false;
@@ -169,7 +187,7 @@ public class Partie implements Serializable{
 	public boolean tirerSurUneCase(int[] position, int degats){
 		return plateau.recevoirTir(position, degats);
 	}
-	
+
 	public boolean finirTourNavire(){
 		if(navireCourant != null){
 			if(navireCourant.sEstDeplace()){
@@ -180,28 +198,28 @@ public class Partie implements Serializable{
 			}else{
 				return false;
 			}
-			
+
 		}else{
 			return false;
 		}
-		
+
 	}
-	
+
 	public int finirTourGlobal(){
-		
+
 		for(int i=0; i< Joueur.NOMBRE_NAVIRES;i++){
 			if(getCurrentPlayer().getNavires()[i].sEstDeplace() == false){
 				return -1;
 			}
 		}
-		
-		
+
+
 		for(int i = 0; i<Joueur.NOMBRE_NAVIRES; i++){
 			//getCurrentPlayer().getNavires()[i].recharger();
 			getCurrentPlayer().getNavires()[i].commencerTour();
 
 		}
-		
+
 		//Gestion des phares
 		int nbPhares = 0;
 		Phare[] phares = plateau.getPhares();
@@ -221,7 +239,7 @@ public class Partie implements Serializable{
 		if(nbPhares == Plateau.NOMBRE_PHARE){
 			victoire = getCurrentPlayer().getId();
 		}
-		
+
 		if(victoire == 0){
 			//Gestion table rase
 			Joueur adversaire;
@@ -236,19 +254,18 @@ public class Partie implements Serializable{
 					mort = false;
 				}
 			}
-			
+
 			if(mort){
 				victoire = getCurrentPlayer().getId();
 			}
 		}
-		
-		
-		
-		
+
+
+
+
 		tour++;
 		tourEnCours = false;
 		navireCourant = null;
 		return victoire;
 	}
 }
-		

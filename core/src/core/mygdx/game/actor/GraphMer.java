@@ -60,7 +60,7 @@ public class GraphMer extends GraphCase {
 				gc=GraphPlateau.getMainInstance().getGraphCase(c.getPosition()[0], c.getPosition()[1]);
 			}
 			
-			Plateau.getInstance();
+			//Plateau.getInstance();
 			//posX=(int) position[0]*10;
 			//posY=(int) position[1]*10;
 			double sx=(Gui.maxWX-Gui.minWX+0f)/(Plateau.TAILLE_HORIZONTALE+0f);

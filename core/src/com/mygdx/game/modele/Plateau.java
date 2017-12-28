@@ -16,20 +16,11 @@ public class Plateau implements Serializable {
 	
 	Case plateau[][] = new Case[TAILLE_HORIZONTALE][TAILLE_VERTICALE];
 	Phare phares[] = new Phare[NOMBRE_PHARE];
-	private static boolean exists = false;
-	private static Plateau instance = null;
+
 	
-	
-	//Singleton
-	public static Plateau getInstance(){
-		if(!exists){
-			instance = new Plateau();
-			exists = true;
-		}
-		return instance;
-	}
-	
-	private Plateau(){
+	public Plateau(){
+		
+		//Remplissage du plateau
 		for(int i=0;i<TAILLE_HORIZONTALE;i++){
 			for(int j=0;j<TAILLE_VERTICALE;j++){
 				plateau[i][j] = new Mer(i,j);
@@ -44,7 +35,10 @@ public class Plateau implements Serializable {
 		int[] posTerre3={5,5};
 		placerTerreSym(posTerre3);
 		
+		int[] posTerre4={5,2};
+		placerTerreSym(posTerre4);
 		
+		//Placement des phares
 		int posX0=(int) (TAILLE_HORIZONTALE/2);
 		int posY0=(int) (Math.random()*TAILLE_VERTICALE);
 		int[] posPhare0 ={posX0,posY0};
@@ -74,6 +68,7 @@ public class Plateau implements Serializable {
 		placerPhare(0,posPhare0);
 		placerPhare(1,posPhare1);
 		placerPhare(2,posPhare2);
+		
 	}
 	
 	
