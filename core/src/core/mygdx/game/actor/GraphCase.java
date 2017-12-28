@@ -82,14 +82,14 @@ public abstract class GraphCase extends ImageButton implements Observer {
 	}
 	
 	public void select(){
-		//this.setColor(SELECTEDCOLOR);
-		((GraphPlateau)this.getParent()).deselectAllCases();//une seule case selectionnée a la fois
 		//on selectionne le navire qui est sur la case
-		/*GraphNavire n=((GraphPlateau)this.getParent()).getGraphNavire(m_case.getPosition()[0], m_case.getPosition()[1]);
-		if(n!=null){
-			n.select();
-		}*/
-		selected=true;
+		GraphNavire gn=((GraphPlateau)this.getParent()).getGraphNavire(m_case.getPosition()[0], m_case.getPosition()[1]);
+		if(gn!=null){
+			System.out.println(1);
+			((GraphPlateau)this.getParent()).deselectAllCases();//une seule case selectionnée a la fois
+			selected=true;
+			gn.select();
+		}
 
 	}
 	public void deselect(){

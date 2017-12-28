@@ -1,16 +1,11 @@
 package com.mygdx.game.modele;
 
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-
 import core.mygdx.game.actor.GraphCase;
 import core.mygdx.game.actor.GraphPhare;
 
 public class Phare extends Mer {
 	@SuppressWarnings("unused")
 	private static final long serialVersionUID = 1L;
-	protected Texture tPhare;
-	protected Image obj2;
 
 	private Joueur joueur;
 
@@ -29,6 +24,7 @@ public class Phare extends Mer {
 			joueur = j;
 		
 	}
+	
 	
 	@Override
 	public GraphCase getGraphCase() {

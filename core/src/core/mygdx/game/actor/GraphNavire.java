@@ -75,27 +75,14 @@ public abstract class GraphNavire extends Image { // TODO passer en Image
 	
 	public void select(){
 		//this.setColor(SELECTEDCOLOR);
-		((GraphPlateau)this.getParent()).deselectAllNavire();//un seul navire selectionnée a la fois
+		((GraphPlateau)this.getParent().getParent()).deselectAllNavire();//un seul navire selectionnée a la fois
 		selected=true;
 	}
 	public void deselect(){
 		//this.setColor(BASECOLOR);
 		selected=false;
 	}
-	
-	
-	public void clickOn(){
-		//this.setColor(CLICCOLOR);
-		clicked=true;
-	}
-	public void clickOff(){
-		//this.setColor(BASECOLOR);
-		clicked=false;
-	}
-	
-	public void actionOnClick(){
-		//TODO A remplir
-	}
+
 
 	protected static void setNavireColor(Batch batch,Navire n){
 		if(n.getJoueur().getId()==1){

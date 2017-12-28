@@ -24,7 +24,9 @@ public class Textures {
 	public static Texture PHARE;
 	private static String ADR_PHARE="images/Phare.png";
 
-	
+	public static Texture BARRE_HORIZ;
+	private static String ADR_BARRE_HORIZ="images/barre_horiz.jpg";
+		
 	public static boolean chargerTextures(){
 		
 		boolean noErr=true;
@@ -78,7 +80,13 @@ public class Textures {
 				System.out.println("Texture manquante :"+ADR_PHARE);
 				noErr=false;
 		}
-		
+
+		try {
+			BARRE_HORIZ=new Texture(ADR_BARRE_HORIZ);
+		} catch (Exception e) {
+				System.out.println("Texture manquante :"+ADR_BARRE_HORIZ);
+				noErr=false;
+		}
 		
 		return noErr;
 		

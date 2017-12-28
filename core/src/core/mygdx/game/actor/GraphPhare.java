@@ -24,6 +24,17 @@ public class GraphPhare extends GraphMer {
 		super(t,dr);
 	}
 	
+	protected static void setPhareColor(Batch batch, Phare p){
+		if(p.getJoueur()==null){
+			batch.setColor(Color.WHITE);
+		}else{
+			if(p.getJoueur().getId()==1){
+				batch.setColor(GraphPlateau.J1COLOR);
+			}else{
+				batch.setColor(GraphPlateau.J2COLOR);
+			}
+		}
+	}
 
 
 	private static class Drawbt implements Drawable{
@@ -103,11 +114,7 @@ public class GraphPhare extends GraphMer {
 
 			batch.draw(Textures.HEXAGON, m_x, m_y, m_w, m_h);
 			
-			if(c.getJoueur()==null){
-				batch.setColor(1f,1f,1f,1f);
-			}else{
-				batch.setColor(c.getJoueur().getColor());
-			}
+			setPhareColor(batch,c);
 			batch.draw(Textures.PHARE, m_x, m_y, m_w, m_h);
 			batch.setColor(ctmp);
 			

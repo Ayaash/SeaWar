@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.mygdx.game.modele.Partie;
+import com.mygdx.game.modele.Textures;
 import com.mygdx.game.modele.Amiral;
 import com.mygdx.game.modele.Fregate;
 
@@ -23,7 +24,7 @@ public class Hud extends Group {
 		m_skin = new Skin(Gdx.files.internal("skin/rusty-robot-ui.json"));
 		m_partie = _partie;
 		
-		Image barreHorizImg = new Image(new Texture(Gdx.files.internal("images/barre_horiz.jpg")));
+		Image barreHorizImg = new Image(Textures.BARRE_HORIZ);
 		barreHorizImg.setSize(1280, 80);
 		barreHorizImg.setPosition(0, 640);
 		this.addActor(barreHorizImg);
@@ -46,7 +47,7 @@ public class Hud extends Group {
 		TextButton finTour = new TextButton("Fin du tour", m_skin); //TODO add listener
 		barreHoriz.addActor(finTour);
 		
-		Image pannelInfoImg = new Image(new Texture(Gdx.files.internal("images/barre_horiz.jpg")));
+		Image pannelInfoImg = new Image(Textures.BARRE_HORIZ);
 		pannelInfoImg.setSize(300, 550);
 		pannelInfoImg.setPosition(950, 40);
 		this.addActor(pannelInfoImg);

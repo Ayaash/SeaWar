@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.mygdx.game.Gui;
-import com.mygdx.game.modele.Amiral;
 import com.mygdx.game.modele.Case;
 import com.mygdx.game.modele.Fregate;
 import com.mygdx.game.modele.Navire;

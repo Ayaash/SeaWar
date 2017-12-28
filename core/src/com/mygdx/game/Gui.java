@@ -35,7 +35,7 @@ public class Gui implements ApplicationListener {
 		Gdx.input.setInputProcessor(m_stageJeu);
 		
 		// Ajout de l'UI du plateau
-		m_stageJeu.addActor(new GraphPlateau(m_partie.getPlateau()));
+		m_stageJeu.addActor(new GraphPlateau(m_partie));
 		
 		// Ajout du HUD
 		m_hud = new Hud(m_partie);
