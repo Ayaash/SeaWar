@@ -5,6 +5,7 @@ import java.util.Observer;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
@@ -28,6 +29,7 @@ public abstract class GraphCase extends ImageButton implements Observer {
 	public static final Color CLICCOLOR=new Color(0.50f, 1f, 0.50f, 1f);
 	public static final Color SELECTEDCOLOR=new Color(1f, 1f, 0.50f, 1f);
 
+	
 	
 	
 	public GraphCase(Case c) {
@@ -78,16 +80,20 @@ public abstract class GraphCase extends ImageButton implements Observer {
 		//this.actualizeSprite(obj);
 	}
 	
-	
 	public void select(){
 		//this.setColor(SELECTEDCOLOR);
+		((GraphPlateau)this.getParent()).deselectAll();
 		selected=true;
+
 	}
 	public void deselect(){
 		//this.setColor(BASECOLOR);
 		selected=false;
 	}
 	
+	public boolean isSelected(){
+		return selected;
+	}
 	
 	public void clickOn(){
 		//this.setColor(CLICCOLOR);
@@ -96,6 +102,10 @@ public abstract class GraphCase extends ImageButton implements Observer {
 	public void clickOff(){
 		//this.setColor(BASECOLOR);
 		clicked=false;
+	}
+	
+	public boolean isClicked(){
+		return clicked;
 	}
 	
 	public void actionOnClick(){
@@ -113,14 +123,14 @@ public abstract class GraphCase extends ImageButton implements Observer {
 		}*/
 		
 		public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {//TODO
-			m_case.clicOn();
-			m_case.select();
+			clickOn();
+			select();
 	 		return true;
 	 	}
 	 
 	 	public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
 	 		//handle(event);
-			m_case.clickOff();
+			clickOff();
 	 	
 	 	}
 	 	
@@ -129,6 +139,10 @@ public abstract class GraphCase extends ImageButton implements Observer {
 	}
 
 
+	public Case getCase(){
+		return m_case;
+	}
+	
 	private static class Drawbt implements Drawable{
 	
 		private int wx;
@@ -138,6 +152,7 @@ public abstract class GraphCase extends ImageButton implements Observer {
 		private int m_h;
 		private int m_w;
 		private Case c;
+		private GraphCase gc;
 		public Drawbt(int _x,int _y,Case _c){
 			wx=_x;
 			wy=_y;
@@ -153,6 +168,12 @@ public abstract class GraphCase extends ImageButton implements Observer {
 		protected void actualizePosSize(){
 			//posX=(int) position[0]*10;
 			//posY=(int) position[1]*10;
+			
+			if(gc==null){
+				gc=GraphPlateau.getMainInstance().getGraphCase(c.getPosition()[0], c.getPosition()[1]);
+			}
+			
+			
 			double sx=(Gui.maxWX-Gui.minWX+0f)/(Plateau.TAILLE_HORIZONTALE+0f);
 			double sy=(Gui.maxWY-Gui.minWY+0f)/(Plateau.TAILLE_VERTICALE+0f);
 			
@@ -188,11 +209,14 @@ public abstract class GraphCase extends ImageButton implements Observer {
 		public void draw(Batch batch, float x, float y, float width,
 				float height) {
 			
+			actualizePosSize();
+
+			
 			Color ctmp=batch.getColor();
-			if(c.isclicked()){
+			if(gc.isClicked()){
 				batch.setColor(CLICCOLOR);
 			}else{
-				if(c.isSelected()){
+				if(gc.isSelected()){
 					batch.setColor(SELECTEDCOLOR);
 				}else{
 					batch.setColor(BASECOLOR);
@@ -202,7 +226,6 @@ public abstract class GraphCase extends ImageButton implements Observer {
 
 			//System.out.println(45);
 
-			actualizePosSize();
 			
 			/*m_x=wx*100;
 			m_y=wy*100;*/

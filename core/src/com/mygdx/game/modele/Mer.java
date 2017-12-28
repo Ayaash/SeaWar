@@ -100,7 +100,6 @@ public class Mer extends Case {
 	
 	@Override
 	public GraphCase getGraphCase() {
-		gc=new GraphMer(this);
-		return gc;
+		return new GraphMer(this);
 	}
 }

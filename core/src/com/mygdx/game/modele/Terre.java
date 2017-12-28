@@ -47,8 +47,7 @@ public class Terre extends Case {
 	
 	@Override
 	public GraphCase getGraphCase() {
-		gc=new GraphTerre(this);
-		return gc;
+		return new GraphTerre(this);
 	}
 
 }

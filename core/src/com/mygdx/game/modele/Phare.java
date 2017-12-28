@@ -69,8 +69,7 @@ public class Phare extends Mer {
 	
 	@Override
 	public GraphCase getGraphCase() {
-		gc=new GraphPhare(this);
-		return gc;
+		return new GraphPhare(this);
 	}
 	
 }

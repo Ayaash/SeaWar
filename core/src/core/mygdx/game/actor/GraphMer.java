@@ -38,6 +38,8 @@ public class GraphMer extends GraphCase {
 		private int m_h;
 		private int m_w;
 		private Mer c;
+		private GraphCase gc;
+
 		private boolean selected;//TODO a ajouter aussi dans case
 		
 		public Drawbt(int _x,int _y,Mer _c){
@@ -54,6 +56,12 @@ public class GraphMer extends GraphCase {
 		}
 		
 		protected void actualizePosSize(){
+			
+			
+			if(gc==null){
+				gc=GraphPlateau.getMainInstance().getGraphCase(c.getPosition()[0], c.getPosition()[1]);
+			}
+			
 			//posX=(int) position[0]*10;
 			//posY=(int) position[1]*10;
 			double sx=(Gui.maxWX-Gui.minWX+0f)/(Plateau.getInstance().TAILLE_HORIZONTALE+0f);
@@ -91,11 +99,14 @@ public class GraphMer extends GraphCase {
 		public void draw(Batch batch, float x, float y, float width,
 				float height) {
 			
+			actualizePosSize();
+
+			
 			Color ctmp=batch.getColor();
-			if(c.isclicked()){
+			if(gc.isClicked()){
 				batch.setColor(CLICCOLOR);
 			}else{
-				if(c.isSelected()){
+				if(gc.isSelected()){
 					batch.setColor(SELECTEDCOLOR);
 				}else{
 					batch.setColor(BASECOLOR);
@@ -105,7 +116,6 @@ public class GraphMer extends GraphCase {
 
 			//System.out.println(45);
 
-			actualizePosSize();
 			
 			/*m_x=wx*100;
 			m_y=wy*100;*/

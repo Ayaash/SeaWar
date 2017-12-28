@@ -36,6 +36,8 @@ public class GraphPhare extends GraphMer {
 		private int m_h;
 		private int m_w;
 		private Phare c;
+		private GraphCase gc;
+
 		private boolean selected;//TODO a ajouter aussi dans case
 		
 		public Drawbt(int _x,int _y,Phare _c){
@@ -52,6 +54,12 @@ public class GraphPhare extends GraphMer {
 		}
 		
 		protected void actualizePosSize(){
+			
+			if(gc==null){
+				gc=GraphPlateau.getMainInstance().getGraphCase(c.getPosition()[0], c.getPosition()[1]);
+			}
+			
+			
 			//posX=(int) position[0]*10;
 			//posY=(int) position[1]*10;
 			double sx=(Gui.maxWX-Gui.minWX+0f)/(Plateau.getInstance().TAILLE_HORIZONTALE+0f);
@@ -89,11 +97,14 @@ public class GraphPhare extends GraphMer {
 		public void draw(Batch batch, float x, float y, float width,
 				float height) {
 			
+			actualizePosSize();
+
+			
 			Color ctmp=batch.getColor();
-			if(c.isclicked()){
+			if(gc.isClicked()){
 				batch.setColor(CLICCOLOR);
 			}else{
-				if(c.isSelected()){
+				if(gc.isSelected()){
 					batch.setColor(SELECTEDCOLOR);
 				}else{
 					batch.setColor(BASECOLOR);
@@ -102,7 +113,6 @@ public class GraphPhare extends GraphMer {
 				}
 			}
 
-			actualizePosSize();
 			
 
 			batch.draw(Textures.HEXAGON, m_x, m_y, m_w, m_h);
