@@ -19,6 +19,7 @@ public abstract class AbstractIA {
 
 	public abstract Coup getCoup();
 	
+	//TODO: faire une copie profonde autrement qu'en serialisant parce que la c'est vorace en ressources et en temps
 	protected Partie copiePartie(){
 		String currentDirectoty = GetExecutionPath();
 		Partie copie = null;

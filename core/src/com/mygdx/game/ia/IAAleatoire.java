@@ -2,7 +2,7 @@ package com.mygdx.game.ia;
 
 import java.util.Random;
 
-import com.mygdx.game.modele.Navire;
+import com.mygdx.game.modele.Joueur;
 import com.mygdx.game.modele.Partie;
 import com.mygdx.game.modele.Tir;
 
@@ -16,8 +16,24 @@ public class IAAleatoire extends AbstractIA {
 	@Override
 	//TODO: Selectionner le navire
 	public Coup getCoup() {
+		
 		Coup meilleur = null;
 		Partie copie = copiePartie();
+		Random rand = new Random();
+		
+		//Si aucun navire selectionné, on en prend un au hasard.
+		if(copie.getNavireCourant() == null){
+			int navire = rand.nextInt(Joueur.NOMBRE_NAVIRES);
+			if(copie.selectionnerNavire(copie.getCurrentPlayer().getNavires()[navire]) == false){
+				
+				navire = (navire == 0) ? 1 : 0;		//Oui, du ternaire (on passe de 0 à 1 ou de 1 à 0)
+				copie.selectionnerNavire(copie.getCurrentPlayer().getNavires()[navire]);
+				
+			}
+		}
+		
+		
+		
 		int mouvement[][] = null;
 		Tir TirPrincipal = null;
 		Tir TirSecondaire = null;
@@ -63,7 +79,6 @@ public class IAAleatoire extends AbstractIA {
 		
 		if(nbCoupPossibles == 0) return null; //Aucun coup possible, c'est impossible
 
-		Random rand = new Random();
 		int selection = rand.nextInt(nbCoupPossibles + 1);
 		if(selection < tailleMouvement){
 			meilleur = new Coup(TypeCoup.Mouvement, mouvement[selection-1]);
