@@ -2,7 +2,7 @@ package core.mygdx.game.actor;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
-
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.mygdx.game.Gui;
@@ -97,7 +97,13 @@ public abstract class GraphNavire extends Image { // TODO passer en Image
 		//TODO A remplir
 	}
 
-
+	protected static void setNavireColor(Batch batch,Navire n){
+		if(n.getJoueur().getId()==1){
+			batch.setColor(GraphPlateau.J1COLOR);
+		}else{
+			batch.setColor(GraphPlateau.J2COLOR);
+		}
+	}
 	
 	
 
@@ -111,6 +117,8 @@ public abstract class GraphNavire extends Image { // TODO passer en Image
 		private int m_h;
 		private int m_w;
 		private Navire n;
+		private GraphNavire gn;
+
 		
 		public Drawbt(int _x,int _y,Navire _n){
 			wx=_x;
@@ -125,8 +133,14 @@ public abstract class GraphNavire extends Image { // TODO passer en Image
 		}
 		
 		protected void actualizePosSize(){
-			//posX=(int) position[0]*10;
-			//posY=(int) position[1]*10;
+
+			Case c= n.getPlateau().getCases(n.getPosition()[0], n.getPosition()[1]); 
+			
+			if(gn==null){
+				gn=GraphPlateau.getMainInstance().getGraphNavire(c.getPosition()[0], c.getPosition()[1]);
+			}
+			
+			
 			double sx=(Gui.maxWX-Gui.minWX+0f)/(Plateau.TAILLE_HORIZONTALE+0f);
 			double sy=(Gui.maxWY-Gui.minWY+0f)/(Plateau.TAILLE_VERTICALE+0f);
 			
@@ -135,57 +149,33 @@ public abstract class GraphNavire extends Image { // TODO passer en Image
 			m_h=(int) (sy/1);
 			
 			this.m_x=(int) (Gui.minWX  +  wx*sx );
-			//this.m_y=(int) ( Gui.maxWY+Gui.minWY-1.5*m_h-(Gui.minWY  + wy*sy ) );
-			this.m_y=(int) (Gui.minWY  +  wy*sy);
-			
-			
-			
-			//posX=(int) Jeu.minWX + (Jeu.maxWX-Jeu.minWX)*position[0];
-			//posY=(int) Jeu.minWY + (Jeu.maxWX-Jeu.minWX)*position[1];
+			//this.m_y=(int) (Gui.minWY  +  wy*sy );
+			this.m_y=(int) (Gui.maxWY  -  wy*sy);
 
-			if( wx%2==0){//TODO Peut etre revoir la paritï¿½
-				m_y+=sy/2f;
-				//System.out.println(1);
-			}else{
-				//System.out.println(2);
 
+			if( wx%2==0){
+				m_y-=sy/2f;
 			}
-		
-			
-			
-			//this.actualizeSprite(obj);
 		}
 		
+
 
 		
 		@Override
 		public void draw(Batch batch, float x, float y, float width,
 				float height) {
 			
-			Color ctmp=batch.getColor();
-			/*if(n.isclicked()){
-				batch.setColor(CLICCOLOR);
-			}else{
-				if(n.isSelected()){
-					batch.setColor(SELECTEDCOLOR);
-				}else{
-					batch.setColor(BASECOLOR);
-	
-				}
-			}*/
-			batch.setColor(n.getJoueur().getColor());
-
-			//System.out.println(45);
-
 			actualizePosSize();
-			
-			/*m_x=wx*100;
-			m_y=wy*100;*/
-			//System.out.println(m_x+","+m_y+","+m_w+","+m_h);
 
-			//System.out.println(x+","+y+","+width+","+height);
-			//batch.draw(Textures.HEXAGON, x, y, width, height);
-			batch.draw(Textures.AMIRAL, m_x, m_y, m_w, m_h);
+			
+			Color ctmp=batch.getColor();
+			
+			setNavireColor(batch, n);
+			
+			int angle=n.getOrientation().ordinal()*60+270;
+			
+			TextureRegion tr= new TextureRegion(Textures.NOIMAGE);
+			batch.draw(tr, m_x, m_y, m_w/2, m_h/2, m_w, m_h, 1, 1, angle, true);
 			batch.setColor(ctmp);
 			
 		}

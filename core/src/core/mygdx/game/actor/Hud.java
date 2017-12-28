@@ -16,8 +16,8 @@ import com.mygdx.game.modele.Fregate;
 public class Hud extends Group {
 	private Partie m_partie;
 	private Skin m_skin;
-	private TextAmiral m_amiralJ1, m_amiralJ2;
-	private TextFregate m_fregateJ1, m_fregateJ2;
+	/*private TextAmiral m_amiralJ1, m_amiralJ2;	//Refuse de compiler avec ces variable visible, probleme code ou eclipse
+	private TextFregate m_fregateJ1, m_fregateJ2;*/
 	
 	public Hud(Partie _partie) {
 		m_skin = new Skin(Gdx.files.internal("skin/rusty-robot-ui.json"));
