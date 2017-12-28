@@ -31,7 +31,7 @@ public abstract class Navire extends InWorldObj {
 	protected Plateau plateau;
 	
 	public Navire(int[] posi, Orientation o, Plateau p){
-		super(posi[0],posi[1],0);
+		super(posi[0],posi[1]);
 		this.position = posi.clone();
 		this.orientation = o;
 		this.aTire=false;
@@ -259,6 +259,10 @@ public abstract class Navire extends InWorldObj {
 	
 	public int getVie() {
 		return this.pVAct;
+	}
+	
+	public Orientation getOrientation(){
+		return orientation;
 	}
 	
 	public abstract GraphNavire getGraph(); 

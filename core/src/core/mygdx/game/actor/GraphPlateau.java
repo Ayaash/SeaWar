@@ -1,5 +1,6 @@
 package core.mygdx.game.actor;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.utils.SnapshotArray;
@@ -8,6 +9,10 @@ import com.mygdx.game.modele.Plateau;
 public class GraphPlateau extends Group {
 	private Plateau plateau;
 	private static GraphPlateau mainInstance;//TODO A supprimer si meilleur idée, ou a transformer en vrai singloton
+	
+	public static final Color J1COLOR=new Color(0f,0f,1f,1f);
+	public static final Color J2COLOR=new Color(1f,0f,0f,1f);
+
 	
 	/**Constructeur*/
 	public GraphPlateau(Plateau plateau) {
@@ -46,8 +51,9 @@ public class GraphPlateau extends Group {
 		
 			GraphCase gc=getGraphCase(x,y);
 			if(gc!=null){
-				if(gc.getChildren()!=null){
-					return (GraphNavire) gc.getChildren().get(0);//TODO On part du principe qu'il n'y a qu'un fils, est que c'est le navire, a modifier si ce n'est plus le cas
+				if(gc.getChildren().size>2){
+					System.out.println(gc.getChildren().size);
+					return (GraphNavire) gc.getChildren().get(2);//TODO On part du principe qu'il n'y a qu'un fils, est que c'est le navire, a modifier si ce n'est plus le cas
 				}
 			}
 			

@@ -20,7 +20,6 @@ public abstract class GraphCase extends ImageButton implements Observer {
 	protected boolean clicked=false;
 	protected boolean highlighted=false;
 
-
 	
 	protected float m_x;
 	protected float m_y;

@@ -30,11 +30,5 @@ public class InWorldObj {
 		
 	}
 	
-	public InWorldObj(int posWX, int posWY, int angle) {
-		position=new int[2];
-		position[0]=posWX;
-		position[1]=posWY;
-	}
-
 	
 }
