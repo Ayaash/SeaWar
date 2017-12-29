@@ -267,14 +267,29 @@ public class GraphPlateau extends Group {
 		return true;
 	}
 	
-	public void finTour(){
-		modeAction=ModeAction.SELECTIONNAVIRE;
-		m_partie.finirTourGlobal();
+	public boolean finTour(){
+		boolean btmp=true;
+		for(int i=0;i<m_partie.getCurrentPlayer().getNavires().length;i++){//TODO Verifier si valide
+			if(	m_partie.getCurrentPlayer().getNavires()[i].sEstDeplace()){
+				btmp=false;
+			}
+		}
+		
+		btmp=true;//TODO enlever
+		if(btmp){
+			deselectAllCases();
+			deselectAllNavire();
+			modeAction=ModeAction.SELECTIONNAVIRE;
+			System.out.println(m_partie.finirTourGlobal());
+			return true;
+		}
+		return false;
 	}
 	
 	/**Fonction pour mettre fin au tour d'un navire*/
 	public boolean abandonTourNavire(){
-		boolean btmp=m_partie.finirTourNavire();
+		boolean btmp=true;//TODO!m_partie.finirTourNavire();
+		//System.out.println(btmp);
 		if(btmp){
 			deselectAllCases();
 			deselectAllNavire();
