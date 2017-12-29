@@ -20,6 +20,8 @@ public class TextFregate extends TextNavire {
 		
 		m_vieLabel = new Label("\tVie : " + m_navire.getVie() + "/" + m_navire.getPV_MAX(), m_skin);
 		this.addActor(m_vieLabel);
+		m_vieLabel.setFontScale(0.8F);
+
 		
 		if(m_navire.peutTirerPrincipal()) {
 			canonPrin = "pret !";
@@ -28,7 +30,8 @@ public class TextFregate extends TextNavire {
 		}
 		m_canonPrin = new Label("\tCanon principal : " + canonPrin, m_skin);
 		this.addActor(m_canonPrin);
-		
+		m_canonPrin.setFontScale(0.6F);
+
 		if(m_navire.peutTirerSecondaire()) {
 			canonSec = "pret !";
 		} else {
@@ -36,6 +39,8 @@ public class TextFregate extends TextNavire {
 		}
 		m_canonSec = new Label("\tCanon secondaire : " + canonSec, m_skin);
 		this.addActor(m_canonSec);
+		m_canonSec.setFontScale(0.6F);
+
 	}
 
 	@Override
