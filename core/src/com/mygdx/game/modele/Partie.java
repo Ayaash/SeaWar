@@ -184,6 +184,17 @@ public class Partie implements Serializable{
 		}
 		return navireCourant.tirSecondaire();
 	}
+	public void tirPrincipalEffectue(){
+		if(navireCourant != null){
+			navireCourant.tirPrincipalEffectue();
+		}
+	}
+	public void tirSecondaireEffectue(){
+		if(navireCourant != null){
+			navireCourant.tirSecondaireEffectue();
+		}
+	}
+	
 	public boolean tirerSurUneCase(int[] position, int degats){
 		return plateau.recevoirTir(position, degats);
 	}

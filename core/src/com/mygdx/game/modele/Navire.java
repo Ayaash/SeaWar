@@ -92,19 +92,22 @@ public abstract class Navire extends InWorldObj {
         int [][] tabCasePoss=tirPrincipalCasesPos();
         int deg=getDEG_CAN_PRINC();
         Tir res=new Tir(tabCasePoss,deg);
-        aTire=true;
-        this.etatCanPrinc = getTPS_RECH_CAN_PRINC()+1;
         return res;
     }
+	public void tirPrincipalEffectue(){
+		aTire=true;
+        this.etatCanPrinc = getTPS_RECH_CAN_PRINC()+1;
+	}
 	public Tir tirSecondaire(){
         int [][] tabCasePoss=tirSecondaireCasesPos();
         int deg=getDEG_CAN_SEC();
         Tir res=new Tir(tabCasePoss,deg);
-        aTire=true;
-        this.etatCanSec = getTPS_RECH_CAN_SEC()+1;
         return res;
     }
-	
+	public void tirSecondaireEffectue(){
+		aTire=true;
+        this.etatCanSec = getTPS_RECH_CAN_SEC()+1;
+	}
 	public void miseEnRechargementCanPrinc(){
 		etatCanPrinc=getTPS_RECH_CAN_PRINC()+1;
 		aTire=true;
