@@ -72,10 +72,10 @@ public abstract class Navire extends InWorldObj {
 	}
 	
 	public boolean peutTirerPrincipal(){
-		return (etatCanPrinc == 0) && !aTire && !mort;
+		return (etatCanPrinc == 0) && !aTire && !mort && (peutSeDeplacer() || sEstDeplace());
 	}
 	public boolean peutTirerSecondaire(){
-		return (etatCanSec == 0) && !aTire && !mort;
+		return (etatCanSec == 0) && !aTire && !mort && (peutSeDeplacer() || sEstDeplace());
 	}
 	
 	public abstract int[][] tirPrincipalCasesPos();
