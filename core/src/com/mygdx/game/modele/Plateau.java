@@ -28,22 +28,29 @@ public class Plateau implements Serializable {
 				
 			}
 		}
-		int[] posTerre1={6,4};
+		/*int[] posTerre1={6,4};
 		placerTerreSym(posTerre1);
 		int[] posTerre2={6,5};
-		placerTerreSym(posTerre2);
+		placerTerreSym(posTerre2);*/
 		int[] posTerre3={5,5};
 		placerTerreSym(posTerre3);
 		
 		int[] posTerre4={5,2};
 		placerTerreSym(posTerre4);
 		
+		int[] posTerre5={2,4};
+		placerTerreSym(posTerre5);
+		int[] posTerre6={2,5};
+		placerTerreSym(posTerre6);
+		
+		
 		//Placement des phares
+		/*
 		int posX0=(int) (TAILLE_HORIZONTALE/2);
 		int posY0=(int) (Math.random()*TAILLE_VERTICALE);
 		int[] posPhare0 ={posX0,posY0};
 		
-		int randomX=(int) (Math.random()*TAILLE_HORIZONTALE/2);
+		int randomX=(int) (Math.random()*((TAILLE_HORIZONTALE/2) - 1)) + 1;
 		int randomY=(int) (Math.random()*TAILLE_VERTICALE);
 		
 		int posX1=TAILLE_HORIZONTALE/2+randomX;
@@ -64,10 +71,14 @@ public class Plateau implements Serializable {
 			posX2=TAILLE_HORIZONTALE/2-randomX;
 			posY2=randomY;
 		}
+		*/
 		
-		placerPhare(0,posPhare0);
-		placerPhare(1,posPhare1);
-		placerPhare(2,posPhare2);
+		int posPhare1[] = {6,4};
+		int posPhare2[] = {3,5};
+		int posPhare3[] = {9,5};
+		placerPhare(0,posPhare1);
+		placerPhare(1,posPhare2);
+		placerPhare(2,posPhare3);
 		
 	}
 	
