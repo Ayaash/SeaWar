@@ -1,8 +1,11 @@
 package core.mygdx.game.actor;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.SnapshotArray;
 import com.mygdx.game.modele.Navire;
 import com.mygdx.game.modele.Partie;
@@ -15,8 +18,10 @@ public class GraphPlateau extends Group {
 	private Partie m_partie;
 	private Plateau m_plateau;
 	private static GraphPlateau mainInstance;//TODO A supprimer si meilleur idée, ou a transformer en vrai singloton
-	
+	public static int vainceur=0;
 	private Tir tirPossible=null;
+	private boolean tirPossibleEstPrincipal=false;
+
 	
 	private static ModeAction modeAction=ModeAction.SELECTIONNAVIRE;
 	
@@ -129,12 +134,11 @@ public class GraphPlateau extends Group {
 	/**Renvoie true si la selection a eu lieux, false sinon*/
 	public boolean selectNavire(Navire n){
 			if(modeAction==ModeAction.SELECTIONNAVIRE && n.getJoueur()==m_partie.getCurrentPlayer()){
-			deselectAllNavire();//un seul navire selectionnée a la fois
-			deselectAllCases();//une seule case selectionnée a la fois
+				deselectAllNavire();//un seul navire selectionnée a la fois
+				deselectAllCases();//une seule case selectionnée a la fois
 		
-			m_partie.selectionnerNavire(n);
-			askTirPrincipal();//TODO A Apeller dans un listener, ici UNIQUEMENT pour les tests
-			return true;
+				m_partie.selectionnerNavire(n);
+				return true;
 		}
 		return false;
 	}
@@ -177,8 +181,12 @@ public class GraphPlateau extends Group {
 	public boolean askTirPrincipal(){
 		clearAllHighlight();
 		tirPossible=m_partie.demanderTirsPossiblesPrincipal();
-		int[][] casesAccessible = tirPossible.cases;
-		if(casesAccessible!=null && m_partie.peutTirerPrincipal()){
+		tirPossibleEstPrincipal=true;
+		System.out.println(m_partie.peutTirerPrincipal());
+		if(tirPossible!=null && m_partie.peutTirerPrincipal()){
+			int[][] casesAccessible = tirPossible.cases;
+			System.out.println(casesAccessible.length);
+
 			for(int i=0;i<casesAccessible.length;i++){
 				if(casesAccessible[i][0]!=-1 && casesAccessible[i][1]!=-1){
 					getGraphCase(casesAccessible[i][0],casesAccessible[i][1]).highlight();
@@ -196,8 +204,9 @@ public class GraphPlateau extends Group {
 	public boolean askTirSecondaire(){
 		clearAllHighlight();
 		tirPossible=m_partie.demanderTirsPossiblesSecondaire();
-		int[][] casesAccessible = tirPossible.cases;
-		if(casesAccessible!=null && m_partie.peutTirerSecondaire()){
+		tirPossibleEstPrincipal=false;
+		if(tirPossible!=null && m_partie.peutTirerSecondaire()){
+			int[][] casesAccessible = tirPossible.cases;
 			for(int i=0;i<casesAccessible.length;i++){
 				if(casesAccessible[i][0]!=-1 && casesAccessible[i][1]!=-1){
 					getGraphCase(casesAccessible[i][0],casesAccessible[i][1]).highlight();
@@ -216,12 +225,19 @@ public class GraphPlateau extends Group {
 		if(tirPossible!=null && 
 				(modeAction==ModeAction.TIRPRINCIPAL || modeAction==ModeAction.TIRSECONDAIRE)){
 			
-			
+			clearAllHighlight();
 			
 			int[] d={x,y};
 			m_partie.tirerSurUneCase(d, tirPossible.degats);
 			
 			modeAction=ModeAction.NONE;
+			
+			if(tirPossibleEstPrincipal){
+				m_partie.tirPrincipalEffectue();
+			}else{
+				m_partie.tirSecondaireEffectue();
+			}
+			
 			return true;
 		}
 		return false;
@@ -267,30 +283,28 @@ public class GraphPlateau extends Group {
 		return true;
 	}
 	
-	public boolean finTour(){
-		boolean btmp=true;
-		for(int i=0;i<m_partie.getCurrentPlayer().getNavires().length;i++){//TODO Verifier si valide
-			if(	m_partie.getCurrentPlayer().getNavires()[i].sEstDeplace()){
-				btmp=false;
-			}
-		}
-		
-		btmp=true;//TODO enlever
-		if(btmp){
+	public int finTour(){	
+		int vainceur=m_partie.finirTourGlobal();
+		if(vainceur!=-1){
+			clearAllHighlight();
 			deselectAllCases();
 			deselectAllNavire();
 			modeAction=ModeAction.SELECTIONNAVIRE;
-			System.out.println(m_partie.finirTourGlobal());
-			return true;
+			if(vainceur!=0){
+				modeAction=ModeAction.FIN;
+
+			}
+			return vainceur;
 		}
-		return false;
+		return vainceur;
 	}
 	
 	/**Fonction pour mettre fin au tour d'un navire*/
 	public boolean abandonTourNavire(){
-		boolean btmp=true;//TODO!m_partie.finirTourNavire();
+		boolean btmp=m_partie.finirTourNavire();
 		//System.out.println(btmp);
 		if(btmp){
+			clearAllHighlight();
 			deselectAllCases();
 			deselectAllNavire();
 			modeAction=ModeAction.SELECTIONNAVIRE;

@@ -6,7 +6,8 @@ public enum ModeAction {
 	DEPLACEMENT,
 	TIRPRINCIPAL,
 	TIRSECONDAIRE,
-	NONE
+	NONE,
+	FIN
 	
 	
 }

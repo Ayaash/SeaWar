@@ -21,8 +21,8 @@ import com.mygdx.game.modele.Fregate;
 public class Hud extends Group {
 	private Partie m_partie;
 	private Skin m_skin;
-	/*private TextAmiral m_amiralJ1, m_amiralJ2;	//Refuse de compiler avec ces variable visible, probleme code ou eclipse
-	private TextFregate m_fregateJ1, m_fregateJ2;*/
+	private TextAmiral m_amiralJ1, m_amiralJ2;	//Refuse de compiler avec ces variable visible, probleme code ou eclipse
+	private TextFregate m_fregateJ1, m_fregateJ2;
 	
 	public Hud(Partie _partie) {
 		m_skin = new Skin(Gdx.files.internal("skin/rusty-robot-ui.json"));
@@ -87,48 +87,82 @@ public class Hud extends Group {
 		Label textJ2 = new Label("Joueur 2 :", m_skin);
 		textJ2.setFontScale(1.2F);
 		pannelJ1.addActor(textJ2);
-		/*
-		m_fregateJ2 = new TextFregate((Fregate) m_partie.getPlayer(2).getNavires()[1]); //FIXME bateaux à null
+		
+		/*m_fregateJ2 = new TextFregate((Fregate) m_partie.getPlayer(2).getNavires()[1]); //FIXME bateaux à null
 		pannelJ2.addActor(m_fregateJ2);
 		
 		m_amiralJ2 = new TextAmiral((Amiral) m_partie.getPlayer(2).getNavires()[0]);//FIXME bateaux à null
-		pannelJ2.addActor(m_amiralJ2);
-		*/
+		pannelJ2.addActor(m_amiralJ2);*/
+		
+		Label textVictoire = new Label("", m_skin);
+		textVictoire.setFontScale(1.2F);
+		pannelJ1.addActor(textVictoire);
+		
 	}
 	
 	public class evtMove extends InputListener{
 		public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {//TODO
-			GraphPlateau.getMainInstance().askMove();
-			return true;
+			if(!(GraphPlateau.vainceur>0)){
+				GraphPlateau.getMainInstance().askMove();
+				return true;
+			}
+			return false;
 	 	}
 	}
 	
 	public class evtTirPrincipal extends InputListener{
 		public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {//TODO
-			GraphPlateau.getMainInstance().askTirPrincipal();
-			return true;
+			if(!(GraphPlateau.vainceur>0)){
+				GraphPlateau.getMainInstance().askTirPrincipal();
+				return true;
+			}
+			return false;
 	 	}
 	}
 	
 	public class evtTirSecondaire extends InputListener{
 		public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {//TODO
-			GraphPlateau.getMainInstance().askTirSecondaire();
-			return true;
-	 	}
+			if(!(GraphPlateau.vainceur>0)){
+				GraphPlateau.getMainInstance().askTirSecondaire();
+				return true;
+			}
+			return false;
+		 }
 	}
 	
 	public class evtFinTour extends InputListener{
+		
 		public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {//TODO
-			GraphPlateau.getMainInstance().finTour();
-			return true;
-	 	}
+			if(!(GraphPlateau.vainceur>0)){
+				GraphPlateau.getMainInstance().finTour();
+				//textVictoire.update();
+				return true;
+			}
+			return false;
+		 }
 	}
 	
 	public class evtFinTourNavire extends InputListener{
 		public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {//TODO
-			GraphPlateau.getMainInstance().abandonTourNavire();
-			return true;
+			if(!(GraphPlateau.vainceur>0)){
+				GraphPlateau.getMainInstance().abandonTourNavire();
+				return true;
+			}
+			return false;
 	 	}
 	}
 
+	public class VictoireText extends Label{
+
+		public VictoireText(CharSequence text, Skin skin) {
+			super(text, skin);
+		}
+		public void update(int vainqueur){
+			if(vainqueur>0){
+				this.setText("Joueur "+vainqueur+" a gagn�");
+			}
+		}
+		
+	}
+	
 }
