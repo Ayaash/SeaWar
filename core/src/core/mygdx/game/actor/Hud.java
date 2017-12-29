@@ -2,7 +2,11 @@ package core.mygdx.game.actor;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.Event;
+import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -35,18 +39,23 @@ public class Hud extends Group {
 		this.addActor(barreHoriz);
 		
 		TextButton deplacerBouton = new TextButton("Deplacer",m_skin); //TODO add listener
+		deplacerBouton.addListener(new evtMove());
 		barreHoriz.addActor(deplacerBouton);
 
 		TextButton tirPrincipal = new TextButton("Tir principal", m_skin); //TODO add listener
+		tirPrincipal.addListener(new evtTirPrincipal());
 		barreHoriz.addActor(tirPrincipal);
 		
 		TextButton tirSecondaire = new TextButton("Tir secondaire", m_skin); //TODO add listener
+		tirSecondaire.addListener(new evtTirSecondaire());
 		barreHoriz.addActor(tirSecondaire);
 		
 		TextButton finTour = new TextButton("Fin du tour", m_skin); //TODO add listener
+		finTour.addListener(new evtFinTour());
 		barreHoriz.addActor(finTour);
 		
 		TextButton finTourNavire = new TextButton("Fin du tour du navire", m_skin); //TODO add listener
+		finTourNavire.addListener(new evtFinTourNavire());
 		barreHoriz.addActor(finTourNavire);
 		
 		Image pannelInfoImg = new Image(Textures.BARRE_HORIZ);
@@ -85,6 +94,41 @@ public class Hud extends Group {
 		m_amiralJ2 = new TextAmiral((Amiral) m_partie.getPlayer(2).getNavires()[0]);//FIXME bateaux à null
 		pannelJ2.addActor(m_amiralJ2);
 		*/
+	}
+	
+	public class evtMove extends InputListener{
+		public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {//TODO
+			GraphPlateau.getMainInstance().askMove();
+			return true;
+	 	}
+	}
+	
+	public class evtTirPrincipal extends InputListener{
+		public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {//TODO
+			GraphPlateau.getMainInstance().askTirPrincipal();
+			return true;
+	 	}
+	}
+	
+	public class evtTirSecondaire extends InputListener{
+		public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {//TODO
+			GraphPlateau.getMainInstance().askTirSecondaire();
+			return true;
+	 	}
+	}
+	
+	public class evtFinTour extends InputListener{
+		public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {//TODO
+			GraphPlateau.getMainInstance().finTour();
+			return true;
+	 	}
+	}
+	
+	public class evtFinTourNavire extends InputListener{
+		public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {//TODO
+			GraphPlateau.getMainInstance().abandonTourNavire();
+			return true;
+	 	}
 	}
 
 }
