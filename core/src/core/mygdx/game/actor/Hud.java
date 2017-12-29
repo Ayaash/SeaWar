@@ -94,7 +94,7 @@ public class Hud extends Group {
 		m_amiralJ2 = new TextAmiral((Amiral) m_partie.getPlayer(2).getNavires()[0]);//FIXME bateaux Ã  null
 		pannelJ2.addActor(m_amiralJ2);*/
 		
-		VictoireText textVictoire = new VictoireText("", m_skin);
+		VictoireText textVictoire = new VictoireText("hop", m_skin);
 		textVictoire.setFontScale(1.2F);
 		pannelJ1.addActor(textVictoire);
 		
@@ -135,15 +135,17 @@ public class Hud extends Group {
 	public class evtFinTour extends InputListener{
 		VictoireText vt;
 		public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {//TODO
+			if(vt!=null){
+				vt.update(GraphPlateau.vainqueur);
+			}
 			if(!(GraphPlateau.vainqueur>0)){
 				GraphPlateau.getMainInstance().finTour();
 				//textVictoire.update();
-				if(vt!=null){
-					vt.update(GraphPlateau.vainqueur);
-				}
+				
 				return true;
 			}
-			return false;
+			
+			return true;
 		 }
 		
 		public void setVictoireText(VictoireText v){
@@ -169,6 +171,9 @@ public class Hud extends Group {
 		public void update(int vainqueur){
 			if(vainqueur>0){
 				this.setText("Joueur "+vainqueur+" a gagné");
+			}else{
+				this.setText("Pas encore de vainqueur");
+
 			}
 		}
 		
