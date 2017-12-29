@@ -75,11 +75,11 @@ public class Hud extends Group {
 		textJ1.setFontScale(1.2F);
 		pannelJ1.addActor(textJ1);
 		
-		/*m_fregateJ1 = new TextFregate((Fregate) m_partie.getPlayer(1).getNavires()[1]); //FIXME bateaux à null
+		m_fregateJ1 = new TextFregate((Fregate) m_partie.getPlayer(1).getNavires()[1]); //FIXME bateaux à null
 		pannelJ1.addActor(m_fregateJ1);
 		
 		m_amiralJ1 = new TextAmiral((Amiral) m_partie.getPlayer(1).getNavires()[0]);//FIXME bateaux à null
-		pannelJ1.addActor(m_amiralJ1);*/
+		pannelJ1.addActor(m_amiralJ1);
 		
 		VerticalGroup pannelJ2 = new VerticalGroup();
 		pannelInfo.addActor(pannelJ2);
@@ -88,15 +88,19 @@ public class Hud extends Group {
 		textJ2.setFontScale(1.2F);
 		pannelJ1.addActor(textJ2);
 		
-		/*m_fregateJ2 = new TextFregate((Fregate) m_partie.getPlayer(2).getNavires()[1]); //FIXME bateaux à null
+		m_fregateJ2 = new TextFregate((Fregate) m_partie.getPlayer(2).getNavires()[1]); //FIXME bateaux à null
 		pannelJ2.addActor(m_fregateJ2);
 		
 		m_amiralJ2 = new TextAmiral((Amiral) m_partie.getPlayer(2).getNavires()[0]);//FIXME bateaux à null
-		pannelJ2.addActor(m_amiralJ2);*/
+		pannelJ2.addActor(m_amiralJ2);
+		
+		
+		VerticalGroup pannelVic = new VerticalGroup();
+		pannelInfo.addActor(pannelVic);
 		
 		VictoireText textVictoire = new VictoireText("Pas encore de vainqueur", m_skin);
-		textVictoire.setFontScale(1.2F);
-		pannelJ1.addActor(textVictoire);
+		textVictoire.setFontScale(1.4F);
+		pannelVic.addActor(textVictoire);
 		
 		((evtFinTour)(finTour.getListeners().get(1))).setVictoireText(textVictoire);
 		
@@ -138,12 +142,9 @@ public class Hud extends Group {
 			
 			//if(!(GraphPlateau.vainqueur>0)){
 				int vq=GraphPlateau.getMainInstance().finTour();
-				System.out.println(vq);
 				//if(vq>0){
 					if(vt!=null){
 						vt.update(vq);
-					}else{
-						System.out.println("arg");
 					}
 				//}
 				//textVictoire.update();
@@ -173,7 +174,7 @@ public class Hud extends Group {
 		}
 		public void update(int vaq){
 			if(vaq>0){
-				this.setText("Joueur "+vaq+" a gagn�");
+				this.setText("Victoire du Joueur "+vaq);
 			}else{
 				this.setText("Pas encore de vainqueur");
 
