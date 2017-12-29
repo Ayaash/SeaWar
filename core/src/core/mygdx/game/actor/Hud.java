@@ -103,6 +103,12 @@ public class Hud extends Group {
 		pannelVic.addActor(textVictoire);
 		
 		((evtFinTour)(finTour.getListeners().get(1))).setVictoireText(textVictoire);
+	
+		((evtFinTour)(finTour.getListeners().get(1))).setNaviresText(m_fregateJ1,m_amiralJ1,m_fregateJ2,m_amiralJ2);
+		((evtFinTourNavire)(finTourNavire.getListeners().get(1))).setNaviresText(m_fregateJ1,m_amiralJ1,m_fregateJ2,m_amiralJ2);
+		((evtTirPrincipal)(tirPrincipal.getListeners().get(1))).setNaviresText(m_fregateJ1,m_amiralJ1,m_fregateJ2,m_amiralJ2);
+		((evtTirSecondaire)(tirSecondaire.getListeners().get(1))).setNaviresText(m_fregateJ1,m_amiralJ1,m_fregateJ2,m_amiralJ2);
+
 		
 	}
 	
@@ -117,27 +123,66 @@ public class Hud extends Group {
 	}
 	
 	public class evtTirPrincipal extends InputListener{
+		TextNavire tn1;
+		TextNavire tn2;
+		TextNavire tn3;
+		TextNavire tn4;
+
 		public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {//TODO
+			tn1.update();
+			tn2.update();
+			tn3.update();
+			tn4.update();
 			if(!(GraphPlateau.vainqueur>0)){
 				GraphPlateau.getMainInstance().askTirPrincipal();
 				return true;
 			}
 			return false;
 	 	}
+		
+		public void setNaviresText(TextNavire t1,TextNavire t2,TextNavire t3,TextNavire t4){
+			tn1=t1;
+			tn2=t2;
+			tn3=t3;
+			tn4=t4;
+		}
 	}
 	
 	public class evtTirSecondaire extends InputListener{
+		TextNavire tn1;
+		TextNavire tn2;
+		TextNavire tn3;
+		TextNavire tn4;
+
 		public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {//TODO
+			tn1.update();
+			tn2.update();
+			tn3.update();
+			tn4.update();
 			if(!(GraphPlateau.vainqueur>0)){
 				GraphPlateau.getMainInstance().askTirSecondaire();
 				return true;
 			}
 			return false;
 		 }
+		
+		public void setNaviresText(TextNavire t1,TextNavire t2,TextNavire t3,TextNavire t4){
+			tn1=t1;
+			tn2=t2;
+			tn3=t3;
+			tn4=t4;
+		}
 	}
 	
 	public class evtFinTour extends InputListener{
 		VictoireText vt;
+		
+		TextNavire tn1;
+		TextNavire tn2;
+		TextNavire tn3;
+		TextNavire tn4;
+
+
 		public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {//TODO
 			
 			//if(!(GraphPlateau.vainqueur>0)){
@@ -146,6 +191,11 @@ public class Hud extends Group {
 					if(vt!=null){
 						vt.update(vq);
 					}
+					tn1.update();
+					tn2.update();
+					tn3.update();
+					tn4.update();
+
 				//}
 				//textVictoire.update();
 			//}
@@ -156,16 +206,40 @@ public class Hud extends Group {
 		public void setVictoireText(VictoireText v){
 			vt=v;
 		}
+		public void setNaviresText(TextNavire t1,TextNavire t2,TextNavire t3,TextNavire t4){
+			tn1=t1;
+			tn2=t2;
+			tn3=t3;
+			tn4=t4;
+		}
 	}
 	
 	public class evtFinTourNavire extends InputListener{
+		TextNavire tn1;
+		TextNavire tn2;
+		TextNavire tn3;
+		TextNavire tn4;
+
 		public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {//TODO
+			
+			tn1.update();
+			tn2.update();
+			tn3.update();
+			tn4.update();
+			
 			if(!(GraphPlateau.vainqueur>0)){
 				GraphPlateau.getMainInstance().abandonTourNavire();
 				return true;
 			}
 			return false;
 	 	}
+		
+		public void setNaviresText(TextNavire t1,TextNavire t2,TextNavire t3,TextNavire t4){
+			tn1=t1;
+			tn2=t2;
+			tn3=t3;
+			tn4=t4;
+		}
 	}
 
 	public class VictoireText extends Label{
