@@ -36,7 +36,6 @@ public class Hud extends Group {
 		
 		TextButton deplacerBouton = new TextButton("Deplacer",m_skin); //TODO add listener
 		barreHoriz.addActor(deplacerBouton);
-		
 
 		TextButton tirPrincipal = new TextButton("Tir principal", m_skin); //TODO add listener
 		barreHoriz.addActor(tirPrincipal);
@@ -46,6 +45,9 @@ public class Hud extends Group {
 		
 		TextButton finTour = new TextButton("Fin du tour", m_skin); //TODO add listener
 		barreHoriz.addActor(finTour);
+		
+		TextButton finTourNavire = new TextButton("Fin du tour du navire", m_skin); //TODO add listener
+		barreHoriz.addActor(finTourNavire);
 		
 		Image pannelInfoImg = new Image(Textures.BARRE_HORIZ);
 		pannelInfoImg.setSize(300, 550);

@@ -54,10 +54,14 @@ public class GraphAmiral extends GraphNavire {
 		protected void actualizePosSize(){
 
 			Case c= n.getPlateau().getCases(n.getPosition()[0], n.getPosition()[1]); 
+
+			wx=n.getPosition()[0];
+			wy=n.getPosition()[1];
 			
 			if(gn==null){
 				gn=GraphPlateau.getMainInstance().getGraphNavire(c.getPosition()[0], c.getPosition()[1]);
 			}
+			//System.out.println(((GraphCase)gn.getParent()).m_case.getPosition()[0]==c.getPosition()[0]);//TODO DEBUG A SUPPRIMER
 			
 			
 			double sx=(Gui.maxWX-Gui.minWX+0f)/(Plateau.TAILLE_HORIZONTALE+0f);
@@ -91,7 +95,7 @@ public class GraphAmiral extends GraphNavire {
 			
 			setNavireColor(batch, n);
 			
-			int angle=n.getOrientation().ordinal()*60+270;
+			int angle=-n.getOrientation().ordinal()*60+180;
 			
 			TextureRegion tr= new TextureRegion(Textures.AMIRAL);
 			batch.draw(tr, m_x, m_y, m_w/2, m_h/2, m_w, m_h, 1, 1, angle, true);

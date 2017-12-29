@@ -54,6 +54,9 @@ public class GraphFregate extends GraphNavire {
 
 			Case c= n.getPlateau().getCases(n.getPosition()[0], n.getPosition()[1]); 
 			
+			wx=n.getPosition()[0];
+			wy=n.getPosition()[1];
+			
 			if(gn==null){
 				gn=GraphPlateau.getMainInstance().getGraphNavire(c.getPosition()[0], c.getPosition()[1]);
 			}
@@ -90,7 +93,7 @@ public class GraphFregate extends GraphNavire {
 			
 			setNavireColor(batch, n);
 			
-			int angle=n.getOrientation().ordinal()*60+270;
+			int angle=-n.getOrientation().ordinal()*60+180;
 			
 			TextureRegion tr= new TextureRegion(Textures.FREGATE);
 			batch.draw(tr, m_x, m_y, m_w/2, m_h/2, m_w, m_h, 1, 1, angle, true);

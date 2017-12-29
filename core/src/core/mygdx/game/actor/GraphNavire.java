@@ -35,6 +35,7 @@ public abstract class GraphNavire extends Image { // TODO passer en Image
 
 		actualizePosSize();
 		this.setBounds(m_x, m_y, m_w, m_h);
+		this.toFront();
 	}
 
 
@@ -72,11 +73,17 @@ public abstract class GraphNavire extends Image { // TODO passer en Image
 		//this.actualizeSprite(obj);
 	}
 	
-	
-	public void select(){
+	/**envoie true ssi la selection a bien eu lieu*/
+	public boolean select(){
 		//this.setColor(SELECTEDCOLOR);
-		((GraphPlateau)this.getParent().getParent()).deselectAllNavire();//un seul navire selectionnée a la fois
-		selected=true;
+		boolean btmp;
+		//((GraphPlateau)this.getParent().getParent()).deselectAllNavire();//un seul navire selectionnée a la fois
+		btmp=((GraphPlateau)this.getParent()).selectNavire(m_navire);//un seul navire selectionnée a la fois
+		if(btmp){
+			selected=true;
+		return true;
+		}
+		return false;
 	}
 	public void deselect(){
 		//this.setColor(BASECOLOR);
@@ -92,7 +99,9 @@ public abstract class GraphNavire extends Image { // TODO passer en Image
 		}
 	}
 	
-	
+	public Navire getNavire(){
+		return m_navire;
+	}
 
 
 	private static class Drawbt implements Drawable{

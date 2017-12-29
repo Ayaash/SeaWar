@@ -15,7 +15,7 @@ import com.mygdx.game.modele.Plateau;
 import com.mygdx.game.modele.Textures;
 
 public abstract class GraphCase extends ImageButton implements Observer { 
-	private Case m_case;
+	protected Case m_case;
 	protected boolean selected=false;
 	protected boolean clicked=false;
 	protected boolean highlighted=false;
@@ -35,6 +35,7 @@ public abstract class GraphCase extends ImageButton implements Observer {
 	
 	public GraphCase(Case c) {
 		this(c,new Drawbt(c.getPosition()[0],c.getPosition()[1],c));
+		this.toBack();
 	}
 	
 
@@ -81,16 +82,26 @@ public abstract class GraphCase extends ImageButton implements Observer {
 		//this.actualizeSprite(obj);
 	}
 	
-	public void select(){
+	/**selection automatique, a n'utiliser que lors d'un deplacement de navire*/
+	public void forceSelect(){
+		selected=true;
+
+	}
+	
+	/**Renvoie true ssi la selection a eu lieu*/
+	public boolean select(){
 		//on selectionne le navire qui est sur la case
 		GraphNavire gn=((GraphPlateau)this.getParent()).getGraphNavire(m_case.getPosition()[0], m_case.getPosition()[1]);
 		if(gn!=null){
-			System.out.println(1);
-			((GraphPlateau)this.getParent()).deselectAllCases();//une seule case selectionnée a la fois
-			selected=true;
-			gn.select();
+			boolean btmp;
+			btmp=gn.select();
+			if(btmp){
+				//((GraphPlateau)this.getParent()).deselectAllCases();//une seule case selectionnée a la fois
+				selected=true;
+				return true;
+			}
 		}
-
+		return false;
 	}
 	public void deselect(){
 		//this.setColor(BASECOLOR);
@@ -129,7 +140,8 @@ public abstract class GraphCase extends ImageButton implements Observer {
 	}
 	
 	public void actionOnClick(){
-		//TODO A remplir
+		select();
+		((GraphPlateau)getParent()).actionOnClickOnCase(this);
 	}
 
 	public class evt0 extends InputListener{
@@ -144,7 +156,7 @@ public abstract class GraphCase extends ImageButton implements Observer {
 		
 		public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {//TODO
 			clickOn();
-			select();
+			actionOnClick();
 	 		return true;
 	 	}
 	 
