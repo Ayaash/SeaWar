@@ -74,13 +74,13 @@ public class Hud extends Group {
 		Label textJ1 = new Label("Joueur 1 :", m_skin);
 		textJ1.setFontScale(1.2F);
 		pannelJ1.addActor(textJ1);
-		/*
-		m_fregateJ1 = new TextFregate((Fregate) m_partie.getPlayer(1).getNavires()[1]); //FIXME bateaux Ã  null
+		
+		/*m_fregateJ1 = new TextFregate((Fregate) m_partie.getPlayer(1).getNavires()[1]); //FIXME bateaux Ã  null
 		pannelJ1.addActor(m_fregateJ1);
 		
 		m_amiralJ1 = new TextAmiral((Amiral) m_partie.getPlayer(1).getNavires()[0]);//FIXME bateaux Ã  null
-		pannelJ1.addActor(m_amiralJ1);
-		*/
+		pannelJ1.addActor(m_amiralJ1);*/
+		
 		VerticalGroup pannelJ2 = new VerticalGroup();
 		pannelInfo.addActor(pannelJ2);
 		
@@ -136,13 +136,19 @@ public class Hud extends Group {
 		VictoireText vt;
 		public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {//TODO
 			
-			if(!(GraphPlateau.vainqueur>0)){
-				GraphPlateau.getMainInstance().finTour();
+			//if(!(GraphPlateau.vainqueur>0)){
+				int vq=GraphPlateau.getMainInstance().finTour();
+				System.out.println(vq);
+				//if(vq>0){
+					if(vt!=null){
+						vt.update(vq);
+					}else{
+						System.out.println("arg");
+					}
+				//}
 				//textVictoire.update();
-			}
-			if(vt!=null){
-				vt.update(GraphPlateau.vainqueur);
-			}
+			//}
+			
 			return true;
 		 }
 		
@@ -162,13 +168,12 @@ public class Hud extends Group {
 	}
 
 	public class VictoireText extends Label{
-
 		public VictoireText(CharSequence text, Skin skin) {
 			super(text, skin);
 		}
-		public void update(int vainqueur){
-			if(vainqueur>0){
-				this.setText("Joueur "+vainqueur+" a gagné");
+		public void update(int vaq){
+			if(vaq>0){
+				this.setText("Joueur "+vaq+" a gagné");
 			}else{
 				this.setText("Pas encore de vainqueur");
 

@@ -294,7 +294,6 @@ public class GraphPlateau extends Group {
 				modeAction=ModeAction.FIN;
 
 			}
-			return vainceur;
 		}
 		return vainceur;
 	}
