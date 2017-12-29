@@ -4,21 +4,30 @@ import core.mygdx.game.actor.GraphNavire;
 
 public class Fregate extends Navire {
 	
-	public static final int PV_MAX = 50;
-	public static final int DEPL_MAX = 7;
-	public static final int TPS_RECH_CAN_PRINC = 1;
-	public static final int DEG_CAN_PRINC = 30;
-	public static final int TPS_RECH_CAN_SEC = 0;
-	public static final int DEG_CAN_SEC = 10;
+
+	public int getPV_MAX(){
+		return 50;
+	}
+	public int getDEPL_MAX(){
+		return 7;
+	}
+	public int getTPS_RECH_CAN_PRINC(){
+		return 1;
+	}
+	public int getDEG_CAN_PRINC(){
+		return 30;
+	}
+	public int getTPS_RECH_CAN_SEC(){
+		return 0;
+	}
+	public int getDEG_CAN_SEC(){
+		return 10;
+	}
 
 	@SuppressWarnings("unused")
 	private static final long serialVersionUID = 1L;
 	public Fregate(int[] posi , Orientation ori, Plateau p){
 		super(posi,ori, p);
-		//etat variable
-		pVAct=PV_MAX;
-		deplAct=DEPL_MAX;
-
 	}
 
 	public int[][] tirPrincipalCasesPos(){

@@ -11,12 +11,12 @@ public abstract class Navire extends InWorldObj {
 	private static final long serialVersionUID = 1L;
 	
 	//Constantes du navire
-	public static int PV_MAX;
-	public static int DEPL_MAX;
-	public static int TPS_RECH_CAN_PRINC;
-	public static int DEG_CAN_PRINC;
-	public static int TPS_RECH_CAN_SEC;
-	public static int DEG_CAN_SEC;
+	public abstract int getPV_MAX();
+	public abstract int getDEPL_MAX();
+	public abstract int getTPS_RECH_CAN_PRINC();
+	public abstract int getDEG_CAN_PRINC();
+	public abstract int getTPS_RECH_CAN_SEC();
+	public abstract int getDEG_CAN_SEC();
 	
 	//Variables du navire
 	protected Orientation orientation;
@@ -39,6 +39,11 @@ public abstract class Navire extends InWorldObj {
 		this.etatCanSec=0;
 		this.mort = false;
 		this.plateau = p;
+		
+		//etat variable
+		pVAct=getPV_MAX();
+		deplAct=getDEPL_MAX();
+		
 		plateau.ajouterNavire(position, this);
 	}
 
@@ -85,27 +90,27 @@ public abstract class Navire extends InWorldObj {
 	
 	public Tir tirPrincipal(){
         int [][] tabCasePoss=tirPrincipalCasesPos();
-        int deg=DEG_CAN_PRINC;
+        int deg=getDEG_CAN_PRINC();
         Tir res=new Tir(tabCasePoss,deg);
         aTire=true;
-        this.etatCanPrinc = TPS_RECH_CAN_PRINC+1;
+        this.etatCanPrinc = getTPS_RECH_CAN_PRINC()+1;
         return res;
     }
 	public Tir tirSecondaire(){
         int [][] tabCasePoss=tirSecondaireCasesPos();
-        int deg=DEG_CAN_SEC;
+        int deg=getDEG_CAN_SEC();
         Tir res=new Tir(tabCasePoss,deg);
         aTire=true;
-        this.etatCanSec = TPS_RECH_CAN_SEC+1;
+        this.etatCanSec = getTPS_RECH_CAN_SEC()+1;
         return res;
     }
 	
 	public void miseEnRechargementCanPrinc(){
-		etatCanPrinc=TPS_RECH_CAN_PRINC+1;
+		etatCanPrinc=getTPS_RECH_CAN_PRINC()+1;
 		aTire=true;
 	}
 	public void miseEnRechargementCanSec(){
-		etatCanSec=TPS_RECH_CAN_SEC+1;
+		etatCanSec=getTPS_RECH_CAN_SEC()+1;
 		aTire=true;
 	}
 	
@@ -142,7 +147,7 @@ public abstract class Navire extends InWorldObj {
  	}
  	
  	public boolean sEstDeplace(){
- 		return !(DEPL_MAX == deplAct) || mort;
+ 		return !(getDEPL_MAX() == deplAct) || mort;
  	}
  	
   	public int deplacementsRestants(){
@@ -168,7 +173,7 @@ public abstract class Navire extends InWorldObj {
 		if(possible){
 			return res;
 		}else{
-			if(deplAct == DEPL_MAX) retournerNavire();
+			if(deplAct == getDEPL_MAX()) retournerNavire();
 			deplAct = 0;
 			aTire = true;
 			return null;
@@ -243,7 +248,7 @@ public abstract class Navire extends InWorldObj {
 	}
 	
 	public void finirTour(){
-		if(deplAct != DEPL_MAX){
+		if(deplAct != getDEPL_MAX()){
 			aTire = true;
 			deplAct = 0;
 		}
@@ -253,7 +258,7 @@ public abstract class Navire extends InWorldObj {
 	public void commencerTour(){
 		if(!mort){
 			this.recharger();
-			this.deplAct = DEPL_MAX;
+			this.deplAct = getDEPL_MAX();
 		}
 	}
 	
