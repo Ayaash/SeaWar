@@ -8,23 +8,31 @@ import core.mygdx.game.actor.GraphNavire;
 
 public class Amiral extends Navire {
 	
-	public static final int PV_MAX = 100;
-	public static final int DEPL_MAX = 3;
-	public static final int TPS_RECH_CAN_PRINC = 3;
-	public static final int DEG_CAN_PRINC = 50;
-	public static final int TPS_RECH_CAN_SEC = 1;
-	public static final int DEG_CAN_SEC = 30;
+	public int getPV_MAX(){
+		return 100;
+	}
+	public int getDEPL_MAX(){
+		return 3;
+	}
+	public int getTPS_RECH_CAN_PRINC(){
+		return 3;
+	}
+	public int getDEG_CAN_PRINC(){
+		return 50;
+	}
+	public int getTPS_RECH_CAN_SEC(){
+		return 1;
+	}
+	public int getDEG_CAN_SEC(){
+		return 30;
+	}
+
 	
 	@SuppressWarnings("unused")
 	private static final long serialVersionUID = 1L;
 
 	public Amiral(int[] posi , Orientation ori, Plateau p){
     	super(posi,ori, p);
-
-        //etat variable
-        
-        pVAct=PV_MAX;
-        deplAct=DEPL_MAX;
     }
 	public int[][] tirPrincipalCasesPos(){
         int [][] res={{-1,-1},{-1,-1},{-1,-1},{-1,-1},{-1,-1},{-1,-1}};

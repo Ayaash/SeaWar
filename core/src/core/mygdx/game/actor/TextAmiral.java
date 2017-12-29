@@ -18,7 +18,7 @@ public class TextAmiral extends TextNavire {
 		this.addActor(m_titre);
 		m_titre.setFontScale(1.1F);
 		
-		m_vieLabel = new Label("\tVie : " + m_navire.getVie() + "/" + Amiral.PV_MAX, m_skin);
+		m_vieLabel = new Label("\tVie : " + m_navire.getVie() + "/" + m_navire.getPV_MAX(), m_skin);
 		this.addActor(m_vieLabel);
 		
 		if(m_navire.peutTirerPrincipal()) {
@@ -41,7 +41,7 @@ public class TextAmiral extends TextNavire {
 	@Override
 	public void update() {
 		String canonPrin, canonSec;
-		m_vieLabel.setText("\tVie : " + m_navire.getVie() + "/" + Amiral.PV_MAX);
+		m_vieLabel.setText("\tVie : " + m_navire.getVie() + "/" + m_navire.getPV_MAX());
 		
 		if(m_navire.peutTirerPrincipal()) {
 			canonPrin = "pret !";
