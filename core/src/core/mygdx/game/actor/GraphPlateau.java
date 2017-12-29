@@ -18,7 +18,7 @@ public class GraphPlateau extends Group {
 	private Partie m_partie;
 	private Plateau m_plateau;
 	private static GraphPlateau mainInstance;//TODO A supprimer si meilleur idée, ou a transformer en vrai singloton
-	public static int vainceur=0;
+	public static int vainqueur=0;
 	private Tir tirPossible=null;
 	private boolean tirPossibleEstPrincipal=false;
 

@@ -161,18 +161,21 @@ public abstract class GraphNavire extends Image { // TODO passer en Image
 		public void draw(Batch batch, float x, float y, float width,
 				float height) {
 			
-			actualizePosSize();
+			if(n.getVie()>0){
 
-			
-			Color ctmp=batch.getColor();
-			
-			setNavireColor(batch, n);
-			
-			int angle=n.getOrientation().ordinal()*60+270;
-			
-			TextureRegion tr= new TextureRegion(Textures.NOIMAGE);
-			batch.draw(tr, m_x, m_y, m_w/2, m_h/2, m_w, m_h, 1, 1, angle, true);
-			batch.setColor(ctmp);
+				actualizePosSize();
+	
+				
+				Color ctmp=batch.getColor();
+				
+				setNavireColor(batch, n);
+				
+				int angle=n.getOrientation().ordinal()*60+270;
+				
+				TextureRegion tr= new TextureRegion(Textures.NOIMAGE);
+				batch.draw(tr, m_x, m_y, m_w/2, m_h/2, m_w, m_h, 1, 1, angle, true);
+				batch.setColor(ctmp);
+			}
 			
 		}
 		

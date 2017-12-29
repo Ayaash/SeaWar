@@ -94,15 +94,17 @@ public class Hud extends Group {
 		m_amiralJ2 = new TextAmiral((Amiral) m_partie.getPlayer(2).getNavires()[0]);//FIXME bateaux à null
 		pannelJ2.addActor(m_amiralJ2);*/
 		
-		Label textVictoire = new Label("", m_skin);
+		VictoireText textVictoire = new VictoireText("", m_skin);
 		textVictoire.setFontScale(1.2F);
 		pannelJ1.addActor(textVictoire);
+		
+		((evtFinTour)(finTour.getListeners().get(1))).setVictoireText(textVictoire);
 		
 	}
 	
 	public class evtMove extends InputListener{
 		public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {//TODO
-			if(!(GraphPlateau.vainceur>0)){
+			if(!(GraphPlateau.vainqueur>0)){
 				GraphPlateau.getMainInstance().askMove();
 				return true;
 			}
@@ -112,7 +114,7 @@ public class Hud extends Group {
 	
 	public class evtTirPrincipal extends InputListener{
 		public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {//TODO
-			if(!(GraphPlateau.vainceur>0)){
+			if(!(GraphPlateau.vainqueur>0)){
 				GraphPlateau.getMainInstance().askTirPrincipal();
 				return true;
 			}
@@ -122,7 +124,7 @@ public class Hud extends Group {
 	
 	public class evtTirSecondaire extends InputListener{
 		public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {//TODO
-			if(!(GraphPlateau.vainceur>0)){
+			if(!(GraphPlateau.vainqueur>0)){
 				GraphPlateau.getMainInstance().askTirSecondaire();
 				return true;
 			}
@@ -131,20 +133,27 @@ public class Hud extends Group {
 	}
 	
 	public class evtFinTour extends InputListener{
-		
+		VictoireText vt;
 		public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {//TODO
-			if(!(GraphPlateau.vainceur>0)){
+			if(!(GraphPlateau.vainqueur>0)){
 				GraphPlateau.getMainInstance().finTour();
 				//textVictoire.update();
+				if(vt!=null){
+					vt.update(GraphPlateau.vainqueur);
+				}
 				return true;
 			}
 			return false;
 		 }
+		
+		public void setVictoireText(VictoireText v){
+			vt=v;
+		}
 	}
 	
 	public class evtFinTourNavire extends InputListener{
 		public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {//TODO
-			if(!(GraphPlateau.vainceur>0)){
+			if(!(GraphPlateau.vainqueur>0)){
 				GraphPlateau.getMainInstance().abandonTourNavire();
 				return true;
 			}
