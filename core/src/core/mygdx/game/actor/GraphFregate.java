@@ -57,7 +57,7 @@ public class GraphFregate extends GraphNavire {
 			wx=n.getPosition()[0];
 			wy=n.getPosition()[1];
 			
-			if(gn==null){
+			if(gn==null){//TODO A priori inutile
 				gn=GraphPlateau.getMainInstance().getGraphNavire(c.getPosition()[0], c.getPosition()[1]);
 			}
 			

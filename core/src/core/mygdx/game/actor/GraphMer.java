@@ -71,14 +71,16 @@ public class GraphMer extends GraphCase {
 				gc=GraphPlateau.getMainInstance().getGraphCase(c.getPosition()[0], c.getPosition()[1]);
 			}
 			
-			if(gc.hasChildren()){
+			
+			//FIXME Ici ce trouvais le reasignement de parent du navire, a comprendre pk parche pas
+			/*if(gc.hasChildren()){
 				for(int i=0;i<gc.getChildren().size;i++){
 					if(gc.getChildren().get(i) instanceof GraphNavire){
 						gc.getParent().addActor(gc.getChildren().get(i));
 						//gc.getChildren().removeIndex(i-1);
 					}
 				}
-			}
+			}*/
 			
 			//Plateau.getInstance();
 			//posX=(int) position[0]*10;
