@@ -18,8 +18,6 @@ import com.mygdx.game.modele.Fregate;
 public class Hud extends Group {
 	private Partie m_partie;
 	private Skin m_skin;
-	private TextAmiral m_amiralJ1, m_amiralJ2;	
-	private TextFregate m_fregateJ1, m_fregateJ2;
 	
 	public Hud(Partie _partie) {
 		m_skin = new Skin(Gdx.files.internal("skin/rusty-robot-ui.json"));
@@ -36,23 +34,28 @@ public class Hud extends Group {
 		this.addActor(barreHoriz);
 		
 		TextButton deplacerBouton = new TextButton("Deplacer",m_skin);
-		deplacerBouton.addListener(new evtMove());
+		EvtMove deplacerListener = new EvtMove();
+		deplacerBouton.addListener(deplacerListener);
 		barreHoriz.addActor(deplacerBouton);
 
 		TextButton tirPrincipal = new TextButton("Tir principal", m_skin);
-		tirPrincipal.addListener(new evtTirPrincipal());
+		EvtTirPrincipal tirPrincipalListener = new EvtTirPrincipal();
+		tirPrincipal.addListener(tirPrincipalListener);
 		barreHoriz.addActor(tirPrincipal);
 		
 		TextButton tirSecondaire = new TextButton("Tir secondaire", m_skin);
-		tirSecondaire.addListener(new evtTirSecondaire());
+		EvtTirSecondaire tirSecondaireListener = new EvtTirSecondaire();
+		tirSecondaire.addListener(tirSecondaireListener);
 		barreHoriz.addActor(tirSecondaire);
 
 		TextButton finTourNavire = new TextButton("Fin du tour du navire", m_skin);
-		finTourNavire.addListener(new evtFinTourNavire());
+		EvtFinTourNavire finTourNavireListener = new EvtFinTourNavire();
+		finTourNavire.addListener(finTourNavireListener);
 		barreHoriz.addActor(finTourNavire);
 		
 		TextButton finTour = new TextButton("Fin du tour", m_skin);
-		finTour.addListener(new evtFinTour());
+		EvtFinTour finTourListener = new EvtFinTour();
+		finTour.addListener(finTourListener) ;
 		barreHoriz.addActor(finTour);
 		
 		Image pannelInfoImg = new Image(Textures.BARRE_HORIZ);
@@ -72,11 +75,11 @@ public class Hud extends Group {
 		textJ1.setFontScale(1.2F);
 		pannelJ1.addActor(textJ1);
 		
-		m_fregateJ1 = new TextFregate((Fregate) m_partie.getPlayer(1).getNavires()[1]);
-		pannelJ1.addActor(m_fregateJ1);
+		TextFregate fregateJ1 = new TextFregate((Fregate) m_partie.getPlayer(1).getNavires()[1]);
+		pannelJ1.addActor(fregateJ1);
 		
-		m_amiralJ1 = new TextAmiral((Amiral) m_partie.getPlayer(1).getNavires()[0]);
-		pannelJ1.addActor(m_amiralJ1);
+		TextAmiral amiralJ1 = new TextAmiral((Amiral) m_partie.getPlayer(1).getNavires()[0]);
+		pannelJ1.addActor(amiralJ1);
 		
 		pannelInfo.addActor(pannelJ1);
 		
@@ -87,11 +90,11 @@ public class Hud extends Group {
 		textJ2.setFontScale(1.2F);
 		pannelJ2.addActor(textJ2);
 		
-		m_fregateJ2 = new TextFregate((Fregate) m_partie.getPlayer(2).getNavires()[1]);
-		pannelJ2.addActor(m_fregateJ2);
+		TextFregate fregateJ2 = new TextFregate((Fregate) m_partie.getPlayer(2).getNavires()[1]);
+		pannelJ2.addActor(fregateJ2);
 		
-		m_amiralJ2 = new TextAmiral((Amiral) m_partie.getPlayer(2).getNavires()[0]);
-		pannelJ2.addActor(m_amiralJ2);
+		TextAmiral amiralJ2 = new TextAmiral((Amiral) m_partie.getPlayer(2).getNavires()[0]);
+		pannelJ2.addActor(amiralJ2);
 		
 		pannelInfo.addActor(pannelJ2);
 		
@@ -102,18 +105,17 @@ public class Hud extends Group {
 		TextVictoire textVictoire = new TextVictoire();
 		textVictoire.setFontScale(1.4F);
 		pannelVic.addActor(textVictoire);
+		//TODO textJoueur
 		
-		((evtFinTour)(finTour.getListeners().get(1))).setVictoireText(textVictoire);
-	
-		((evtFinTour)(finTour.getListeners().get(1))).setNaviresText(m_fregateJ1,m_amiralJ1,m_fregateJ2,m_amiralJ2);
-		((evtFinTourNavire)(finTourNavire.getListeners().get(1))).setNaviresText(m_fregateJ1,m_amiralJ1,m_fregateJ2,m_amiralJ2);
-		((evtTirPrincipal)(tirPrincipal.getListeners().get(1))).setNaviresText(m_fregateJ1,m_amiralJ1,m_fregateJ2,m_amiralJ2);
-		((evtTirSecondaire)(tirSecondaire.getListeners().get(1))).setNaviresText(m_fregateJ1,m_amiralJ1,m_fregateJ2,m_amiralJ2);
+		finTourListener.setVictoireText(textVictoire);
+		finTourListener.setNaviresText(fregateJ1, amiralJ1, fregateJ2, amiralJ2);
+		finTourNavireListener.setNaviresText(fregateJ1, amiralJ1, fregateJ2, amiralJ2);
+		tirPrincipalListener.setNaviresText(fregateJ1, amiralJ1, fregateJ2, amiralJ2);
+		tirSecondaireListener.setNaviresText(fregateJ1, amiralJ1, fregateJ2, amiralJ2);
 
-		
 	}
 	
-	public class evtMove extends InputListener{
+	public class EvtMove extends InputListener{
 		public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
 			if(!(GraphPlateau.vainqueur>0)){
 				GraphPlateau.getMainInstance().askMove();
@@ -123,7 +125,7 @@ public class Hud extends Group {
 	 	}
 	}
 	
-	public class evtTirPrincipal extends InputListener{
+	public class EvtTirPrincipal extends InputListener{
 		TextNavire tn1;
 		TextNavire tn2;
 		TextNavire tn3;
@@ -149,7 +151,7 @@ public class Hud extends Group {
 		}
 	}
 	
-	public class evtTirSecondaire extends InputListener{
+	public class EvtTirSecondaire extends InputListener{
 		TextNavire tn1;
 		TextNavire tn2;
 		TextNavire tn3;
@@ -175,7 +177,7 @@ public class Hud extends Group {
 		}
 	}
 	
-	public class evtFinTour extends InputListener{
+	public class EvtFinTour extends InputListener{
 		private TextVictoire victoireText;
 		
 		private TextNavire m_textNavire1;
@@ -215,7 +217,7 @@ public class Hud extends Group {
 		}
 	}
 	
-	public class evtFinTourNavire extends InputListener{
+	public class EvtFinTourNavire extends InputListener{
 		TextNavire tn1;
 		TextNavire tn2;
 		TextNavire tn3;
