@@ -1,13 +1,15 @@
 package com.mygdx.game.modele;
 
+import java.io.Serializable;
+
 /**
  * Classe des objets affichable a l'ecran
  * 
  * */
 
-public class InWorldObj {
+public class InWorldObj implements Serializable{
 
-	@SuppressWarnings("unused")
+
 	private static final long serialVersionUID = 1L;
 
 	

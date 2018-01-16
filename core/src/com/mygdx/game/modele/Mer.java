@@ -6,7 +6,7 @@ import core.mygdx.game.actor.GraphMer;
 
 public class Mer extends Case {
 	
-	@SuppressWarnings("unused")
+	
 	private static final long serialVersionUID = 1L;
 	private Navire bateau;
 	

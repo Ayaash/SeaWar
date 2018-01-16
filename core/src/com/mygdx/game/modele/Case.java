@@ -12,8 +12,7 @@ public abstract class Case extends InWorldObj{
 	public int[] getPosition(){
 		return this.position;
 	}
-	
-	@SuppressWarnings("unused")
+
 	private static final long serialVersionUID = 1L;
 	public abstract boolean estNavigable();
 	public abstract boolean ajouterNavire(Navire n);

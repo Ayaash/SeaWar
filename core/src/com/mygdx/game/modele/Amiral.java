@@ -27,8 +27,7 @@ public class Amiral extends Navire {
 		return 30;
 	}
 
-	
-	@SuppressWarnings("unused")
+
 	private static final long serialVersionUID = 1L;
 
 	public Amiral(int[] posi , Orientation ori, Plateau p){

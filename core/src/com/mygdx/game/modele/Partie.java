@@ -1,4 +1,10 @@
 package com.mygdx.game.modele;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.Arrays;
 
@@ -27,7 +33,7 @@ public class Partie implements Serializable{
 		Navire naviresJ2[] = new Navire[2];
 		int position[] = {0,5};
 		naviresJ1[0] = new Amiral(position, Orientation.SudEst, plateau);
-		
+
 		position[0] = 1;
 		//position[1] = 6;
 		naviresJ1[1] = new Fregate(position, Orientation.SudEst, plateau);
@@ -41,34 +47,57 @@ public class Partie implements Serializable{
 
 		joueur1 = new Joueur("Nimitz", naviresJ1, 1);
 		joueur2 = new Joueur("Yamamoto", naviresJ2, 2);
-		
+
 		naviresJ1[0].setJoueur(joueur1);
 		naviresJ1[1].setJoueur(joueur1);
 		naviresJ2[0].setJoueur(joueur2);
 		naviresJ2[1].setJoueur(joueur2);
 	}
-	/* //TODO
+
+	//TODO: Tester ces fonctions
 	public boolean sauvegarderPartie(){
 		try{
 			FileOutputStream fileOut =
-					new FileOutputStream("/users/elo/lpicholl/Reptravail/SeaWarSave.ser");
+					new FileOutputStream("/tmp/SeaWarSave.ser");
 			ObjectOutputStream out = new ObjectOutputStream(fileOut);
 			out.writeObject(this);
 			out.close();
 			fileOut.close();
-			System.out.printf("Serialized data is saved in ~/Reptravail");
+			System.out.printf("Serialized data is saved in /tmp/SeaWarSave.ser");
 		}catch (FileNotFoundException f){
-
+			return false;
 		} catch (IOException i) {
 			i.printStackTrace();
+			return false;
 		}
 
 
 
 		return true;
 	}
-	 */
-	
+	public static Partie chargerPartie(){
+		Partie partie = null;
+		try{
+			FileInputStream fileIn =
+					new FileInputStream("/tmp/SeaWarSave.ser");
+			ObjectInputStream in = new ObjectInputStream(fileIn);
+			partie = (Partie) in.readObject();
+			in.close();
+			fileIn.close();
+			System.out.printf("Serialized data is saved in /tmp/SeaWarSave.ser");
+		}catch (FileNotFoundException f){
+			return null;
+		} catch (IOException i) {
+			i.printStackTrace();
+			return null;
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+			return null;
+		}
+
+		return partie;
+	}
+
 	public Partie(Plateau plat, int tour, int victoire, Navire navCourant, boolean tourEnCours){
 		this.plateau = plat;
 		this.tour = tour;
@@ -76,9 +105,9 @@ public class Partie implements Serializable{
 		this.navireCourant = navCourant;
 		this.tourEnCours = tourEnCours;
 	}
-	
-	
- 	public Plateau getPlateau() {
+
+
+	public Plateau getPlateau() {
 		return plateau;
 	}
 
@@ -204,7 +233,7 @@ public class Partie implements Serializable{
 			navireCourant.tirSecondaireEffectue();
 		}
 	}
-	
+
 	public boolean tirerSurUneCase(int[] position, int degats){
 		return plateau.recevoirTir(position, degats);
 	}
@@ -245,12 +274,16 @@ public class Partie implements Serializable{
 		int nbPhares = 0;
 		Phare[] phares = plateau.getPhares();
 		for(int i = 0; i<Joueur.NOMBRE_NAVIRES; i++){
-			int[] pos = getCurrentPlayer().getNavires()[i].getPosition().clone();
-			for(int j = 0; j<Plateau.NOMBRE_PHARE; j++){
-				if(Arrays.equals(pos, phares[j].getPosition())){
-					phares[j].setJoueur(getCurrentPlayer());
+			Navire nav =  getCurrentPlayer().getNavires()[i];
+			if(nav.encaisserDegats(0) == true){
+				int[] pos = nav.getPosition().clone();
+				for(int j = 0; j<Plateau.NOMBRE_PHARE; j++){
+					if(Arrays.equals(pos, phares[j].getPosition())){
+						phares[j].setJoueur(getCurrentPlayer());
+					}
 				}
 			}
+
 		}
 		for(int i=0;i<Plateau.NOMBRE_PHARE;i++){
 			if(phares[i].getJoueur() == getCurrentPlayer()){
@@ -296,7 +329,7 @@ public class Partie implements Serializable{
 		Plateau copiePlateau = this.plateau.copie();
 		Joueur j1 = this.joueur1.copie(this.plateau);
 		Joueur j2 = this.joueur2.copie(this.plateau);
-		
+
 		Partie copie = new Partie(copiePlateau, tour, victoire, navireCourant, tourEnCours);
 		copie.ajouterJoueurs(j1, j2);
 

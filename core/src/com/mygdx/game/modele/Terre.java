@@ -6,7 +6,7 @@ import core.mygdx.game.actor.GraphTerre;
 
 public class Terre extends Case {
 
-	@SuppressWarnings("unused")
+	
 	private static final long serialVersionUID = 1L;
 
 	public Terre(int x, int y) {

@@ -4,7 +4,7 @@ import core.mygdx.game.actor.GraphCase;
 import core.mygdx.game.actor.GraphPhare;
 
 public class Phare extends Mer {
-	@SuppressWarnings("unused")
+	
 	private static final long serialVersionUID = 1L;
 
 	private Joueur joueur;

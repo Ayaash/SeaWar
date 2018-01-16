@@ -7,7 +7,7 @@ import core.mygdx.game.actor.GraphNavire;
 
 
 public abstract class Navire extends InWorldObj {
-	@SuppressWarnings("unused")
+	
 	private static final long serialVersionUID = 1L;
 	
 	//Constantes du navire
@@ -145,6 +145,8 @@ public abstract class Navire extends InWorldObj {
     	}else{
     		plateau.enleverNavire(position);
     		this.mort = true;
+    		this.position[0] = -1;
+    		this.position[1] = -1;
     		return false;
     	}
     }
