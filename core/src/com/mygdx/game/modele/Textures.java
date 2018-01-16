@@ -16,7 +16,7 @@ public class Textures {
 	private static String ADR_NOIMAGE="images/No_Image.png";
 
 	public static Texture HEXAGON;
-	private static String ADR_HEXAGON="images/Hexagon.png";
+	private static String ADR_HEXAGON="images/Hexa_blanc.png";
 
 	public static Texture AMIRAL;
 	private static String ADR_AMIRAL="images/Amiral.png";

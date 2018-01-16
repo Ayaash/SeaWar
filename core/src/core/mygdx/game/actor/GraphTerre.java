@@ -77,8 +77,8 @@ public class GraphTerre extends GraphCase {
 			double sy=(Gui.maxWY-Gui.minWY+0f)/(Plateau.TAILLE_VERTICALE+0f);
 			
 			
-			m_w=(int) (sx/0.8);//Pour emboiter les hexagones
-			m_h=(int) (sy/1);
+			m_w=(int) (sx/0.78);//Pour emboiter les hexagones
+			m_h=(int) (sy/1.05);
 			
 			this.m_x=(int) (Gui.minWX  +  wx*sx );
 			//this.m_y=(int) (Gui.minWY  +  wy*sy );
