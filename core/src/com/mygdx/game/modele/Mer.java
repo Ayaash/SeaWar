@@ -70,4 +70,11 @@ public class Mer extends Case {
 	public GraphCase getGraphCase() {
 		return new GraphMer(this);
 	}
+
+	@Override
+	public Case copie() {
+		Mer copie = new Mer(this.position[0], this.position[1]);
+		copie.ajouterNavire(bateau);
+		return copie;
+	}
 }

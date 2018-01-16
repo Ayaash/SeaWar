@@ -1,11 +1,8 @@
 package core.mygdx.game.actor;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.SnapshotArray;
 import com.mygdx.game.modele.Navire;
 import com.mygdx.game.modele.Partie;
@@ -17,7 +14,7 @@ import com.mygdx.game.modele.Tir;
 public class GraphPlateau extends Group {
 	private Partie m_partie;
 	private Plateau m_plateau;
-	private static GraphPlateau mainInstance;//TODO A supprimer si meilleur idée, ou a transformer en vrai singloton
+	private static GraphPlateau mainInstance;//TODO A supprimer si meilleur idï¿½e, ou a transformer en vrai singloton
 	public static int vainqueur=0;
 	private Tir tirPossible=null;
 	private boolean tirPossibleEstPrincipal=false;
@@ -33,11 +30,25 @@ public class GraphPlateau extends Group {
 	public GraphPlateau(Partie partie) {
 		this.m_partie=partie;
 		this.m_plateau = partie.getPlateau();
+		
+		
+		//Ajout des cases
 		for(int i = 0; i < Plateau.TAILLE_HORIZONTALE; i++) {
 			for(int j = 0; j < Plateau.TAILLE_VERTICALE; j++) {
 				this.addActor(m_plateau.getGraphCase(i, j));
 			}
 		}
+		
+		//Ajout des navires
+		int nbj=2;//Nombre de joueurs
+		int nbn=2;//Nombre de bateaux par joueurs
+		
+		for(int i=1;i < nbj+1;i++){
+			for(int j=0;j < nbn;j++){				
+				this.addActor(m_partie.getPlayer(i).getNavires()[j].getGraph());	
+			}
+		}
+		
 		mainInstance=this;
 	}
 
@@ -128,14 +139,14 @@ public class GraphPlateau extends Group {
 	
 	
 	
-	/****************************Actions provoquées par les listeners**************************/
+	/****************************Actions provoquï¿½es par les listeners**************************/
 
 	//TODO Ameliorer les controles de la selection
 	/**Renvoie true si la selection a eu lieux, false sinon*/
 	public boolean selectNavire(Navire n){
 			if(modeAction==ModeAction.SELECTIONNAVIRE && n.getJoueur()==m_partie.getCurrentPlayer()){
-				deselectAllNavire();//un seul navire selectionnée a la fois
-				deselectAllCases();//une seule case selectionnée a la fois
+				deselectAllNavire();//un seul navire selectionnï¿½e a la fois
+				deselectAllCases();//une seule case selectionnï¿½e a la fois
 		
 				m_partie.selectionnerNavire(n);
 				return true;
@@ -247,7 +258,7 @@ public class GraphPlateau extends Group {
 	
 	
 	
-	/**Action effectué lors d'un clic sur une case*/
+	/**Action effectuï¿½ lors d'un clic sur une case*/
 	public void actionOnClickOnCase(GraphCase gc){
 		if(gc.isHighlighted()){
 			if(modeAction==ModeAction.DEPLACEMENT){

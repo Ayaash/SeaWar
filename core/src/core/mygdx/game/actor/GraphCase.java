@@ -57,8 +57,8 @@ public abstract class GraphCase extends ImageButton implements Observer {
 		double sy=(Gui.maxWY-Gui.minWY+0f)/((float)Plateau.TAILLE_VERTICALE);
 		
 		
-		m_w=(int) (sx/0.8);//Pour emboiter les hexagones
-		m_h=(int) (sy/1);
+		m_w=(int) (sx/0.78);//Pour emboiter les hexagones
+		m_h=(int) (sy/1.05);
 		
 		this.m_x=(int) (Gui.minWX  +  m_case.getPosition()[0]*sx );
 		//this.m_y=(int) (Gui.minWY  +  m_case.getPosition()[1]*sy);
@@ -96,7 +96,7 @@ public abstract class GraphCase extends ImageButton implements Observer {
 			boolean btmp;
 			btmp=gn.select();
 			if(btmp){
-				//((GraphPlateau)this.getParent()).deselectAllCases();//une seule case selectionnée a la fois
+				//((GraphPlateau)this.getParent()).deselectAllCases();//une seule case selectionnï¿½e a la fois
 				selected=true;
 				return true;
 			}

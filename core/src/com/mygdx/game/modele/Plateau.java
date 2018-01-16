@@ -24,14 +24,9 @@ public class Plateau implements Serializable {
 		for(int i=0;i<TAILLE_HORIZONTALE;i++){
 			for(int j=0;j<TAILLE_VERTICALE;j++){
 				plateau[i][j] = new Mer(i,j);
-				//plateau[i][j].setColor(Jeu.cmer.r,Jeu.cmer.g,Jeu.cmer.b,Jeu.cmer.a);
 				
 			}
 		}
-		/*int[] posTerre1={6,4};
-		placerTerreSym(posTerre1);
-		int[] posTerre2={6,5};
-		placerTerreSym(posTerre2);*/
 		int[] posTerre3={5,5};
 		placerTerreSym(posTerre3);
 		
@@ -82,8 +77,11 @@ public class Plateau implements Serializable {
 		
 	}
 	
+	public Plateau(boolean copie){
+		
+	}
 	
-	public boolean ajouterNavire(int[] t, Navire n){
+ 	public boolean ajouterNavire(int[] t, Navire n){
 		return plateau[t[0]][t[1]].ajouterNavire(n);
 	}
 	public boolean enleverNavire(int[] t){
@@ -93,7 +91,6 @@ public class Plateau implements Serializable {
 	public Phare[] getPhares(){
 		return phares;
 	}
-
 
 	public boolean recevoirTir(int[] pos, int degats){
 		if(pos[0] == -1 || pos[1] == -1){
@@ -110,35 +107,6 @@ public class Plateau implements Serializable {
 			return plateau[t[0]][t[1]].estNavigable();
 		}
 	}	
-	
-	//Code meh... Plus propre d'utiliser caseLibre(voisin(coor, orientation))
-	/*
-	public boolean caseLibreN(int[] t){
-		int coor[] = voisinN(t);
-		return plateau[coor[0]][coor[1]].estNavigable();
-	}
-	public boolean caseLibreNE(int[] t){
-		int coor[] = voisinNE(t);
-		return plateau[coor[0]][coor[1]].estNavigable();
-	}
-	public boolean caseLibreSE(int[] t){
-		int coor[] = voisinSE(t);
-		return plateau[coor[0]][coor[1]].estNavigable();
-	}
-	public boolean caseLibreS(int[] t){
-		int coor[] = voisinS(t);
-		return plateau[coor[0]][coor[1]].estNavigable();
-	}
-	public boolean caseLibreSO(int[] t){
-		int coor[] = voisinSO(t);
-		return plateau[coor[0]][coor[1]].estNavigable();
-	}
-	public boolean caseLibreNO(int[] t){
-		int coor[] = voisinNO(t);
-		return plateau[coor[0]][coor[1]].estNavigable();
-	}
-	*/
-	
 	
 	public Case getCases(int x,int y){
 		return plateau[x][y];
@@ -354,7 +322,6 @@ public class Plateau implements Serializable {
 		plateau[pos[0]][pos[1]] = new Mer(pos[0],pos[1]);
 	}
 	
-	
 	protected void placerMerSym(int[] pos){
 		if (pos[0]<(TAILLE_HORIZONTALE/2)){
 			int[] posSym={0,0};
@@ -377,6 +344,25 @@ public class Plateau implements Serializable {
 	protected void placerPhare(int numPhare,int[] pos){
 		phares[numPhare] = new Phare(pos[0],pos[1]);
 		plateau[pos[0]][pos[1]] = phares[numPhare];
+	}
+
+
+	
+	
+	public Plateau copie() {
+		Plateau copie = new Plateau(true);
+		int k = 0;
+		
+		for(int i=0; i<Plateau.TAILLE_HORIZONTALE; i++){
+			for(int j=0; j<Plateau.TAILLE_VERTICALE; j++){
+				copie.plateau[i][j] = this.plateau[i][j].copie();
+				if(copie.plateau[i][j].estPhare()){
+					copie.phares[k] = (Phare)copie.plateau[i][j];
+					k++;
+				}
+			}
+		}
+		return copie;
 	}
 	
 }

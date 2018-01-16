@@ -41,4 +41,10 @@ public class Terre extends Case {
 		return new GraphTerre(this);
 	}
 
+	@Override
+	public Case copie() {
+		Terre copie = new Terre(this.position[0], this.position[1]);
+		return copie;
+	}
+
 }

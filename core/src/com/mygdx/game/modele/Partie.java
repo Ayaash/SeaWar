@@ -25,10 +25,11 @@ public class Partie implements Serializable{
 		//Ajout des navires
 		Navire naviresJ1[] = new Navire[2];
 		Navire naviresJ2[] = new Navire[2];
-		int position[] = {0,0};
+		int position[] = {0,5};
 		naviresJ1[0] = new Amiral(position, Orientation.SudEst, plateau);
-
+		
 		position[0] = 1;
+		//position[1] = 6;
 		naviresJ1[1] = new Fregate(position, Orientation.SudEst, plateau);
 
 		position[0] = Plateau.TAILLE_HORIZONTALE - 1;
@@ -67,8 +68,17 @@ public class Partie implements Serializable{
 		return true;
 	}
 	 */
-
-	public Plateau getPlateau() {
+	
+	public Partie(Plateau plat, int tour, int victoire, Navire navCourant, boolean tourEnCours){
+		this.plateau = plat;
+		this.tour = tour;
+		this.victoire = victoire;
+		this.navireCourant = navCourant;
+		this.tourEnCours = tourEnCours;
+	}
+	
+	
+ 	public Plateau getPlateau() {
 		return plateau;
 	}
 
@@ -279,4 +289,20 @@ public class Partie implements Serializable{
 		navireCourant = null;
 		return victoire;
 	}
+
+
+
+	public Partie copieProfonde(){
+		Plateau copiePlateau = this.plateau.copie();
+		Joueur j1 = this.joueur1.copie(this.plateau);
+		Joueur j2 = this.joueur2.copie(this.plateau);
+		
+		Partie copie = new Partie(copiePlateau, tour, victoire, navireCourant, tourEnCours);
+		copie.ajouterJoueurs(j1, j2);
+
+		return copie;
+	}
+
 }
+
+
