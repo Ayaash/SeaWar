@@ -19,7 +19,13 @@ public abstract class Case extends InWorldObj{
 	public abstract boolean ajouterNavire(Navire n);
 	public abstract boolean enleverNavire();
 	public abstract boolean recevoirTir(int degats);
+	public abstract Case copie();
 	
+	public boolean estPhare(){
+		return false;
+	}
 	
 	public abstract GraphCase getGraphCase();
+
+	
 }

@@ -55,7 +55,6 @@ public class Fregate extends Navire {
 
 	}
 
-
 	public int[][] tirSecondaireCasesPos(){
 		int [][] res={{-1,-1},{-1,-1},{-1,-1},{-1,-1},{-1,-1},{-1,-1}};
 		Orientation av=orientation;
@@ -80,9 +79,17 @@ public class Fregate extends Navire {
 		return res;
 	}
 
+	public Navire copie(Plateau plat) {
+		Fregate copie = new Fregate(this.position.clone(), this.orientation, plat);
+		copie.aideALaCopie(copie);
+		return copie;
+	}
+	
 	@Override
 	public GraphNavire getGraph() {
 		return new GraphFregate(this);
 	}
+	
+	
 
 }

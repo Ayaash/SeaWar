@@ -7,7 +7,6 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.modele.Partie;
-import com.mygdx.game.modele.Plateau;
 import com.mygdx.game.modele.Textures;
 
 import core.mygdx.game.actor.GraphPlateau;

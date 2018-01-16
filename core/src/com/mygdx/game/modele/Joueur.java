@@ -54,4 +54,30 @@ public class Joueur implements Serializable{
 	public Color getColor(){
 		return new Color(R,V,B,1);
 	}
+	
+	
+	public Joueur copie(Plateau plat) {
+		Navire[] copieNavires = new Navire[Joueur.NOMBRE_NAVIRES];
+		for(int i=0; i<Joueur.NOMBRE_NAVIRES; i++){
+			copieNavires[i] = this.navires[i].copie(plat);
+		}
+		Joueur copie = new Joueur(this.nom, copieNavires, this.id);
+		for(int i=0; i<Joueur.NOMBRE_NAVIRES; i++){
+			copieNavires[i].setJoueur(copie);
+		}
+		return copie;
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

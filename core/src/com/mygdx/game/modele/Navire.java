@@ -25,19 +25,23 @@ public abstract class Navire extends InWorldObj {
 	protected int pVAct;
 	protected int deplAct;
 	protected Boolean aTire;
-	protected Boolean mort;
+	protected Boolean mort;	
+	protected Boolean dejaTouche;
 	protected Joueur joueur;
-    
 	protected Plateau plateau;
+	
+	public  abstract Navire copie(Plateau plat);
+	
 	
 	public Navire(int[] posi, Orientation o, Plateau p){
 		super(posi[0],posi[1]);
 		this.position = posi.clone();
 		this.orientation = o;
-		this.aTire=false;
 		this.etatCanPrinc=0;
 		this.etatCanSec=0;
+		this.aTire=false;
 		this.mort = false;
+		this.dejaTouche = false;
 		this.plateau = p;
 		
 		//etat variable
@@ -130,7 +134,12 @@ public abstract class Navire extends InWorldObj {
 	 * @return Renvoie True si le navie est encore actif, False sinon. A noter que degats<0 repare le navire
 	 */
  	public boolean encaisserDegats(int degats){
-    	this.pVAct -= degats;
+ 		if(dejaTouche && degats > 0){
+ 			degats = degats * 3;
+ 		}else if(degats > 0){
+ 			dejaTouche = true;
+ 		}
+    	pVAct -= degats;
     	if(pVAct > 0){
     		return true;
     	}else{
@@ -262,6 +271,7 @@ public abstract class Navire extends InWorldObj {
 		if(!mort){
 			this.recharger();
 			this.deplAct = getDEPL_MAX();
+			this.dejaTouche = false;
 		}
 	}
 	
@@ -272,7 +282,19 @@ public abstract class Navire extends InWorldObj {
 	public Orientation getOrientation(){
 		return orientation;
 	}
+		
+	protected void aideALaCopie(Navire navire){
+		navire.orientation = this.orientation;
+		navire.etatCanPrinc = this.etatCanPrinc;
+		navire.etatCanSec = this.etatCanSec;
+		navire.pVAct = this.pVAct;
+		navire.deplAct = this.deplAct;
+		navire.aTire = this.aTire;
+		navire.mort = this.mort;
+		navire.dejaTouche = this.dejaTouche;
+	}
+
+	public abstract GraphNavire getGraph();
 	
-	public abstract GraphNavire getGraph(); 
 	
 }

@@ -100,7 +100,15 @@ public class Amiral extends Navire {
         res[5]=case5;
         return res;
     }
-	@Override
+	
+    public Navire copie(Plateau plat) {
+		Amiral copie = new Amiral(this.position.clone(), this.orientation, plat);
+		copie.aideALaCopie(copie);
+		return copie;
+	}
+    
+    
+    @Override
 	public GraphNavire getGraph() {
 		return new GraphAmiral(this);
 	}
