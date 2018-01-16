@@ -35,23 +35,23 @@ public class Hud extends Group {
 		barreHoriz.setPosition(10,630);
 		this.addActor(barreHoriz);
 		
-		TextButton deplacerBouton = new TextButton("Deplacer",m_skin); //TODO add listener
+		TextButton deplacerBouton = new TextButton("Deplacer",m_skin);
 		deplacerBouton.addListener(new evtMove());
 		barreHoriz.addActor(deplacerBouton);
 
-		TextButton tirPrincipal = new TextButton("Tir principal", m_skin); //TODO add listener
+		TextButton tirPrincipal = new TextButton("Tir principal", m_skin);
 		tirPrincipal.addListener(new evtTirPrincipal());
 		barreHoriz.addActor(tirPrincipal);
 		
-		TextButton tirSecondaire = new TextButton("Tir secondaire", m_skin); //TODO add listener
+		TextButton tirSecondaire = new TextButton("Tir secondaire", m_skin);
 		tirSecondaire.addListener(new evtTirSecondaire());
 		barreHoriz.addActor(tirSecondaire);
 
-		TextButton finTourNavire = new TextButton("Fin du tour du navire", m_skin); //TODO add listener
+		TextButton finTourNavire = new TextButton("Fin du tour du navire", m_skin);
 		finTourNavire.addListener(new evtFinTourNavire());
 		barreHoriz.addActor(finTourNavire);
 		
-		TextButton finTour = new TextButton("Fin du tour", m_skin); //TODO add listener
+		TextButton finTour = new TextButton("Fin du tour", m_skin);
 		finTour.addListener(new evtFinTour());
 		barreHoriz.addActor(finTour);
 		
@@ -60,42 +60,46 @@ public class Hud extends Group {
 		pannelInfoImg.setPosition(950, 40);
 		this.addActor(pannelInfoImg);
 		
-		VerticalGroup pannelInfo = new VerticalGroup();
+		Group pannelInfo = new Group();
 		pannelInfo.setSize(300,550);
 		pannelInfo.setPosition(950,40);
 		this.addActor(pannelInfo);
 		
 		VerticalGroup pannelJ1 = new VerticalGroup();
-		pannelInfo.addActor(pannelJ1);
+		pannelJ1.setPosition(150, 500);
 		
 		Label textJ1 = new Label("Joueur 1 :", m_skin);
 		textJ1.setFontScale(1.2F);
 		pannelJ1.addActor(textJ1);
 		
-		m_fregateJ1 = new TextFregate((Fregate) m_partie.getPlayer(1).getNavires()[1]); //FIXME bateaux à null
+		m_fregateJ1 = new TextFregate((Fregate) m_partie.getPlayer(1).getNavires()[1]);
 		pannelJ1.addActor(m_fregateJ1);
 		
-		m_amiralJ1 = new TextAmiral((Amiral) m_partie.getPlayer(1).getNavires()[0]);//FIXME bateaux à null
+		m_amiralJ1 = new TextAmiral((Amiral) m_partie.getPlayer(1).getNavires()[0]);
 		pannelJ1.addActor(m_amiralJ1);
 		
+		pannelInfo.addActor(pannelJ1);
+		
 		VerticalGroup pannelJ2 = new VerticalGroup();
-		pannelInfo.addActor(pannelJ2);
+		pannelJ2.setPosition(150, 200);
 		
 		Label textJ2 = new Label("Joueur 2 :", m_skin);
 		textJ2.setFontScale(1.2F);
-		pannelJ1.addActor(textJ2);
+		pannelJ2.addActor(textJ2);
 		
-		m_fregateJ2 = new TextFregate((Fregate) m_partie.getPlayer(2).getNavires()[1]); //FIXME bateaux à null
+		m_fregateJ2 = new TextFregate((Fregate) m_partie.getPlayer(2).getNavires()[1]);
 		pannelJ2.addActor(m_fregateJ2);
 		
-		m_amiralJ2 = new TextAmiral((Amiral) m_partie.getPlayer(2).getNavires()[0]);//FIXME bateaux à null
+		m_amiralJ2 = new TextAmiral((Amiral) m_partie.getPlayer(2).getNavires()[0]);
 		pannelJ2.addActor(m_amiralJ2);
 		
+		pannelInfo.addActor(pannelJ2);
 		
 		VerticalGroup pannelVic = new VerticalGroup();
+		pannelVic.setPosition(150, 320);
 		pannelInfo.addActor(pannelVic);
 		
-		VictoireText textVictoire = new VictoireText("Pas encore de vainqueur", m_skin);
+		TextVictoire textVictoire = new TextVictoire();
 		textVictoire.setFontScale(1.4F);
 		pannelVic.addActor(textVictoire);
 		
@@ -110,7 +114,7 @@ public class Hud extends Group {
 	}
 	
 	public class evtMove extends InputListener{
-		public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {//TODO
+		public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
 			if(!(GraphPlateau.vainqueur>0)){
 				GraphPlateau.getMainInstance().askMove();
 				return true;
@@ -125,7 +129,7 @@ public class Hud extends Group {
 		TextNavire tn3;
 		TextNavire tn4;
 
-		public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {//TODO
+		public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
 			tn1.update();
 			tn2.update();
 			tn3.update();
@@ -151,7 +155,7 @@ public class Hud extends Group {
 		TextNavire tn3;
 		TextNavire tn4;
 
-		public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {//TODO
+		public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
 			tn1.update();
 			tn2.update();
 			tn3.update();
@@ -172,26 +176,26 @@ public class Hud extends Group {
 	}
 	
 	public class evtFinTour extends InputListener{
-		VictoireText vt;
+		private TextVictoire victoireText;
 		
-		TextNavire tn1;
-		TextNavire tn2;
-		TextNavire tn3;
-		TextNavire tn4;
+		private TextNavire m_textNavire1;
+		private TextNavire m_textNavire2;
+		private TextNavire m_textNavire3;
+		private TextNavire m_textNavire4;
 
 
-		public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {//TODO
+		public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
 			
 			//if(!(GraphPlateau.vainqueur>0)){
 				int vq=GraphPlateau.getMainInstance().finTour();
 				//if(vq>0){
-					if(vt!=null){
-						vt.update(vq);
+					if(victoireText!=null){
+						victoireText.update(vq);
 					}
-					tn1.update();
-					tn2.update();
-					tn3.update();
-					tn4.update();
+					m_textNavire1.update();
+					m_textNavire2.update();
+					m_textNavire3.update();
+					m_textNavire4.update();
 
 				//}
 				//textVictoire.update();
@@ -200,14 +204,14 @@ public class Hud extends Group {
 			return true;
 		 }
 		
-		public void setVictoireText(VictoireText v){
-			vt=v;
+		public void setVictoireText(TextVictoire textVictoire){
+			victoireText=textVictoire;
 		}
 		public void setNaviresText(TextNavire t1,TextNavire t2,TextNavire t3,TextNavire t4){
-			tn1=t1;
-			tn2=t2;
-			tn3=t3;
-			tn4=t4;
+			m_textNavire1=t1;
+			m_textNavire2=t2;
+			m_textNavire3=t3;
+			m_textNavire4=t4;
 		}
 	}
 	
@@ -217,7 +221,7 @@ public class Hud extends Group {
 		TextNavire tn3;
 		TextNavire tn4;
 
-		public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {//TODO
+		public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
 			
 			tn1.update();
 			tn2.update();
@@ -239,19 +243,5 @@ public class Hud extends Group {
 		}
 	}
 
-	public class VictoireText extends Label{
-		public VictoireText(CharSequence text, Skin skin) {
-			super(text, skin);
-		}
-		public void update(int vaq){
-			if(vaq>0){
-				this.setText("Victoire du Joueur "+vaq);
-			}else{
-				this.setText("Pas encore de vainqueur");
-
-			}
-		}
-		
-	}
 	
 }

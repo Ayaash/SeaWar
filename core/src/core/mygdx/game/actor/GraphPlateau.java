@@ -144,7 +144,7 @@ public class GraphPlateau extends Group {
 	//TODO Ameliorer les controles de la selection
 	/**Renvoie true si la selection a eu lieux, false sinon*/
 	public boolean selectNavire(Navire n){
-			if(modeAction==ModeAction.SELECTIONNAVIRE && n.getJoueur()==m_partie.getCurrentPlayer()){
+			if(modeAction==ModeAction.SELECTIONNAVIRE && n.getJoueur()==m_partie.getCurrentPlayer() && !n.estMort()){
 				deselectAllNavire();//un seul navire selectionn�e a la fois
 				deselectAllCases();//une seule case selectionn�e a la fois
 		

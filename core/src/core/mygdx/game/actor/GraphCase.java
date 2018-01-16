@@ -51,8 +51,6 @@ public abstract class GraphCase extends ImageButton implements Observer {
 
 
 	protected void actualizePosSize(){
-		//posX=(int) position[0]*10;
-		//posY=(int) position[1]*10;
 		double sx=(Gui.maxWX-Gui.minWX+0f)/((float)Plateau.TAILLE_HORIZONTALE);
 		double sy=(Gui.maxWY-Gui.minWY+0f)/((float)Plateau.TAILLE_VERTICALE);
 		
@@ -61,25 +59,12 @@ public abstract class GraphCase extends ImageButton implements Observer {
 		m_h=(int) (sy/1.05);
 		
 		this.m_x=(int) (Gui.minWX  +  m_case.getPosition()[0]*sx );
-		//this.m_y=(int) (Gui.minWY  +  m_case.getPosition()[1]*sy);
 		this.m_y=(int) (Gui.maxWY  -  m_case.getPosition()[1]*sy);
 
-		
-		
-		//posX=(int) Jeu.minWX + (Jeu.maxWX-Jeu.minWX)*position[0];
-		//posY=(int) Jeu.minWY + (Jeu.maxWX-Jeu.minWX)*position[1];
-
-		if( m_case.getPosition()[0]%2==0){//TODO Peut etre revoir la parit�
+		if( m_case.getPosition()[0]%2==0){
 			m_y-=sy/2f;
-			//System.out.println(1);
-		}else{
-			//System.out.println(2);
-
 		}
-	
-		
-		
-		//this.actualizeSprite(obj);
+
 	}
 	
 	/**selection automatique, a n'utiliser que lors d'un deplacement de navire*/
@@ -88,7 +73,7 @@ public abstract class GraphCase extends ImageButton implements Observer {
 
 	}
 	
-	/**Renvoie true ssi la selection a eu lieu*/
+	/**Renvoie true ssi la selection a eu lieu, Selectionne uniquement si la case est selectionnable(bateau+tour de joueur pris en compte) */
 	public boolean select(){
 		//on selectionne le navire qui est sur la case
 		GraphNavire gn=((GraphPlateau)this.getParent()).getGraphNavire(m_case.getPosition()[0], m_case.getPosition()[1]);
@@ -96,7 +81,6 @@ public abstract class GraphCase extends ImageButton implements Observer {
 			boolean btmp;
 			btmp=gn.select();
 			if(btmp){
-				//((GraphPlateau)this.getParent()).deselectAllCases();//une seule case selectionn�e a la fois
 				selected=true;
 				return true;
 			}
@@ -104,7 +88,6 @@ public abstract class GraphCase extends ImageButton implements Observer {
 		return false;
 	}
 	public void deselect(){
-		//this.setColor(BASECOLOR);
 		selected=false;
 	}
 	
@@ -117,7 +100,6 @@ public abstract class GraphCase extends ImageButton implements Observer {
 
 	}
 	public void stopHighlight(){
-		//this.setColor(BASECOLOR);
 		highlighted=false;
 	}
 	
@@ -127,11 +109,9 @@ public abstract class GraphCase extends ImageButton implements Observer {
 	
 	
 	public void clickOn(){
-		//this.setColor(CLICCOLOR);
 		clicked=true;
 	}
 	public void clickOff(){
-		//this.setColor(BASECOLOR);
 		clicked=false;
 	}
 	
@@ -146,14 +126,6 @@ public abstract class GraphCase extends ImageButton implements Observer {
 
 	public class evt0 extends InputListener{
 
-		/*@Override
-		public boolean handle(Event event) {
-			// TODO Auto-generated method stub
-			//InFenDebug.println("hello");
-			System.out.println(1);
-			return true;
-		}*/
-		
 		public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {//TODO
 			clickOn();
 			actionOnClick();
@@ -161,7 +133,6 @@ public abstract class GraphCase extends ImageButton implements Observer {
 	 	}
 	 
 	 	public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-	 		//handle(event);
 			clickOff();
 	 	
 	 	}
@@ -214,9 +185,9 @@ public abstract class GraphCase extends ImageButton implements Observer {
 			//posX=(int) position[0]*10;
 			//posY=(int) position[1]*10;
 			
-			if(gc==null){
+			/*if(gc==null){
 				gc=GraphPlateau.getMainInstance().getGraphCase(c.getPosition()[0], c.getPosition()[1]);
-			}
+			}*/
 			
 			
 			double sx=(Gui.maxWX-Gui.minWX+0f)/(Plateau.TAILLE_HORIZONTALE+0f);
