@@ -279,6 +279,10 @@ public abstract class Navire extends InWorldObj {
 		return this.pVAct;
 	}
 	
+	public boolean estMort(){
+		return this.mort;
+	}
+	
 	public Orientation getOrientation(){
 		return orientation;
 	}
