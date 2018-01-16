@@ -18,9 +18,9 @@ public class GraphMer extends GraphCase {
 
 	public GraphMer(Mer mer) {
 		this(mer,new Drawbt(mer.getPosition()[0],mer.getPosition()[1],mer));
-		if(mer.hasNavire()) {
+		/*if(mer.hasNavire()) {
 			this.addActor(mer.getNavire().getGraph());
-		}
+		}*/
 	}
 	
 	public GraphMer(Case mer,Drawable dr){
