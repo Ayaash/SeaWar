@@ -3,6 +3,9 @@ package com.mygdx.game.modele;
 import com.badlogic.gdx.graphics.Texture;
 
 public class Textures {
+	public static Texture BACKGROUND;
+	private static String ADR_BACKGROUND="images/background.jpg";
+	
 	public static Texture BOUTON_TEST;
 	private static String ADR_BOUTON_TEST="images/bouton_test.png";
 
@@ -13,7 +16,7 @@ public class Textures {
 	private static String ADR_NOIMAGE="images/No_Image.png";
 
 	public static Texture HEXAGON;
-	private static String ADR_HEXAGON="images/Hexagon.png";
+	private static String ADR_HEXAGON="images/Hexa_blanc.png";
 
 	public static Texture AMIRAL;
 	private static String ADR_AMIRAL="images/Amiral.png";
@@ -30,6 +33,13 @@ public class Textures {
 	public static boolean chargerTextures(){
 		
 		boolean noErr=true;
+		
+		try {
+			BACKGROUND=new Texture(ADR_BACKGROUND);
+		} catch (Exception e) {
+				System.out.println("Texture manquante :"+ADR_BACKGROUND);
+				noErr=false;
+		}
 		
 		try {
 			BOUTON_TEST=new Texture(ADR_BOUTON_TEST);

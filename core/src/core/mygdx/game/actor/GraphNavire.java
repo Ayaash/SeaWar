@@ -34,7 +34,7 @@ public abstract class GraphNavire extends Image { // TODO passer en Image
 		this.m_navire = _navire;
 
 		actualizePosSize();
-		this.setBounds(m_x, m_y, m_w, m_h);
+		//this.setBounds(m_x, m_y, m_w, m_h);
 		this.toFront();
 	}
 
@@ -77,8 +77,8 @@ public abstract class GraphNavire extends Image { // TODO passer en Image
 	public boolean select(){
 		//this.setColor(SELECTEDCOLOR);
 		boolean btmp;
-		//((GraphPlateau)this.getParent().getParent()).deselectAllNavire();//un seul navire selectionnée a la fois
-		btmp=((GraphPlateau)this.getParent()).selectNavire(m_navire);//un seul navire selectionnée a la fois
+		//((GraphPlateau)this.getParent().getParent()).deselectAllNavire();//un seul navire selectionnï¿½e a la fois
+		btmp=((GraphPlateau)this.getParent()).selectNavire(m_navire);//un seul navire selectionnï¿½e a la fois
 		if(btmp){
 			selected=true;
 		return true;
@@ -141,8 +141,8 @@ public abstract class GraphNavire extends Image { // TODO passer en Image
 			double sy=(Gui.maxWY-Gui.minWY+0f)/(Plateau.TAILLE_VERTICALE+0f);
 			
 			
-			m_w=(int) (sx/0.8);//Pour emboiter les hexagones
-			m_h=(int) (sy/1);
+			m_w=(int) (sx/0.78);//Pour emboiter les hexagones
+			m_h=(int) (sy/1.05);
 			
 			this.m_x=(int) (Gui.minWX  +  wx*sx );
 			//this.m_y=(int) (Gui.minWY  +  wy*sy );

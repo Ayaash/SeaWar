@@ -30,11 +30,25 @@ public class GraphPlateau extends Group {
 	public GraphPlateau(Partie partie) {
 		this.m_partie=partie;
 		this.m_plateau = partie.getPlateau();
+		
+		
+		//Ajout des cases
 		for(int i = 0; i < Plateau.TAILLE_HORIZONTALE; i++) {
 			for(int j = 0; j < Plateau.TAILLE_VERTICALE; j++) {
 				this.addActor(m_plateau.getGraphCase(i, j));
 			}
 		}
+		
+		//Ajout des navires
+		int nbj=2;//Nombre de joueurs
+		int nbn=2;//Nombre de bateaux par joueurs
+		
+		for(int i=1;i < nbj+1;i++){
+			for(int j=0;j < nbn;j++){				
+				this.addActor(m_partie.getPlayer(i).getNavires()[j].getGraph());	
+			}
+		}
+		
 		mainInstance=this;
 	}
 

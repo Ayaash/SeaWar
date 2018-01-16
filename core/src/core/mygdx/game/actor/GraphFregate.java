@@ -57,7 +57,7 @@ public class GraphFregate extends GraphNavire {
 			wx=n.getPosition()[0];
 			wy=n.getPosition()[1];
 			
-			if(gn==null){
+			if(gn==null){//TODO A priori inutile
 				gn=GraphPlateau.getMainInstance().getGraphNavire(c.getPosition()[0], c.getPosition()[1]);
 			}
 			
@@ -66,8 +66,8 @@ public class GraphFregate extends GraphNavire {
 			double sy=(Gui.maxWY-Gui.minWY+0f)/(Plateau.TAILLE_VERTICALE+0f);
 			
 			
-			m_w=(int) (sx/0.8);//Pour emboiter les hexagones
-			m_h=(int) (sy/1);
+			m_w=(int) (sx/0.78);//Pour emboiter les hexagones
+			m_h=(int) (sy/1.05);
 			
 			this.m_x=(int) (Gui.minWX  +  wx*sx );
 			//this.m_y=(int) (Gui.minWY  +  wy*sy );
