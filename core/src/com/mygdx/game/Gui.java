@@ -4,10 +4,10 @@ import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.modele.Partie;
-import com.mygdx.game.modele.Plateau;
 import com.mygdx.game.modele.Textures;
 
 import core.mygdx.game.actor.GraphPlateau;
@@ -33,6 +33,12 @@ public class Gui implements ApplicationListener {
 		m_viewport = new ScreenViewport();
 		m_stageJeu = new Stage(m_viewport);
 		Gdx.input.setInputProcessor(m_stageJeu);
+		
+		// Ajout du background
+		Image bg = new Image(Textures.BACKGROUND);
+		bg.setSize(1280,720);
+		bg.setPosition(0, 0);
+		m_stageJeu.addActor(bg);
 		
 		// Ajout de l'UI du plateau
 		m_stageJeu.addActor(new GraphPlateau(m_partie));

@@ -1,9 +1,6 @@
 package core.mygdx.game.actor;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.scenes.scene2d.Event;
-import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -21,7 +18,7 @@ import com.mygdx.game.modele.Fregate;
 public class Hud extends Group {
 	private Partie m_partie;
 	private Skin m_skin;
-	private TextAmiral m_amiralJ1, m_amiralJ2;	//Refuse de compiler avec ces variable visible, probleme code ou eclipse
+	private TextAmiral m_amiralJ1, m_amiralJ2;	
 	private TextFregate m_fregateJ1, m_fregateJ2;
 	
 	public Hud(Partie _partie) {
@@ -29,13 +26,13 @@ public class Hud extends Group {
 		m_partie = _partie;
 		
 		Image barreHorizImg = new Image(Textures.BARRE_HORIZ);
-		barreHorizImg.setSize(1280, 80);
-		barreHorizImg.setPosition(0, 640);
+		barreHorizImg.setSize(1260, 80);
+		barreHorizImg.setPosition(10, 630);
 		this.addActor(barreHorizImg);
 		
 		HorizontalGroup barreHoriz = new HorizontalGroup();
-		barreHoriz.setSize(1280, 80);
-		barreHoriz.setPosition(0,640);
+		barreHoriz.setSize(1260, 80);
+		barreHoriz.setPosition(10,630);
 		this.addActor(barreHoriz);
 		
 		TextButton deplacerBouton = new TextButton("Deplacer",m_skin); //TODO add listener
@@ -49,14 +46,14 @@ public class Hud extends Group {
 		TextButton tirSecondaire = new TextButton("Tir secondaire", m_skin); //TODO add listener
 		tirSecondaire.addListener(new evtTirSecondaire());
 		barreHoriz.addActor(tirSecondaire);
+
+		TextButton finTourNavire = new TextButton("Fin du tour du navire", m_skin); //TODO add listener
+		finTourNavire.addListener(new evtFinTourNavire());
+		barreHoriz.addActor(finTourNavire);
 		
 		TextButton finTour = new TextButton("Fin du tour", m_skin); //TODO add listener
 		finTour.addListener(new evtFinTour());
 		barreHoriz.addActor(finTour);
-		
-		TextButton finTourNavire = new TextButton("Fin du tour du navire", m_skin); //TODO add listener
-		finTourNavire.addListener(new evtFinTourNavire());
-		barreHoriz.addActor(finTourNavire);
 		
 		Image pannelInfoImg = new Image(Textures.BARRE_HORIZ);
 		pannelInfoImg.setSize(300, 550);
