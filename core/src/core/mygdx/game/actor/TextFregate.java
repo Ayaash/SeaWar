@@ -18,7 +18,7 @@ public class TextFregate extends TextNavire {
 		this.addActor(m_titre);
 		m_titre.setFontScale(1.1F);
 		
-		m_vieLabel = new Label("\tVie : " + m_navire.getVie() + "/" + m_navire.getPV_MAX(), m_skin);
+		m_vieLabel = new Label("Vie : " + m_navire.getVie() + "/" + m_navire.getPV_MAX(), m_skin);
 		this.addActor(m_vieLabel);
 		m_vieLabel.setFontScale(0.8F);
 
@@ -28,7 +28,7 @@ public class TextFregate extends TextNavire {
 		} else {
 			canonPrin = "rechargement (" + m_navire.rechargePrincipal() + "tour)";
 		}
-		m_canonPrin = new Label("\tCanon principal : " + canonPrin, m_skin);
+		m_canonPrin = new Label("Canon principal : " + canonPrin, m_skin);
 		this.addActor(m_canonPrin);
 		m_canonPrin.setFontScale(0.6F);
 
@@ -37,7 +37,7 @@ public class TextFregate extends TextNavire {
 		} else {
 			canonSec = "rechargement (" + m_navire.rechargeSecondaire() + "tour)";
 		}
-		m_canonSec = new Label("\tCanon secondaire : " + canonSec, m_skin);
+		m_canonSec = new Label("Canon secondaire : " + canonSec, m_skin);
 		this.addActor(m_canonSec);
 		m_canonSec.setFontScale(0.6F);
 
@@ -46,21 +46,21 @@ public class TextFregate extends TextNavire {
 	@Override
 	public void update() {
 		String canonPrin, canonSec;
-		m_vieLabel.setText("\tVie : " + m_navire.getVie() + "/" + m_navire.getPV_MAX());
+		m_vieLabel.setText("Vie : " + m_navire.getVie() + "/" + m_navire.getPV_MAX());
 		
 		if(m_navire.peutTirerPrincipal()) {
 			canonPrin = "pret !";
 		} else {
 			canonPrin = "rechargement (" + m_navire.rechargePrincipal() + "tour)";
 		}
-		m_canonPrin.setText("\tCanon principal : " + canonPrin);
+		m_canonPrin.setText("Canon principal : " + canonPrin);
 		
 		if(m_navire.peutTirerSecondaire()) {
 			canonSec = "pret !";
 		} else {
 			canonSec = "rechargement (" + m_navire.rechargeSecondaire() + "tour)";
 		}
-		m_canonSec.setText("\tCanon secondaire : " + canonSec);
+		m_canonSec.setText("Canon secondaire : " + canonSec);
 	}
 
 	public void setNavire(Fregate _navire) {
