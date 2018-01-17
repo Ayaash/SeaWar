@@ -28,9 +28,14 @@ public class GraphPlateau extends Group {
 	
 	/**Constructeur*/
 	public GraphPlateau(Partie partie) {
+		init(partie);
+	}
+
+	public void init(Partie partie){
 		this.m_partie=partie;
 		this.m_plateau = partie.getPlateau();
 		
+		this.clear();
 		
 		//Ajout des cases
 		for(int i = 0; i < Plateau.TAILLE_HORIZONTALE; i++) {
@@ -51,8 +56,6 @@ public class GraphPlateau extends Group {
 		
 		mainInstance=this;
 	}
-
-	
 	
 	
 	
@@ -321,4 +324,13 @@ public class GraphPlateau extends Group {
 		return false;
 	}
 	
+	public void chargeSave(){
+		
+		init(Partie.chargerPartie());
+	}
+	
+	public void save(){
+		m_partie.sauvegarderPartie();
+	}
+
 }

@@ -61,7 +61,18 @@ public class Hud extends Group {
 		EvtFinTour finTourListener = new EvtFinTour();
 		finTour.addListener(finTourListener) ;
 		barreHoriz.addActor(finTour);
-		//TODO boutons supplémentaire
+		
+		TextButton save = new TextButton("Sauvegarder", m_skin);
+		EvtSave saveListener = new EvtSave();
+		save.addListener(saveListener) ;
+		barreHoriz.addActor(save);
+		
+		TextButton chargeSave = new TextButton("Charger", m_skin);
+		EvtChargeSave chargeSaveListener = new EvtChargeSave();
+		chargeSave.addListener(chargeSaveListener) ;
+		barreHoriz.addActor(chargeSave);
+		
+		//TODO boutons supplémentaire?
 		
 		Image pannelInfoImg = new Image(Textures.BARRE_HORIZ);
 		pannelInfoImg.setSize(300, 550);
@@ -134,6 +145,26 @@ public class Hud extends Group {
 		public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
 			if(!(GraphPlateau.vainqueur>0)){
 				GraphPlateau.getMainInstance().askMove();
+				return true;
+			}
+			return false;
+	 	}
+	}
+	
+	public class EvtSave extends InputListener{
+		public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+			if(!(GraphPlateau.vainqueur>0)){
+				GraphPlateau.getMainInstance().save();
+				return true;
+			}
+			return false;
+	 	}
+	}
+	
+	public class EvtChargeSave extends InputListener{
+		public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+			if(!(GraphPlateau.vainqueur>0)){
+				GraphPlateau.getMainInstance().chargeSave();
 				return true;
 			}
 			return false;
