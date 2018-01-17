@@ -153,7 +153,7 @@ public class Partie implements Serializable{
 			if(getCurrentPlayer().getNavires()[0] != n && getCurrentPlayer().getNavires()[1] != n ){
 				return false;
 			}else{
-				if(n.encaisserDegats(0) == true){
+				if(!n.estMort()){
 					navireCourant = n;
 					return true;
 				}else{
@@ -275,7 +275,7 @@ public class Partie implements Serializable{
 		Phare[] phares = plateau.getPhares();
 		for(int i = 0; i<Joueur.NOMBRE_NAVIRES; i++){
 			Navire nav =  getCurrentPlayer().getNavires()[i];
-			if(nav.encaisserDegats(0) == true){
+			if(!nav.estMort()){
 				int[] pos = nav.getPosition().clone();
 				for(int j = 0; j<Plateau.NOMBRE_PHARE; j++){
 					if(Arrays.equals(pos, phares[j].getPosition())){
@@ -304,7 +304,7 @@ public class Partie implements Serializable{
 			}
 			boolean mort = true;
 			for(int i=0; i<Joueur.NOMBRE_NAVIRES;i++){
-				if(adversaire.getNavires()[i].encaisserDegats(0) == true){
+				if(adversaire.getNavires()[i].estMort() == false){
 					mort = false;
 				}
 			}
