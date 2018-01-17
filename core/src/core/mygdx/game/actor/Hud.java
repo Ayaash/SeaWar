@@ -14,6 +14,7 @@ import com.mygdx.game.modele.Partie;
 import com.mygdx.game.modele.Textures;
 import com.mygdx.game.modele.Amiral;
 import com.mygdx.game.modele.Fregate;
+import com.mygdx.game.modele.Joueur;
 
 public class Hud extends Group {
 	private Partie m_partie;
@@ -22,6 +23,9 @@ public class Hud extends Group {
 	public Hud(Partie _partie) {
 		m_skin = new Skin(Gdx.files.internal("skin/rusty-robot-ui.json"));
 		m_partie = _partie;
+		
+		Joueur joueur1 = m_partie.getPlayer(1);
+		Joueur joueur2 = m_partie.getPlayer(2);
 		
 		Image barreHorizImg = new Image(Textures.BARRE_HORIZ);
 		barreHorizImg.setSize(1260, 80);
@@ -57,6 +61,7 @@ public class Hud extends Group {
 		EvtFinTour finTourListener = new EvtFinTour();
 		finTour.addListener(finTourListener) ;
 		barreHoriz.addActor(finTour);
+		//TODO boutons supplémentaire
 		
 		Image pannelInfoImg = new Image(Textures.BARRE_HORIZ);
 		pannelInfoImg.setSize(300, 550);
@@ -69,14 +74,16 @@ public class Hud extends Group {
 		this.addActor(pannelInfo);
 		
 		VerticalGroup pannelJ1 = new VerticalGroup();
-		pannelJ1.setPosition(150, 500);
+		pannelJ1.setPosition(150, 540);
 		
-		Label textJ1 = new Label("Joueur 1 :", m_skin);
+		Label textJ1 = new Label(joueur1.getNom() + " :", m_skin);
 		textJ1.setFontScale(1.2F);
 		pannelJ1.addActor(textJ1);
+		pannelJ1.addActor(new Label(" ", m_skin));
 		
 		TextFregate fregateJ1 = new TextFregate((Fregate) m_partie.getPlayer(1).getNavires()[1]);
 		pannelJ1.addActor(fregateJ1);
+		pannelJ1.addActor(new Label(" ", m_skin));
 		
 		TextAmiral amiralJ1 = new TextAmiral((Amiral) m_partie.getPlayer(1).getNavires()[0]);
 		pannelJ1.addActor(amiralJ1);
@@ -86,12 +93,14 @@ public class Hud extends Group {
 		VerticalGroup pannelJ2 = new VerticalGroup();
 		pannelJ2.setPosition(150, 200);
 		
-		Label textJ2 = new Label("Joueur 2 :", m_skin);
+		Label textJ2 = new Label(joueur2.getNom() + " :", m_skin);
 		textJ2.setFontScale(1.2F);
 		pannelJ2.addActor(textJ2);
+		pannelJ2.addActor(new Label(" ", m_skin));
 		
 		TextFregate fregateJ2 = new TextFregate((Fregate) m_partie.getPlayer(2).getNavires()[1]);
 		pannelJ2.addActor(fregateJ2);
+		pannelJ2.addActor(new Label(" ", m_skin));
 		
 		TextAmiral amiralJ2 = new TextAmiral((Amiral) m_partie.getPlayer(2).getNavires()[0]);
 		pannelJ2.addActor(amiralJ2);
@@ -103,11 +112,16 @@ public class Hud extends Group {
 		pannelInfo.addActor(pannelVic);
 		
 		TextVictoire textVictoire = new TextVictoire();
-		textVictoire.setFontScale(1.4F);
+		textVictoire.setFontScale(1.2F);
 		pannelVic.addActor(textVictoire);
-		//TODO textJoueur
+		
+		TextJoueur textJoueur = new TextJoueur(m_partie.getCurrentPlayer());
+		textJoueur.setFontScale(1.2F);
+		pannelVic.addActor(textJoueur);
 		
 		finTourListener.setVictoireText(textVictoire);
+		finTourListener.setPartie(m_partie);
+		finTourListener.setTextJoueur(textJoueur);
 		finTourListener.setNaviresText(fregateJ1, amiralJ1, fregateJ2, amiralJ2);
 		finTourNavireListener.setNaviresText(fregateJ1, amiralJ1, fregateJ2, amiralJ2);
 		tirPrincipalListener.setNaviresText(fregateJ1, amiralJ1, fregateJ2, amiralJ2);
@@ -178,7 +192,9 @@ public class Hud extends Group {
 	}
 	
 	public class EvtFinTour extends InputListener{
-		private TextVictoire victoireText;
+		private Partie m_partie;
+		private TextVictoire m_victoireText;
+		private TextJoueur m_textJoueur;
 		
 		private TextNavire m_textNavire1;
 		private TextNavire m_textNavire2;
@@ -188,27 +204,35 @@ public class Hud extends Group {
 
 		public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
 			
-			//if(!(GraphPlateau.vainqueur>0)){
-				int vq=GraphPlateau.getMainInstance().finTour();
-				//if(vq>0){
-					if(victoireText!=null){
-						victoireText.update(vq);
-					}
-					m_textNavire1.update();
-					m_textNavire2.update();
-					m_textNavire3.update();
-					m_textNavire4.update();
+			int vq=GraphPlateau.getMainInstance().finTour();
+			if(m_victoireText!=null){
+				m_victoireText.update(vq);
+			}
+			if(m_textJoueur != null) {
+				m_textJoueur.setJoueur(m_partie.getCurrentPlayer());
+			}
+			m_textNavire1.update();
+			m_textNavire2.update();
+			m_textNavire3.update();
+			m_textNavire4.update();
 
-				//}
-				//textVictoire.update();
-			//}
+			
 			
 			return true;
 		 }
 		
 		public void setVictoireText(TextVictoire textVictoire){
-			victoireText=textVictoire;
+			m_victoireText=textVictoire;
 		}
+		
+		public void setTextJoueur(TextJoueur _textJoueur) {
+			m_textJoueur = _textJoueur;
+		}
+		
+		public void setPartie(Partie _partie) {
+			m_partie = _partie;
+		}
+		
 		public void setNaviresText(TextNavire t1,TextNavire t2,TextNavire t3,TextNavire t4){
 			m_textNavire1=t1;
 			m_textNavire2=t2;

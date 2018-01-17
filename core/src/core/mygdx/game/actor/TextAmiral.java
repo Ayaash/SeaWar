@@ -14,7 +14,7 @@ public class TextAmiral extends TextNavire {
 		String canonPrin, canonSec;
 		
 		
-		m_titre = new Label("Amiral", m_skin);
+		m_titre = new Label("Amiral :", m_skin);
 		this.addActor(m_titre);
 		m_titre.setFontScale(1.1F);
 		
@@ -29,7 +29,7 @@ public class TextAmiral extends TextNavire {
 		}
 		m_canonPrin = new Label("Canon principal : " + canonPrin, m_skin);
 		this.addActor(m_canonPrin);
-		m_canonPrin.setFontScale(0.6F);
+		m_canonPrin.setFontScale(0.8F);
 
 		if(m_navire.peutTirerSecondaire()) {
 			canonSec = "pret !";
@@ -38,7 +38,7 @@ public class TextAmiral extends TextNavire {
 		}
 		m_canonSec = new Label("Canon secondaire : " + canonSec, m_skin);
 		this.addActor(m_canonSec);
-		m_canonSec.setFontScale(0.6F);
+		m_canonSec.setFontScale(0.8F);
 
 	}
 
