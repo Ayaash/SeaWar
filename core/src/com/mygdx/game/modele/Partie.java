@@ -31,18 +31,18 @@ public class Partie implements Serializable{
 		//Ajout des navires
 		Navire naviresJ1[] = new Navire[2];
 		Navire naviresJ2[] = new Navire[2];
-		int position[] = {0,5};
+		int position[] = {0,Plateau.TAILLE_VERTICALE/2};
 		naviresJ1[0] = new Amiral(position, Orientation.SudEst, plateau);
 
-		position[0] = 1;
-		//position[1] = 6;
-		naviresJ1[1] = new Fregate(position, Orientation.SudEst, plateau);
+		position[1] = Plateau.TAILLE_VERTICALE/2-1;
+		
+		naviresJ1[1] = new Fregate(position, Orientation.NordEst, plateau);
 
 		position[0] = Plateau.TAILLE_HORIZONTALE - 1;
-		position[1] = Plateau.TAILLE_VERTICALE - 1;
-		naviresJ2[0] = new Amiral(position, Orientation.NordOuest, plateau);
+		position[1] = Plateau.TAILLE_VERTICALE/2;
+		naviresJ2[0] = new Amiral(position, Orientation.SudOuest, plateau);
 
-		position[1] = Plateau.TAILLE_VERTICALE - 2;
+		position[1] = Plateau.TAILLE_VERTICALE/2-1;
 		naviresJ2[1] = new Fregate(position, Orientation.NordOuest, plateau);
 
 		joueur1 = new Joueur("Nimitz", naviresJ1, 1);

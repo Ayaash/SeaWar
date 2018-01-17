@@ -67,8 +67,6 @@ public class GraphPhare extends GraphMer {
 			}
 			
 			
-			//posX=(int) position[0]*10;
-			//posY=(int) position[1]*10;
 			double sx=(Gui.maxWX-Gui.minWX+0f)/(Plateau.TAILLE_HORIZONTALE+0f);
 			double sy=(Gui.maxWY-Gui.minWY+0f)/(Plateau.TAILLE_VERTICALE+0f);
 			
@@ -77,25 +75,14 @@ public class GraphPhare extends GraphMer {
 			m_h=(int) (sy/1.05);
 			
 			this.m_x=(int) (Gui.minWX  +  wx*sx );
-			//this.m_y=(int) (Gui.minWY  +  wy*sy );
 			this.m_y=(int) (Gui.maxWY  -  wy*sy);
-			
-			
-			
-			//posX=(int) Jeu.minWX + (Jeu.maxWX-Jeu.minWX)*position[0];
-			//posY=(int) Jeu.minWY + (Jeu.maxWX-Jeu.minWX)*position[1];
 
-			if( wx%2==0){//TODO Peut etre revoir la paritï¿½
+			if( wx%2==0){
 				m_y-=sy/2f;
-				//System.out.println(1);
-			}else{
-				//System.out.println(2);
-
 			}
 		
 			
 			
-			//this.actualizeSprite(obj);
 		}
 		
 
@@ -124,26 +111,22 @@ public class GraphPhare extends GraphMer {
 	
 		@Override
 		public float getLeftWidth() {
-			// TODO Auto-generated method stub
 			return m_x;
 		}
 	
 		@Override
 		public void setLeftWidth(float leftWidth) {
-			// TODO Auto-generated method stub
 			m_x=(int) leftWidth;
 			
 		}
 	
 		@Override
 		public float getRightWidth() {
-			// TODO Auto-generated method stub
 			return m_x+m_w;
 		}
 	
 		@Override
 		public void setRightWidth(float rightWidth) {
-			// TODO Auto-generated method stub
 			m_w=(int) rightWidth-m_x;
 
 			
@@ -151,7 +134,6 @@ public class GraphPhare extends GraphMer {
 	
 		@Override
 		public float getTopHeight() {
-			// TODO Auto-generated method stub
 			return  m_y;
 		}
 	
@@ -164,39 +146,33 @@ public class GraphPhare extends GraphMer {
 	
 		@Override
 		public float getBottomHeight() {
-			// TODO Auto-generated method stub
 			return m_y+m_h/2;
 		}
 	
 		@Override
 		public void setBottomHeight(float bottomHeight) {
-			// TODO Auto-generated method stub
 			m_y=(int) bottomHeight;
 
 		}
 	
 		@Override
 		public float getMinWidth() {
-			// TODO Auto-generated method stub
 			return m_w;
 		}
 	
 		@Override
 		public void setMinWidth(float minWidth) {
-			// TODO Auto-generated method stub
 			m_w=(int) minWidth;
 			
 		}
 	
 		@Override
 		public float getMinHeight() {
-			// TODO Auto-generated method stub
 			return m_h;
 		}
 	
 		@Override
 		public void setMinHeight(float minHeight) {
-			// TODO Auto-generated method stub
 			m_h=(int) minHeight;
 
 		}
