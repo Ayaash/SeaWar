@@ -210,7 +210,7 @@ public class Hud extends Group {
 				m_victoireText.update(vq);
 			}
 			if(m_textJoueur != null) {
-				if(vq != 0) {
+				if(vq == 0) {
 					m_textJoueur.setJoueur(m_partie.getCurrentPlayer());
 				} else {
 					m_textJoueur.setJoueur(null);
