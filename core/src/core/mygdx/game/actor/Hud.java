@@ -237,8 +237,8 @@ public class Hud extends Group {
 		public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
 			
 			int vq=GraphPlateau.getMainInstance().finTour();
-			if(m_victoireText!=null){
-				m_victoireText.update(vq);
+			if(m_victoireText != null) {
+				m_victoireText.update(vq, m_partie.getGagnant());
 			}
 			if(m_textJoueur != null) {
 				if(vq == 0) {
