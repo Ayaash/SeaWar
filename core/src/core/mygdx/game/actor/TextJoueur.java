@@ -11,6 +11,10 @@ public class TextJoueur extends Label {
 	}
 	
 	public void setJoueur(Joueur joueur) {
-		this.setText(joueur.getNom() + ", a toi !");
+		if(joueur == null) {
+			this.setText("");
+		} else {
+			this.setText(joueur.getNom() + ", a toi !");
+		}
 	}
 }

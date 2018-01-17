@@ -81,12 +81,12 @@ public class Hud extends Group {
 		pannelJ1.addActor(textJ1);
 		pannelJ1.addActor(new Label(" ", m_skin));
 		
-		TextFregate fregateJ1 = new TextFregate((Fregate) m_partie.getPlayer(1).getNavires()[1]);
-		pannelJ1.addActor(fregateJ1);
-		pannelJ1.addActor(new Label(" ", m_skin));
-		
 		TextAmiral amiralJ1 = new TextAmiral((Amiral) m_partie.getPlayer(1).getNavires()[0]);
 		pannelJ1.addActor(amiralJ1);
+		pannelJ1.addActor(new Label(" ", m_skin));
+		
+		TextFregate fregateJ1 = new TextFregate((Fregate) m_partie.getPlayer(1).getNavires()[1]);
+		pannelJ1.addActor(fregateJ1);
 		
 		pannelInfo.addActor(pannelJ1);
 		
@@ -98,17 +98,18 @@ public class Hud extends Group {
 		pannelJ2.addActor(textJ2);
 		pannelJ2.addActor(new Label(" ", m_skin));
 		
-		TextFregate fregateJ2 = new TextFregate((Fregate) m_partie.getPlayer(2).getNavires()[1]);
-		pannelJ2.addActor(fregateJ2);
-		pannelJ2.addActor(new Label(" ", m_skin));
 		
 		TextAmiral amiralJ2 = new TextAmiral((Amiral) m_partie.getPlayer(2).getNavires()[0]);
 		pannelJ2.addActor(amiralJ2);
+		pannelJ2.addActor(new Label(" ", m_skin));
+		
+		TextFregate fregateJ2 = new TextFregate((Fregate) m_partie.getPlayer(2).getNavires()[1]);
+		pannelJ2.addActor(fregateJ2);
 		
 		pannelInfo.addActor(pannelJ2);
 		
 		VerticalGroup pannelVic = new VerticalGroup();
-		pannelVic.setPosition(150, 320);
+		pannelVic.setPosition(150, 300);
 		pannelInfo.addActor(pannelVic);
 		
 		TextVictoire textVictoire = new TextVictoire();
@@ -209,7 +210,11 @@ public class Hud extends Group {
 				m_victoireText.update(vq);
 			}
 			if(m_textJoueur != null) {
-				m_textJoueur.setJoueur(m_partie.getCurrentPlayer());
+				if(vq != 0) {
+					m_textJoueur.setJoueur(m_partie.getCurrentPlayer());
+				} else {
+					m_textJoueur.setJoueur(null);
+				}
 			}
 			m_textNavire1.update();
 			m_textNavire2.update();
