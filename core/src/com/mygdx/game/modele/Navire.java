@@ -8,8 +8,6 @@ import core.mygdx.game.actor.GraphNavire;
 
 public abstract class Navire extends InWorldObj {
 	
-	private static final long serialVersionUID = 1L;
-	
 	//Constantes du navire
 	public abstract int getPV_MAX();
 	public abstract int getDEPL_MAX();
