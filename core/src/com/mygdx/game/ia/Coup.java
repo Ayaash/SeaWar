@@ -21,7 +21,7 @@ public class Coup {
 		this.degats = degats;
 	}
 	
-	public void faireCoup(Partie p){
+	public void executerCoup(Partie p){
 		switch(typeCoup){
 		case FinTour:
 			p.finirTourNavire();

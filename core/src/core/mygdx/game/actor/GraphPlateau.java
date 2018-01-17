@@ -193,10 +193,8 @@ public class GraphPlateau extends Group {
 		clearAllHighlight();
 		tirPossible=m_partie.demanderTirsPossiblesPrincipal();
 		tirPossibleEstPrincipal=true;
-		System.out.println(m_partie.peutTirerPrincipal());
 		if(tirPossible!=null && m_partie.peutTirerPrincipal()){
 			int[][] casesAccessible = tirPossible.cases;
-			System.out.println(casesAccessible.length);
 
 			for(int i=0;i<casesAccessible.length;i++){
 				if(casesAccessible[i][0]!=-1 && casesAccessible[i][1]!=-1){

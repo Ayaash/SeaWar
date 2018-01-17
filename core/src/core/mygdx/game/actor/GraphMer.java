@@ -1,7 +1,5 @@
 package core.mygdx.game.actor;
 
-import java.util.Observable;
-
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
@@ -35,7 +33,8 @@ public class GraphMer extends GraphCase {
 		}else{
 			batch.setColor(BASECOLOR);
 		}
-	}
+	}			//this.m_y=(int) (Gui.minWY  +  wy*sy );
+
 	
 
 	private static class Drawbt implements Drawable{
@@ -77,25 +76,11 @@ public class GraphMer extends GraphCase {
 			m_h=(int) (sy/1.05);
 			
 			this.m_x=(int) (Gui.minWX  +  wx*sx );
-			//this.m_y=(int) (Gui.minWY  +  wy*sy );
 			this.m_y=(int) (Gui.maxWY  -  wy*sy);
-			
-			
-			
-			//posX=(int) Jeu.minWX + (Jeu.maxWX-Jeu.minWX)*position[0];
-			//posY=(int) Jeu.minWY + (Jeu.maxWX-Jeu.minWX)*position[1];
 
-			if( wx%2==0){//TODO Peut etre revoir la paritï¿½
+			if( wx%2==0){
 				m_y-=sy/2f;
-				//System.out.println(1);
-			}else{
-				//System.out.println(2);
-
 			}
-		
-			
-			
-			//this.actualizeSprite(obj);
 		}
 		
 
@@ -110,15 +95,6 @@ public class GraphMer extends GraphCase {
 			Color ctmp=batch.getColor();
 			setCaseColor(batch,gc);
 
-			//System.out.println(45);
-
-			
-			/*m_x=wx*100;
-			m_y=wy*100;*/
-			//System.out.println(m_x+","+m_y+","+m_w+","+m_h);
-
-			//System.out.println(x+","+y+","+width+","+height);
-			//batch.draw(Textures.HEXAGON, x, y, width, height);
 			batch.draw(Textures.HEXAGON, m_x, m_y, m_w, m_h);
 			batch.setColor(ctmp);
 			
@@ -128,26 +104,22 @@ public class GraphMer extends GraphCase {
 	
 		@Override
 		public float getLeftWidth() {
-			// TODO Auto-generated method stub
 			return m_x;
 		}
 	
 		@Override
 		public void setLeftWidth(float leftWidth) {
-			// TODO Auto-generated method stub
 			m_x=(int) leftWidth;
 			
 		}
 	
 		@Override
 		public float getRightWidth() {
-			// TODO Auto-generated method stub
 			return m_x+m_w;
 		}
 	
 		@Override
 		public void setRightWidth(float rightWidth) {
-			// TODO Auto-generated method stub
 			m_w=(int) rightWidth-m_x;
 
 			
@@ -155,64 +127,49 @@ public class GraphMer extends GraphCase {
 	
 		@Override
 		public float getTopHeight() {
-			// TODO Auto-generated method stub
 			return  m_y;
 		}
 	
 		@Override
 		public void setTopHeight(float topHeight) {
-			// TODO Auto-generated method stub
 			m_h=(int) topHeight-m_y;
 			
 		}
 	
 		@Override
 		public float getBottomHeight() {
-			// TODO Auto-generated method stub
 			return m_y+m_h/2;
 		}
 	
 		@Override
 		public void setBottomHeight(float bottomHeight) {
-			// TODO Auto-generated method stub
 			m_y=(int) bottomHeight;
 
 		}
 	
 		@Override
 		public float getMinWidth() {
-			// TODO Auto-generated method stub
 			return m_w;
 		}
 	
 		@Override
 		public void setMinWidth(float minWidth) {
-			// TODO Auto-generated method stub
 			m_w=(int) minWidth;
 			
 		}
 	
 		@Override
 		public float getMinHeight() {
-			// TODO Auto-generated method stub
 			return m_h;
 		}
 	
 		@Override
 		public void setMinHeight(float minHeight) {
-			// TODO Auto-generated method stub
 			m_h=(int) minHeight;
 
 		}
 	}
 
-
-
-	@Override
-	public void update(Observable arg0, Object arg1) {
-		// TODO Auto-generated method stub
-		
-	}
 
 }
 

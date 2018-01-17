@@ -8,8 +8,8 @@ public class Plateau implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	public static final int TAILLE_HORIZONTALE = 13;
-	public static final int TAILLE_VERTICALE = 11;
+	public static final int TAILLE_HORIZONTALE = 2*8 + 1;
+	public static final int TAILLE_VERTICALE = 2*8;
 
 
 	public static final int NOMBRE_PHARE = 3;
@@ -27,6 +27,8 @@ public class Plateau implements Serializable {
 				
 			}
 		}
+		carteAleatoire(0.1);
+		/*
 		int[] posTerre3={5,5};
 		placerTerreSym(posTerre3);
 		
@@ -39,44 +41,19 @@ public class Plateau implements Serializable {
 		placerTerreSym(posTerre6);
 		
 		
-		//Placement des phares
-		/*
-		int posX0=(int) (TAILLE_HORIZONTALE/2);
-		int posY0=(int) (Math.random()*TAILLE_VERTICALE);
-		int[] posPhare0 ={posX0,posY0};
-		
-		int randomX=(int) (Math.random()*((TAILLE_HORIZONTALE/2) - 1)) + 1;
-		int randomY=(int) (Math.random()*TAILLE_VERTICALE);
-		
-		int posX1=TAILLE_HORIZONTALE/2+randomX;
-		int posY1=randomY;
-		int[] posPhare1 ={posX1,posY1};
-		
-		int posX2=TAILLE_HORIZONTALE/2-randomX;
-		int posY2=randomY;
-		int[] posPhare2 ={posX2,posY2};
-		
-		while((posX0==posX1 || posX2==posX1 || posX0==posX2) &&(posY0==posY1 || posY2==posY1 || posY0==posY2)){
-			randomX=(int) (Math.random()*TAILLE_HORIZONTALE/2);
-			randomY=(int) (Math.random()*TAILLE_VERTICALE);
-			
-			posX1=TAILLE_HORIZONTALE/2+randomX;
-			posY1=randomY;
-			
-			posX2=TAILLE_HORIZONTALE/2-randomX;
-			posY2=randomY;
-		}
-		*/
-		
 		int posPhare1[] = {6,4};
 		int posPhare2[] = {3,5};
 		int posPhare3[] = {9,5};
 		placerPhare(0,posPhare1);
 		placerPhare(1,posPhare2);
-		placerPhare(2,posPhare3);
+		placerPhare(2,posPhare3);*/
 		
 	}
+		
 	
+	/**
+	 *	Constructeur vide pour la copie profonde 
+	 */
 	public Plateau(boolean copie){
 		
 	}
@@ -243,7 +220,7 @@ public class Plateau implements Serializable {
 				coor[0] = -1;
 				coor[1] = -1;
 			}
-		//Paire
+		//PaireecartMoti
 		}else{
 			if(j>=TAILLE_VERTICALE-1){
 				coor[0] = -1;
@@ -300,6 +277,7 @@ public class Plateau implements Serializable {
 	}
 	
 	protected void placerTerreSym(int[] pos){
+		
 		if (pos[0]<(TAILLE_HORIZONTALE/2)){
 			int[] posSym={0,0};
 			int ecartMotie=(TAILLE_HORIZONTALE/2)-pos[0];
@@ -364,7 +342,48 @@ public class Plateau implements Serializable {
 		}
 		return copie;
 	}
-	
+	public void carteAleatoire(double proba){
+		for(int i=0 ; i<Plateau.TAILLE_HORIZONTALE ; i++){
+			for(int j=0 ; j<Plateau.TAILLE_VERTICALE ; j++){
+				if(Math.random()<proba){
+					int[] pose={i,j};
+					placerTerreSym(pose);
+				}
+			}
+		}
+		int posX0=(int) (TAILLE_HORIZONTALE/2);
+		int posY0=(int) (Math.random()*TAILLE_VERTICALE);
+		int[] posPhare0 ={posX0,posY0};
+		
+		int randomX=(int) (Math.random()*((TAILLE_HORIZONTALE/2) - 1)) + 1;
+		int randomY=(int) (Math.random()*TAILLE_VERTICALE);
+		
+		int posX1=TAILLE_HORIZONTALE/2+randomX;
+		int posY1=randomY;
+		int[] posPhare1 ={posX1,posY1};
+		
+		int posX2=TAILLE_HORIZONTALE/2-randomX;
+		int posY2=randomY;
+		int[] posPhare2 ={posX2,posY2};
+		
+		while((posX0==posX1 || posX2==posX1 || posX0==posX2) &&(posY0==posY1 || posY2==posY1 || posY0==posY2)){
+			randomX=(int) (Math.random()*TAILLE_HORIZONTALE/2);
+			randomY=(int) (Math.random()*TAILLE_VERTICALE);
+			
+			posX1=TAILLE_HORIZONTALE/2+randomX;
+			posY1=randomY;
+			
+			posX2=TAILLE_HORIZONTALE/2-randomX;
+			posY2=randomY;
+		}
+		int[] pMer1={0,Plateau.TAILLE_VERTICALE/2};
+		int[] pMer2={0,Plateau.TAILLE_VERTICALE/2-1};
+		placerMerSym(pMer1);
+		placerMerSym(pMer2);
+		placerPhare(0,posPhare0);
+		placerPhare(1,posPhare1);
+		placerPhare(2,posPhare2);
+	}
 }
 
 
