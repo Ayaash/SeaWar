@@ -11,7 +11,7 @@ public class TextVictoire extends Label {
 	}
 	public void update(int vaq){
 		if(vaq>0){
-			this.setText("Victoire du Joueur "+vaq);
+			this.setText("Victoire de Joueur "+vaq);
 		}else{
 			this.setText("Pas de vainqueur");
 
