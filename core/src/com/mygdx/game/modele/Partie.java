@@ -322,7 +322,17 @@ public class Partie implements Serializable{
 		return victoire;
 	}
 
-
+	public Joueur getGagnant(){
+		if(victoire<=0){
+			return null;
+		}else if(victoire == 1){
+			return joueur1;
+		}else if(victoire == 2){
+			return joueur2;
+		}else{
+			return null;
+		}
+	}
 
 	public Partie copieProfonde(){
 		Plateau copiePlateau = this.plateau.copie();
