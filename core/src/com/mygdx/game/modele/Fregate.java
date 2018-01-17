@@ -24,7 +24,6 @@ public class Fregate extends Navire {
 		return 10;
 	}
 
-	@SuppressWarnings("unused")
 	private static final long serialVersionUID = 1L;
 	public Fregate(int[] posi , Orientation ori, Plateau p){
 		super(posi,ori, p);
