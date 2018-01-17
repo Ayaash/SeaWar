@@ -6,6 +6,7 @@ import java.util.Arrays;
 import core.mygdx.game.actor.GraphNavire;
 
 
+@SuppressWarnings("serial")
 public abstract class Navire extends InWorldObj {
 	
 	//Constantes du navire
@@ -186,8 +187,9 @@ public abstract class Navire extends InWorldObj {
 			return res;
 		}else{
 			if(deplAct == getDEPL_MAX()) retournerNavire();
+			if(!sEstDeplace()) aTire = true;
 			deplAct = 0;
-			aTire = true;
+			
 			return null;
 		}
 		
