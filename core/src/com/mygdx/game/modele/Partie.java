@@ -84,7 +84,6 @@ public class Partie implements Serializable{
 			partie = (Partie) in.readObject();
 			in.close();
 			fileIn.close();
-			System.out.printf("Serialized data is saved in /tmp/SeaWarSave.ser");
 		}catch (FileNotFoundException f){
 			return null;
 		} catch (IOException i) {

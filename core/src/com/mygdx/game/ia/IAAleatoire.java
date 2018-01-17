@@ -21,12 +21,12 @@ public class IAAleatoire extends AbstractIA {
 		Partie copie = copiePartie();
 		Random rand = new Random();
 		
-		//Si aucun navire selectionné, on en prend un au hasard.
+		//Si aucun navire selectionnï¿½, on en prend un au hasard.
 		if(copie.getNavireCourant() == null){
 			int navire = rand.nextInt(Joueur.NOMBRE_NAVIRES);
 			if(copie.selectionnerNavire(copie.getCurrentPlayer().getNavires()[navire]) == false){
 				
-				navire = (navire == 0) ? 1 : 0;		//Oui, du ternaire (on passe de 0 à 1 ou de 1 à 0)
+				navire = (navire == 0) ? 1 : 0;		//Oui, du ternaire (on passe de 0 ï¿½ 1 ou de 1 ï¿½ 0)
 				copie.selectionnerNavire(copie.getCurrentPlayer().getNavires()[navire]);
 				
 			}
@@ -47,7 +47,7 @@ public class IAAleatoire extends AbstractIA {
 		}
 		if(!copie.peutSeDeplacer() && copie.sEstDeplace()){
 			//mouvement = null;
-		}else if(copie.peutSeDeplacer() && copie.sEstDeplace()){
+		}else if(copie.peutSeDeplacer()){
 			mouvement = copie.demanderDeplacementsPossibles();
 		}
 		

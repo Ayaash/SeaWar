@@ -77,6 +77,9 @@ public class Plateau implements Serializable {
 		
 	}
 	
+	/**
+	 *	Constructeur vide pour la copie profonde 
+	 */
 	public Plateau(boolean copie){
 		
 	}
