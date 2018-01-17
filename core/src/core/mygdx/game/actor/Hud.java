@@ -207,7 +207,7 @@ public class Hud extends Group {
 			
 			int vq=GraphPlateau.getMainInstance().finTour();
 			if(m_victoireText != null) {
-				m_victoireText.update(vq);
+				m_victoireText.update(vq, m_partie.getGagnant());
 			}
 			if(m_textJoueur != null) {
 				if(vq == 0) {
