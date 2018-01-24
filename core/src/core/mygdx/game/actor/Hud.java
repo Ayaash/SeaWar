@@ -34,7 +34,7 @@ public class Hud extends Group {
 		
 		HorizontalGroup barreHoriz = new HorizontalGroup();
 		barreHoriz.setSize(1260, 80);
-		barreHoriz.setPosition(-20,630);
+		barreHoriz.setPosition(10,630);
 		this.addActor(barreHoriz);
 		
 		
@@ -73,10 +73,10 @@ public class Hud extends Group {
 		chargeSave.addListener(chargeSaveListener) ;
 		barreHoriz.addActor(chargeSave);
 		
-		TextButton coupIa = new TextButton("Coup ia", m_skin);
+		/*TextButton coupIa = new TextButton("Coup ia", m_skin);
 		EvtCoupIa coupIaListener = new EvtCoupIa();
 		coupIa.addListener(coupIaListener) ;
-		barreHoriz.addActor(coupIa);
+		barreHoriz.addActor(coupIa);*/
 		
 		//TODO boutons supplémentaire?
 		
@@ -144,7 +144,7 @@ public class Hud extends Group {
 		finTourNavireListener.setNaviresText(fregateJ1, amiralJ1, fregateJ2, amiralJ2);
 		tirPrincipalListener.setNaviresText(fregateJ1, amiralJ1, fregateJ2, amiralJ2);
 		tirSecondaireListener.setNaviresText(fregateJ1, amiralJ1, fregateJ2, amiralJ2);
-		coupIaListener.setNaviresText(fregateJ1, amiralJ1, fregateJ2, amiralJ2);
+		//coupIaListener.setNaviresText(fregateJ1, amiralJ1, fregateJ2, amiralJ2);
 		
 
 	}

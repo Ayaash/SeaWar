@@ -54,11 +54,11 @@ public class IAAleatoire extends AbstractIA {
 		//Tirs
 		if(copie.peutTirerPrincipal()){
 			TirPrincipal = copie.demanderTirsPossiblesPrincipal();
-			copie = copiePartie();
+			//copie = copiePartie();
 		}
 		if(copie.peutTirerSecondaire()){
 			TirSecondaire = copie.demanderTirsPossiblesSecondaire();
-			copie = copiePartie();
+			//copie = copiePartie();
 		}
 		
 		//Fin du tour

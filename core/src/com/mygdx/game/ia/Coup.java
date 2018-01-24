@@ -30,14 +30,18 @@ public class Coup {
 			p.deplacerNavire(coordonnees);
 			break;
 		case TirPrincipal:
-			p.tirerSurUneCase(coordonnees, degats);
 			p.demanderTirsPossiblesPrincipal();
-			break;
-		case TirSecondaire:
 			p.tirerSurUneCase(coordonnees, degats);
+			break;
+		case TirSecondaire:			
 			p.demanderTirsPossiblesSecondaire();
+			p.tirerSurUneCase(coordonnees, degats);
 			break;
 		}
+	}
+	
+	public TypeCoup getType(){
+		return typeCoup;
 	}
 	
 	

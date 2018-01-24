@@ -338,7 +338,11 @@ public class Partie implements Serializable{
 		Plateau copiePlateau = this.plateau.copie();
 		Joueur j1 = this.joueur1.copie(this.plateau);
 		Joueur j2 = this.joueur2.copie(this.plateau);
-
+	
+		if(navireCourant!=null){
+			this.navireCourant.copie(plateau);
+		}
+		
 		Partie copie = new Partie(copiePlateau, tour, victoire, navireCourant, tourEnCours);
 		copie.ajouterJoueurs(j1, j2);
 
