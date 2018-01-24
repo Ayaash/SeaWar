@@ -19,7 +19,7 @@ public class IAAleatoire extends AbstractIA {
 		
 		Coup meilleur = null;
 		Partie copie = copiePartie();
-		Random rand = new Random();
+		Random rand = new Random(randSeed());
 		
 		//Si aucun navire selectionn�, on en prend un au hasard.
 		if(copie.getNavireCourant() == null){
@@ -80,16 +80,17 @@ public class IAAleatoire extends AbstractIA {
 		if(nbCoupPossibles == 0) return null; //Aucun coup possible, c'est impossible
 
 		int selection = rand.nextInt(nbCoupPossibles + 1);
+		
 		if(selection < tailleMouvement){
-			meilleur = new Coup(TypeCoup.Mouvement, mouvement[selection-1]);
+			meilleur = new Coup(TypeCoup.Mouvement, mouvement[selection]);
 		}else if(selection < (tailleMouvement + tailleTirP )){
 			meilleur = new Coup(TypeCoup.TirPrincipal,
-					TirPrincipal.cases[selection-tailleMouvement-1],
+					TirPrincipal.cases[selection-tailleMouvement],
 					TirPrincipal.degats
 					);
 		}else if(selection < (tailleMouvement + tailleTirP + tailleTirS )){
 			meilleur = new Coup(TypeCoup.TirSecondaire, 
-					TirSecondaire.cases[selection-tailleMouvement-tailleTirP-1],
+					TirSecondaire.cases[selection-tailleMouvement-tailleTirP],
 					TirSecondaire.degats);
 		}else{
 			meilleur = new Coup(TypeCoup.FinTour);
@@ -97,6 +98,10 @@ public class IAAleatoire extends AbstractIA {
 
 		
 		return meilleur;
+	}
+	
+	private long randSeed(){
+		return (long) (Long.MAX_VALUE*Math.random());
 	}
 
 }

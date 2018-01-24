@@ -34,8 +34,9 @@ public class Hud extends Group {
 		
 		HorizontalGroup barreHoriz = new HorizontalGroup();
 		barreHoriz.setSize(1260, 80);
-		barreHoriz.setPosition(10,630);
+		barreHoriz.setPosition(-20,630);
 		this.addActor(barreHoriz);
+		
 		
 		TextButton deplacerBouton = new TextButton("Deplacer",m_skin);
 		EvtMove deplacerListener = new EvtMove();
@@ -61,7 +62,23 @@ public class Hud extends Group {
 		EvtFinTour finTourListener = new EvtFinTour();
 		finTour.addListener(finTourListener) ;
 		barreHoriz.addActor(finTour);
-		//TODO boutons supplémentaire
+		
+		TextButton save = new TextButton("Sauvegarder", m_skin);
+		EvtSave saveListener = new EvtSave();
+		save.addListener(saveListener) ;
+		barreHoriz.addActor(save);
+		
+		TextButton chargeSave = new TextButton("Charger", m_skin);
+		EvtChargeSave chargeSaveListener = new EvtChargeSave();
+		chargeSave.addListener(chargeSaveListener) ;
+		barreHoriz.addActor(chargeSave);
+		
+		TextButton coupIa = new TextButton("Coup ia", m_skin);
+		EvtCoupIa coupIaListener = new EvtCoupIa();
+		coupIa.addListener(coupIaListener) ;
+		barreHoriz.addActor(coupIa);
+		
+		//TODO boutons supplémentaire?
 		
 		Image pannelInfoImg = new Image(Textures.BARRE_HORIZ);
 		pannelInfoImg.setSize(300, 550);
@@ -127,6 +144,8 @@ public class Hud extends Group {
 		finTourNavireListener.setNaviresText(fregateJ1, amiralJ1, fregateJ2, amiralJ2);
 		tirPrincipalListener.setNaviresText(fregateJ1, amiralJ1, fregateJ2, amiralJ2);
 		tirSecondaireListener.setNaviresText(fregateJ1, amiralJ1, fregateJ2, amiralJ2);
+		coupIaListener.setNaviresText(fregateJ1, amiralJ1, fregateJ2, amiralJ2);
+		
 
 	}
 	
@@ -134,6 +153,26 @@ public class Hud extends Group {
 		public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
 			if(!(GraphPlateau.vainqueur>0)){
 				GraphPlateau.getMainInstance().askMove();
+				return true;
+			}
+			return false;
+	 	}
+	}
+	
+	public class EvtSave extends InputListener{
+		public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+			if(!(GraphPlateau.vainqueur>0)){
+				GraphPlateau.getMainInstance().save();
+				return true;
+			}
+			return false;
+	 	}
+	}
+	
+	public class EvtChargeSave extends InputListener{
+		public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+			if(!(GraphPlateau.vainqueur>0)){
+				GraphPlateau.getMainInstance().chargeSave();
 				return true;
 			}
 			return false;
@@ -274,5 +313,29 @@ public class Hud extends Group {
 		}
 	}
 
-	
+	public class EvtCoupIa extends InputListener{
+		TextNavire tn1;
+		TextNavire tn2;
+		TextNavire tn3;
+		TextNavire tn4;
+
+		public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+			tn1.update();
+			tn2.update();
+			tn3.update();
+			tn4.update();
+			if(!(GraphPlateau.vainqueur>0)){
+				GraphPlateau.getMainInstance().iaCoup();
+				return true;
+			}
+			return false;
+	 	}
+		
+		public void setNaviresText(TextNavire t1,TextNavire t2,TextNavire t3,TextNavire t4){
+			tn1=t1;
+			tn2=t2;
+			tn3=t3;
+			tn4=t4;
+		}
+	}
 }
