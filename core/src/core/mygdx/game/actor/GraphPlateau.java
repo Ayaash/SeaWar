@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.utils.SnapshotArray;
+import com.mygdx.game.ia.IAAleatoire;
 import com.mygdx.game.modele.Navire;
 import com.mygdx.game.modele.Partie;
 import com.mygdx.game.modele.Plateau;
@@ -20,7 +21,7 @@ public class GraphPlateau extends Group {
 	private boolean tirPossibleEstPrincipal=false;
 
 	
-	private static ModeAction modeAction=ModeAction.SELECTIONNAVIRE;
+	private static ModeAction modeAction;
 	
 	public static final Color J1COLOR=new Color(0f,0f,1f,1f);
 	public static final Color J2COLOR=new Color(1f,0f,0f,1f);
@@ -53,6 +54,8 @@ public class GraphPlateau extends Group {
 				this.addActor(m_partie.getPlayer(i).getNavires()[j].getGraph());	
 			}
 		}
+		
+		modeAction=ModeAction.SELECTIONNAVIRE;
 		
 		mainInstance=this;
 	}
@@ -256,6 +259,11 @@ public class GraphPlateau extends Group {
 		
 	}
 	
+	/**Action de coup aleatoire de l'ia*/
+	public void iaCoup(){
+		IAAleatoire ia=new IAAleatoire(m_partie);
+		ia.getCoup().executerCoup(m_partie);
+	}
 	
 	
 	
@@ -325,8 +333,13 @@ public class GraphPlateau extends Group {
 	}
 	
 	public void chargeSave(){
-		
-		init(Partie.chargerPartie());
+		try{
+			init(Partie.chargerPartie());
+		}catch (Exception e) {
+			//Il n'y a pas de sauvegarde
+		}{
+			
+		}
 	}
 	
 	public void save(){
