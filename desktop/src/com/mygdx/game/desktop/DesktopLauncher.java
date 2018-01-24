@@ -5,7 +5,7 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.mygdx.game.Gui;
 /**
  * 
- * Cette classe permet de Lancer le jeu sous windows
+ * Cette classe permet de lancer le jeu sur PC
  * 
  * */
 public class DesktopLauncher {
