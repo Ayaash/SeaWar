@@ -59,7 +59,10 @@ public class Plateau implements Serializable {
 	}
 	
  	public boolean ajouterNavire(int[] t, Navire n){
-		return plateau[t[0]][t[1]].ajouterNavire(n);
+ 		if(t[0]!=-1 && t[1]!=-1){
+ 			return plateau[t[0]][t[1]].ajouterNavire(n);
+ 		}
+ 		return false;
 	}
 	public boolean enleverNavire(int[] t){
 		return plateau[t[0]][t[1]].enleverNavire();
