@@ -79,8 +79,6 @@ public class Fregate extends Navire {
 	}
 
 	public Navire copie(Plateau plat) {
-    	System.out.println("freg "+this.position[0]+","+this.position[1]);
-
 		Fregate copie = new Fregate(this.position.clone(), this.orientation, plat);
 		copie.aideALaCopie(copie);
 		return copie;

@@ -101,7 +101,6 @@ public class Amiral extends Navire {
     }
 	
     public Navire copie(Plateau plat) {
-    	System.out.println("ampos "+this.position[0]+","+this.position[1]);
 		Amiral copie = new Amiral(this.position.clone(), this.orientation, plat);
 		copie.aideALaCopie(copie);
 		return copie;

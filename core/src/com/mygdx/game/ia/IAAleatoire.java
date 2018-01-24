@@ -19,7 +19,7 @@ public class IAAleatoire extends AbstractIA {
 		
 		Coup meilleur = null;
 		Partie copie = copiePartie();
-		Random rand = new Random();
+		Random rand = new Random(randSeed());
 		
 		//Si aucun navire selectionn�, on en prend un au hasard.
 		if(copie.getNavireCourant() == null){
